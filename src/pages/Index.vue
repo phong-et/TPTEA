@@ -75,8 +75,9 @@
       </div>
     </q-carousel-slide>
   </q-carousel>
-  <q-carousel>
-     <img  src="assets/panel.jpg" alt="Tptea" style="max-width: 700px;margin:auto; height:300px">
+  <q-carousel class="component-top" style="max-width: 700px;margin:auto; height:300px" >
+    <q-carousel-slide img-src="assets/panel.jpg">
+    </q-carousel-slide>
   </q-carousel>
   <q-carousel>
      <q-modal v-model="opened">
