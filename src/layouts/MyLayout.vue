@@ -1,12 +1,12 @@
 <template>
   <q-layout view="hHh Lpr lFf">
     <q-page-sticky position="bottom-right"  style="z-index:999999" :offset="[18, 18]">
-      <q-btn rounded color="green" label="Join now" to="/members" class="animate-pop" />
+      <q-btn rounded color="green" @click="setIsReq" label="Join now" to="/register" class="animate-pop" />
     </q-page-sticky>
     <q-layout-footer>
       <demo-tabs v-if="$q.theme === 'ios'" />
       <q-tabs color="brown-14" inverted align="justify" style="height:57px">
-        <q-route-tab to="/" default name="news" slot="title" icon="stars" label="Home" class="sml-label" />
+        <q-route-tab to="/home" default name="news" slot="title" icon="stars" label="Home" class="sml-label" />
         <q-route-tab to="/orders" name="order" slot="title" icon="free_breakfast" label="Order" class="sml-label" />
         <q-route-tab to="/stores" name="account" slot="title" icon="store" label="Store" class="sml-label" />
         <q-route-tab to="/members" name="member" slot="title" icon="account_box" label="Member" class="sml-label" />
@@ -30,6 +30,9 @@ export default {
   },
   methods: {
     openURL,
+    setIsReq() {
+      this.$store.commit(this.type + 'isReq', true)
+    },
   },
 }
 </script>
@@ -44,7 +47,7 @@ export default {
 .q-tab-icon {
   font-size: 22px;
 }
-.animate-pop{
+.animate-pop {
   text-transform: none;
   font-size: 14px !important;
   padding: 13px 25px;
