@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+    <q-page-sticky position="bottom-right"  style="z-index:999999" :offset="[18, 18]">
       <q-btn rounded color="green" label="Join now" to="/members" class="animate-pop" />
     </q-page-sticky>
     <q-layout-footer>
@@ -48,5 +48,6 @@ export default {
   text-transform: none;
   font-size: 14px !important;
   padding: 13px 25px;
+  display: block;
 }
 </style>
