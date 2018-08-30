@@ -1,30 +1,30 @@
 <template>
-<div>
-    <!-- popup modal -->
-      <q-modal-layout>
-        <q-scroll-observable @scroll="userHasScrolled" />
-        <div id="labels" class=" transbox">
-          <q-btn flat icon="close" @click="basicModal = false">
-            <div style="margin-left: 10px; text-transform: initial;">Bring on the fruit</div>
-          </q-btn>
-        </div>
-         <img src="assets/header-pop.jpg" alt="ww" style="width: 683px; height:300px">
-        <q-btn flat icon="close" class="absolute-top-left" @click="basicModal = false" style="color: white;"/>
-        <div style="padding: 50px">
-          <div class="q-display-1 q-mb-md">Basic Modal</div>
-          <p v-for="n in 15" :key="`a-${n}`">Scroll down to close</p>
-          <q-btn to="/orders" class="Order" rounded>
-            <div>Order</div>
-          </q-btn>
-        </div>
-      </q-modal-layout>
-  <!-- popup modal -->
-</div>
+  <q-page padding>
+    <div style="width: 500px; max-width: 90vw;">
+      <p class="caption">
+        Scroll down
+        <q-icon style="font-size: 3rem" class="animate-bounce" name="keyboard_arrow_down" />
+      </p>
+      <p class="caption">
+        A circular button is set to appear after scrolling 500px.
+        <br> After another 500px another element will appear on the left.
+      </p>
+
+      <q-page-sticky position="top-left" :offset="[18, 18]">
+        <q-btn color="primary" fab v-back-to-top.animate="{offset: 500, duration: 200}" class="animate-pop">
+          <q-icon name="keyboard_arrow_up" />
+        </q-btn>
+      </q-page-sticky>
+
+      <q-page-sticky position="top-left" :offset="[0, 100]">
+        <a v-back-to-top.animate="1000" class="animate-pop play-backtotop non-selectable shadow-2" v-ripple.mat>
+          Back to top
+        </a>
+      </q-page-sticky>
+
+      <p class="caption" v-for="n in 50" :key="n">Keep scrolling...</p>
+    </div>
+  </q-page>
 </template>
-<script>
-export default {
-  name: 'PageMember',
-}
-</script>
 <style>
 </style>
