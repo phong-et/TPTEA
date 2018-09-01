@@ -51,5 +51,6 @@ export default {
   right: 0;
   height: 57px;
   width: 127px;
+  background: red
 }
 </style>

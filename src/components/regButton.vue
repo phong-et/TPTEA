@@ -22,5 +22,6 @@ export default {
 .reg-button {
   position: fixed;
   z-index: 999999;
+  color: green
 }
 </style>
