@@ -12,9 +12,10 @@
     </q-card-title>
     <q-card-main class="q-mb-md">
       <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="light-green-9" :error="$v.username.$error" />
-      <q-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
+      <q-validators :dirty="$v.username.$dirty" :validators="$v.messages.username" :messages="$v.messages.username" />
+      <!-- <q-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
       <q-validator :dirty="$v.username.$dirty" :show="!$v.username.minLength" msg="Username must have at least 3 letters" />
-      <q-validator :dirty="$v.username.$dirty" :show="!$v.username.alphaNum" msg="Username must be Alphanumeric only" />
+      <q-validator :dirty="$v.username.$dirty" :show="!$v.username.alphaNum" msg="Username must be Alphanumeric only" /> -->
 
       <q-input v-model="$v.password.$model" float-label="Password" color="light-green-9" type="password" :error="$v.password.$error" />
       <q-validator :dirty="$v.password.$dirty" :show="!$v.password.required" msg="Password is required" />
@@ -43,10 +44,12 @@
 import logoData from '../assets/logoData'
 import {mapGetters} from 'vuex'
 import qValidator from '../components/qValidator'
+import qValidators from '../components/qValidators'
 import {required, minLength, sameAs, alphaNum} from 'vuelidate/lib/validators'
 export default {
   components: {
     qValidator,
+    qValidators,
   },
   data() {
     return {
@@ -59,16 +62,59 @@ export default {
       address: '',
     }
   },
+  // validations: {
+  //   username: {
+  //     required,
+  //     minLength: minLength(3),
+  //     alphaNum,
+  //     // isUnique: async function(value) {
+  //     //   if (value === '') return true
+  //     //   const response = await fetch(`/api/unique/${value}`)
+  //     //   return Boolean(await response.json())
+  //     // },
+  //   },
+  //   password: {
+  //     required,
+  //     minLength: minLength(3),
+  //     noSpace: function(value) {
+  //       var hasWSpace = value.indexOf(' ') >= 0
+  //       return !hasWSpace
+  //     },
+  //   },
+  //   passwordConfirm: {
+  //     required,
+  //     sameAsPassword: sameAs('password'),
+  //   },
+  // },
   validations: {
+    messages: {
+      username: {
+        required: 'Username is required',
+        minLength: 'Username must have at least 3 letters',
+        alphaNum: 'Username must be Alphanumeric only',
+      },
+    },
     username: {
       required,
       minLength: minLength(3),
       alphaNum,
-      // isUnique: async function(value) {
-      //   if (value === '') return true
-      //   const response = await fetch(`/api/unique/${value}`)
-      //   return Boolean(await response.json())
-      // },
+      // validators: [
+      //   {
+      //     key: 'required',
+      //     required,
+      //     message: 'Username is required',
+      //   },
+      //   {
+      //     key: 'minLength',
+      //     minLength: minLength(3),
+      //     message: 'Username must have at least 3 letters',
+      //   },
+      //   {
+      //     key: 'alphaNum',
+      //     alphaNum,
+      //     message: 'Username must be Alphanumeric only',
+      //   },
+      // ],
     },
     password: {
       required,
@@ -97,6 +143,9 @@ export default {
         return 0
       }
     },
+  },
+  created() {
+    // console.log($v.username)
   },
 }
 </script>
