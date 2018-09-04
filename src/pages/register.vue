@@ -11,7 +11,7 @@
       </div>
     </q-card-title>
     <q-card-main class="q-mb-md">
-      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="light-green-9" :error="$v.username.$error" />
+      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="light-green-9" :error="$v.username.$error"/>
       <q-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
       <q-validator :dirty="$v.username.$dirty" :show="!$v.username.minLength" msg="Username must have at least 3 letters" />
       <q-validator :dirty="$v.username.$dirty" :show="!$v.username.alphaNum" msg="Username must be Alphanumeric only" />
@@ -32,7 +32,7 @@
     </q-card-main>
     <q-card-actions>
       <div class="row justify-center" style="height:30px;width:100%;">
-        <q-btn :loading="getIsLoading" color="amber-2" label="Register" class="text-brown-6 q-ma-sm col-10" @click="registerCustomer({username,password})">
+        <q-btn :loading="getIsLoading" color="amber-2" label="Register" class="text-brown-6 q-ma-sm col-10" @click="registerCustomer({username, password, passwordConfirm, fullName, phone, address})">
           <q-spinner-pie slot="loading" size="25px" />
         </q-btn>
       </div>
@@ -41,9 +41,9 @@
 </template>
 <script>
 import logoData from '../assets/logoData'
-import {mapGetters} from 'vuex'
 import qValidator from '../components/qValidator'
 import {required, minLength, sameAs, alphaNum} from 'vuelidate/lib/validators'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   components: {
     qValidator,
@@ -64,11 +64,6 @@ export default {
       required,
       minLength: minLength(3),
       alphaNum,
-      // isUnique: async function(value) {
-      //   if (value === '') return true
-      //   const response = await fetch(`/api/unique/${value}`)
-      //   return Boolean(await response.json())
-      // },
     },
     password: {
       required,
@@ -90,21 +85,14 @@ export default {
     ...mapGetters('customer', ['getIsLoading']),
   },
   methods: {
-    registerCustomer() {
+    ...mapActions('customer', ['regCustomer']),
+    registerCustomer(payload) {
       this.$v.$touch()
-      if (this.$v.$error) {
-        this.$q.notify('Please review fields again.')
-        return 0
-      }
+      if (this.$v.$error) return
+      this.regCustomer(payload)
     },
   },
 }
 </script>
 <style>
-.error {
-  padding: 10px;
-  font-size: 12px;
-  font-style: italic;
-  color: red;
-}
 </style>

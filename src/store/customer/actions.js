@@ -29,7 +29,7 @@ export function regCustomer({commit}, payload) {
   commit('setIsLoading', true)
   _post(
     payload,
-    `mutation ($input: LoginInput) {
+    `mutation ($input: RegInput) {
       reg(input: $input)
     }`
   )
@@ -37,11 +37,11 @@ export function regCustomer({commit}, payload) {
       commit('setIsLoading', false)
       if (data.errors) _alert(data.errors[0].message, 'warning')
       else {
-        // Login successfully
-        localStorage.setItem('auth-token', data.login)
-        commit('setToken', data.login)
-        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.login
-        _alert(`Logged In Successfully!`, 'positive')
+        // register successfully
+        localStorage.setItem('auth-token', data.reg)
+        commit('setToken', data.reg)
+        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.reg
+        _alert(`Regitered Successfully!`, 'positive')
         this.$router.push('/member')
       }
     })
