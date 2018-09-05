@@ -9,20 +9,16 @@
         <q-route-tab to="/member" name="member" slot="title" icon="account_box" label="Member" class="sml-label" />
       </q-tabs>
     </q-layout-footer>
+    <q-btn rounded color="green" to="/member/register" label="Join now" class="btn-reg" :class="getIsHiddenRegBtn?'hidden':''" />
     <q-page-container class="et-home max-width-center">
-      <reg-button class="reg-button-wrapper" :class="getIsHiddenRegBtn?'hidden':''" />
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 <script>
 import {mapGetters} from 'vuex'
-import regButton from '../components/regButton.vue'
 export default {
   name: 'MyLayout',
-  components: {
-    regButton,
-  },
   data() {
     return {}
   },
@@ -36,7 +32,6 @@ export default {
 .et-home {
   overflow: auto;
   height: calc(100vh - 65px) !important;
-  position: relative;
 }
 .q-layout-page-container {
   padding-bottom: 0px !important;
@@ -45,12 +40,19 @@ export default {
   max-width: 700px;
   margin: 0 auto;
 }
-.reg-button-wrapper {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  height: 57px;
-  width: 127px;
-  background: red
+.btn-reg {
+  text-transform: none;
+  font-size: 14px !important;
+  padding: 13px 25px;
+  display: block;
+  z-index: 9999;
+  position: fixed;
+  bottom: 70px;
+  right: calc((100vw - 700px)/2);
+}
+@media only screen and (max-device-width : 700px) {
+  .btn-reg{
+    right:0
+  }
 }
 </style>
