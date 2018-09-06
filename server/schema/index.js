@@ -19,6 +19,7 @@ const RootQuery = `
 const RootMutation = `
   type RootMutation {
     login(input:LoginInput): String
+    reg(input:RegInput): String
   }
 `
 

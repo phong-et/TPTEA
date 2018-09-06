@@ -1,6 +1,10 @@
 import pgOrder from 'pages/order'
 import pgStore from 'pages/store'
 import pgHome from 'pages/home'
+import pgCustomer from 'pages/customer'
+import layoutCustomer from 'layouts/customer'
+import pgRegister from 'pages/register'
+import pgLogin from 'pages/login'
 const routes = [
   {
     path: '/',
@@ -19,20 +23,20 @@ const routes = [
         component: pgStore,
       },
       {
-        path: 'member',
-        component: () => import('layouts/member.vue'),
+        path: 'customer',
+        component: layoutCustomer,
         children: [
           {
             path: '',
-            component: () => import('pages/member.vue'),
+            component: pgCustomer,
           },
           {
             path: 'login',
-            component: () => import('pages/login.vue'),
+            component: pgLogin,
           },
           {
             path: 'register',
-            component: () => import('pages/register.vue'),
+            component: pgRegister,
           },
         ],
       },
