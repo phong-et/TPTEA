@@ -11,7 +11,7 @@
       </div>
     </q-card-title>
     <q-card-main class="q-mb-md">
-      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="light-green-9" :error="$v.username.$error"/>
+      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="light-green-9" :error="$v.username.$error" />
       <q-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
       <q-validator :dirty="$v.username.$dirty" :show="!$v.username.minLength" msg="Username must have at least 3 letters" />
       <q-validator :dirty="$v.username.$dirty" :show="!$v.username.alphaNum" msg="Username must be Alphanumeric only" />
@@ -69,8 +69,7 @@ export default {
       required,
       minLength: minLength(3),
       noSpace: function(value) {
-        var hasWSpace = value.indexOf(' ') >= 0
-        return !hasWSpace
+        return !(value.indexOf(' ') >= 0)
       },
     },
     passwordConfirm: {

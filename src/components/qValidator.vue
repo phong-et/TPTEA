@@ -1,6 +1,6 @@
 <template>
   <div v-if="dirty">
-    <div class="error" v-if="show">{{msg}}</div>
+    <div class="et-validator-error" v-if="show">{{msg}}</div>
   </div>
 </template>
 <script>
@@ -23,7 +23,7 @@ export default {
 }
 </script>
 <style>
-.error {
+.et-validator-error {
   padding: 10px;
   font-size: 12px;
   font-style: italic;

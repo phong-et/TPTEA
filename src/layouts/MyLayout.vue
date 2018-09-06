@@ -1,15 +1,14 @@
 <template>
   <q-layout view="hhh lpr fFf">
     <q-layout-footer class="max-width-center">
-      <demo-tabs v-if="$q.theme === 'ios'" />
       <q-tabs inverted position="bottom" color="brown-6" align="justify">
-        <q-route-tab to="/" default name="news" slot="title" icon="stars" label="Home" class="sml-label" />
-        <q-route-tab to="/orders" name="order" slot="title" icon="free_breakfast" label="Order" class="sml-label" />
-        <q-route-tab to="/stores" name="account" slot="title" icon="store" label="Store" class="sml-label" />
-        <q-route-tab to="/customer" name="customer" slot="title" icon="account_box" label="Member" class="sml-label" />
+        <q-route-tab to="/" default name="news" slot="title" icon="stars" label="Home"/>
+        <q-route-tab to="/orders" name="order" slot="title" icon="free_breakfast" label="Order"/>
+        <q-route-tab to="/stores" name="account" slot="title" icon="store" label="Store"/>
+        <q-route-tab to="/customer" name="customer" slot="title" icon="account_box" label="Member"/>
       </q-tabs>
     </q-layout-footer>
-    <q-btn rounded color="green" to="/customer/register" label="Join now" class="btn-reg" :class="getIsHiddenRegBtn?'hidden':''" />
+    <q-btn rounded color="green" to="/customer/register" label="Join now" class="btn-reg" :class="{hidden: getIsHiddenRegBtn}" />
     <q-page-container class="et-home max-width-center">
       <router-view />
     </q-page-container>

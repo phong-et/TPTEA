@@ -31,7 +31,7 @@ const Customer = `
     passwordConfirm: String!
     fullName: String,
     phone: String
-    address:String
+    address: String
   }
 `
 export default Customer
