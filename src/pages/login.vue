@@ -8,8 +8,8 @@
       TP@Tea HongKong
       <div slot="right" class="row items-center">
         <q-icon name="card_membership" class="q-mr-sm"/>
-        <router-link to="/customer/register" tag="span">
-          <span class="reg-link">Register</span>
+        <router-link to="/customer/register" tag="a">
+          <a class="text-warning">Register</a>
         </router-link>
       </div>
     </q-card-title>
@@ -97,12 +97,6 @@ export default {
   .q-card-actions {
     height: 240px !important;
   }
-}
-.reg-link {
-  cursor: pointer;
-}
-.reg-link:hover {
-  color: #795548; /* class .text-brown-6 */
 }
 
 </style>
