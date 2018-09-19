@@ -6,9 +6,6 @@
     </q-card-media>
     <q-card-title class="text-brown-6">
       TP@Tea HongKong
-      <div slot="right" class="row items-center">
-        <q-icon name="card_membership" class="q-mr-sm" @click="alert()" />Memberships
-      </div>
     </q-card-title>
     <q-card-main class="q-mb-md">
       <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="light-green-9" :error="$v.username.$error" />
