@@ -9,7 +9,7 @@
       <div slot="right" class="row items-center">
         <q-icon name="card_membership" class="q-mr-sm"/>
         <router-link to="/customer/register" tag="span">
-          <span class="reg-link">Memberships</span>
+          <span class="reg-link">Register</span>
         </router-link>
       </div>
     </q-card-title>
