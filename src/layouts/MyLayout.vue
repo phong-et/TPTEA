@@ -8,21 +8,16 @@
         <q-route-tab to="/customer" name="customer" slot="title" icon="account_box" label="Member" />
       </q-tabs>
     </q-layout-footer>
-    <q-btn rounded color="green" to="/customer/register" label="Join now" class="btn-reg" :class="{hidden: getIsHiddenRegBtn}" />
     <q-page-container class="et-home max-width-center">
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 <script>
-import {mapGetters} from 'vuex'
 export default {
   name: 'MyLayout',
   data() {
     return {}
-  },
-  computed: {
-    ...mapGetters('customer', ['getIsHiddenRegBtn']),
   },
   methods: {},
 }

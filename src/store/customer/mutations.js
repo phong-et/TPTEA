@@ -5,7 +5,3 @@ export const setToken = (state, payload) => {
 export const setIsLoading = (state, payload) => {
   state.isLoading = payload
 }
-
-export const setIsHiddenRegBtn = (state, payload) => {
-  state.isHiddenRegBtn = payload
-}

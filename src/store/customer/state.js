@@ -3,5 +3,4 @@ export default {
   isLoading: false,
   name: '',
   role: '',
-  isHiddenRegBtn: false,
 }
