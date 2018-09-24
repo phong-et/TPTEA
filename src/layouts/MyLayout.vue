@@ -34,19 +34,4 @@ export default {
   max-width: 601px;
   margin: 0 auto;
 }
-.btn-reg {
-  text-transform: none;
-  font-size: 14px !important;
-  padding: 13px 25px;
-  display: block;
-  z-index: 9999;
-  position: fixed;
-  bottom: 70px;
-  right: calc((100vw - 601px)/2);
-}
-@media only screen and (max-device-width : 601px) {
-  .btn-reg{
-    right:0
-  }
-}
 </style>
