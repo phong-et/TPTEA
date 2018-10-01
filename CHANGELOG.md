@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Menus Listing after clicking a single Catefory
 - Register link at login page
+- Stylus all pages & components (maxwidth = $breakpoint-xs quasar's variable)
 ### Removed 
 - Join now button
 ### Fixed
