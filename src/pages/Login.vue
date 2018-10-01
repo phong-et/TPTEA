@@ -7,7 +7,7 @@
     <q-card-title class="text-brown-6">
       TP@Tea HongKong
       <div slot="right" class="row items-center">
-        <q-icon name="card_membership" class="q-mr-sm"/>
+        <q-icon name="card_membership" class="q-mr-sm" />
         <router-link to="/customer/register" tag="a">
           <a class="text-warning">Register</a>
         </router-link>
@@ -70,33 +70,30 @@ export default {
   },
 }
 </script>
-<style scoped>
-.q-card {
-  width: 350px;
-}
-.q-card-media {
-  background: url('~assets/login_banner.png') no-repeat center center;
-  background-size: cover;
-  height: 230px;
-  padding: 40px 0;
-}
-.center {
-  margin: auto;
-  display: block;
-}
+<style scoped lang="stylus">
+@import '~variables'
 
-@media (max-width: 601px) {
-  .et-login {
-    width: 100%;
-  }
-  .q-card-actions {
-    height: calc(100vh - 527px) !important;
-  }
-}
-@media (min-width: 602px) {
-  .q-card-actions {
-    height: 240px !important;
-  }
-}
+.q-card
+  width $qcardWidth
 
+.q-card-media
+  background url('~assets/login_banner.png') no-repeat center center
+  background-size cover
+  height 230px
+  padding 40px 0
+
+.center
+  margin auto
+  display block
+
+@media (max-width: $breakpoint-xs)
+  .et-login
+    width 100%
+
+  .q-card-actions
+    height calc(100vh - 527px) !important
+
+@media (min-width: $breakpoint-xs)
+  .q-card-actions
+    height 240px !important
 </style>

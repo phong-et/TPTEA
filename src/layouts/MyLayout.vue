@@ -22,16 +22,17 @@ export default {
   methods: {},
 }
 </script>
-<style scoped>
-.et-home {
-  overflow: auto;
-  height: calc(100vh - 65px) !important;
-}
-.q-layout-page-container {
-  padding-bottom: 0px !important;
-}
-.max-width-center {
-  max-width: 601px;
-  margin: 0 auto;
-}
+<style scoped lang="stylus">
+@import '~variables'
+
+.et-home
+  overflow auto
+  height calc(100vh - 65px) !important
+
+.q-layout-page-container
+  padding-bottom 0px !important
+
+.max-width-center
+  max-width $breakpoint-xs
+  margin $center
 </style>
