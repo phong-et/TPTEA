@@ -1,5 +1,5 @@
 <template>
-  <q-carousel class="component-top max-width-center">
+  <q-carousel class="component-top max-width-center-h" style="height:300px">
     <q-carousel-slide :img-src="item.img">
       <div class="absolute-top-left custom-caption-top">
         <div class="subtitle text-white q-ml-sm q-mt-sm">{{item.subTitle}}</div>
@@ -23,10 +23,5 @@ export default {
   },
 }
 </script>
-<style scoped lang="stylus">
-@import '~variables'
-.max-width-center
-  width $breakpoint-xs
-  margin $center
-  height 300px
+<style>
 </style>

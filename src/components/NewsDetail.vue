@@ -1,5 +1,5 @@
 <template>
-  <q-modal v-model="opened" class="max-width-center">
+  <q-modal v-model="opened" class="max-width-center-vh">
     <q-modal-layout >
       <div>
         <q-btn flat icon="close" @click="opened = false" >
@@ -29,10 +29,5 @@ export default {
   },
 }
 </script>
-<style scoped lang="stylus">
-@import '~variables'
-.max-width-center
-  width $breakpoint-xs
-  margin auto
-  height 300px
+<style>
 </style>

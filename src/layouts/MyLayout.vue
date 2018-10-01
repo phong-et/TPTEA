@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hhh lpr fFf">
-    <q-layout-footer class="max-width-center">
+    <q-layout-footer class="max-width-center-h">
       <q-tabs inverted position="bottom" color="brown-6" align="justify">
         <q-route-tab to="/" default name="news" slot="title" icon="stars" label="Home" />
         <q-route-tab to="/categories" name="categories" slot="title" icon="free_breakfast" label="Order" />
@@ -8,7 +8,7 @@
         <q-route-tab to="/customer" name="customer" slot="title" icon="account_box" label="Member" />
       </q-tabs>
     </q-layout-footer>
-    <q-page-container class="et-home max-width-center">
+    <q-page-container class="et-home max-width-center-h">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -31,8 +31,4 @@ export default {
 
 .q-layout-page-container
   padding-bottom 0px !important
-
-.max-width-center
-  max-width $breakpoint-xs
-  margin $center
 </style>
