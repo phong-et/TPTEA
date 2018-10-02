@@ -1,5 +1,5 @@
 <template>
-  <q-carousel class="component-top max-width-center-h" style="height:300px">
+  <q-carousel class="component-top max-width-center-h news-height">
     <q-carousel-slide :img-src="item.img">
       <div class="absolute-top-left custom-caption-top">
         <div class="subtitle text-white q-ml-sm q-mt-sm">{{item.subTitle}}</div>
@@ -23,5 +23,7 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped lang="stylus">
+  .news-height
+    height 300px
 </style>
