@@ -22,11 +22,12 @@ export default {
   },
 }
 </script>
-<style scoped>
-.et-validator-error {
-  padding: 10px;
-  font-size: 12px;
-  font-style: italic;
-  color: red;
-}
+<style scoped lang="stylus">
+@import '~variables'
+
+.et-validator-error
+  padding 10px
+  font-size 12px
+  font-style italic
+  color $negative
 </style>

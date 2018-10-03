@@ -4,32 +4,32 @@
       <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo">
       </svg>
     </q-card-media>
-    <q-card-title class="text-brown-6">
+    <q-card-title class="text-primary">
       TP@Tea HongKong
     </q-card-title>
     <q-card-main class="q-mb-md">
-      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="light-green-9" :error="$v.username.$error" />
+      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="secondary" :error="$v.username.$error" />
       <et-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
       <et-validator :dirty="$v.username.$dirty" :show="!$v.username.minLength" msg="Username must have at least 3 letters" />
       <et-validator :dirty="$v.username.$dirty" :show="!$v.username.alphaNum" msg="Username must be Alphanumeric only" />
 
-      <q-input v-model="$v.password.$model" float-label="Password" color="light-green-9" type="password" :error="$v.password.$error" />
+      <q-input v-model="$v.password.$model" float-label="Password" color="secondary" type="password" :error="$v.password.$error" />
       <et-validator :dirty="$v.password.$dirty" :show="!$v.password.required" msg="Password is required" />
       <et-validator :dirty="$v.password.$dirty" :show="!$v.password.minLength" msg="Password must have at least 3 letters" />
       <et-validator :dirty="$v.password.$dirty" :show="!$v.password.noSpace" msg="Password must be not space" />
 
-      <q-input v-model.trim="$v.passwordConfirm.$model" float-label="Confirm Password" color="light-green-9" type="password" :error="$v.passwordConfirm.$error" />
+      <q-input v-model.trim="$v.passwordConfirm.$model" float-label="Confirm Password" color="secondary" type="password" :error="$v.passwordConfirm.$error" />
       <et-validator :dirty="$v.passwordConfirm.$dirty" :show="!$v.passwordConfirm.sameAsPassword" msg="Passwords must be identical" />
 
-      <q-collapsible icon="people" class="text-brown-6" label="Optional info" style="margin-top:30px; padding: 0" left>
-        <q-input clearable v-model="fullName" float-label="Full name" class="q-mb-lg" color="light-green-9" />
-        <q-input clearable v-model="phone" float-label="Phone" class="q-mb-lg" color="light-green-9" />
-        <q-input clearable v-model="address" float-label="Address" class="q-mb-lg" color="light-green-9" />
+      <q-collapsible icon="people" class="text-secondary q-collapsible" label="Optional info" left>
+        <q-input clearable v-model="fullName" float-label="Full name" class="q-mb-lg" color="secondary" />
+        <q-input clearable v-model="phone" float-label="Phone" class="q-mb-lg" color="secondary" />
+        <q-input clearable v-model="address" float-label="Address" class="q-mb-lg" color="secondary" />
       </q-collapsible>
     </q-card-main>
     <q-card-actions>
       <div class="row justify-center" style="height:30px;width:100%;">
-        <q-btn :loading="getIsLoading" color="amber-2" label="Register" class="text-brown-6 q-ma-sm col-10" @click="registerCustomer({username, password, passwordConfirm, fullName, phone, address})">
+        <q-btn :loading="getIsLoading" color="tertiary" label="Register" class="text-primary q-ma-sm col-10" @click="registerCustomer({username, password, passwordConfirm, fullName, phone, address})">
           <q-spinner-pie slot="loading" size="25px" />
         </q-btn>
       </div>
@@ -134,4 +134,8 @@ export default {
 @media (min-width: $breakpoint-xs)
   .q-card-actions
     height 240px !important
+
+.q-collapsible
+  margin-top 30px
+  padding 0
 </style>

@@ -4,7 +4,7 @@
       <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo">
       </svg>
     </q-card-media>
-    <q-card-title class="text-brown-6">
+    <q-card-title class="text-primary">
       TP@Tea HongKong
       <div slot="right" class="row items-center">
         <q-icon name="card_membership" class="q-mr-sm" />
@@ -14,16 +14,16 @@
       </div>
     </q-card-title>
     <q-card-main class="q-mb-md">
-      <q-input clearable v-model="username" float-label="Username" class="q-mb-lg" color="light-green-9" />
-      <q-input v-model="password" float-label="Password" color="red-9" type="password" />
+      <q-input clearable v-model="username" float-label="Username" class="q-mb-lg" color="secondary" />
+      <q-input v-model="password" float-label="Password" color="secondary" type="password" />
     </q-card-main>
     <q-card-actions>
       <div class="row justify-center" style="height:160px;width:100%;">
-        <q-btn :loading="getIsLoading" color="amber-3" label="Sign In" class="text-brown-6 q-ma-sm col-10" @click="loginCustomer({username,password})">
+        <q-btn :loading="getIsLoading" color="tertiary" label="Sign In" class="text-primary q-ma-sm col-10" @click="loginCustomer({username,password})">
           <q-spinner-pie slot="loading" size="25px" />
         </q-btn>
-        <q-btn color="grey-2" label="Visit Facebook" class="text-grey-8 q-ma-sm col-10" />
-        <q-btn color="grey-2" label="Visit Instagram" class="text-grey-8 q-ma-sm col-10" />
+        <q-btn color="grey-2" label="Visit Facebook" class="text-primary q-ma-sm col-10" />
+        <q-btn color="grey-2" label="Visit Instagram" class="text-primary q-ma-sm col-10" />
       </div>
     </q-card-actions>
   </q-card>
