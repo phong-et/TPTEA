@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  name: 'MyLayout',
+  name: 'Default',
   data() {
     return {}
   },

@@ -29,7 +29,7 @@
     </q-card-main>
     <q-card-actions>
       <div class="row justify-center" style="height:30px;width:100%;">
-        <q-btn :loading="getIsLoading" color="tertiary" label="Register" class="text-primary q-ma-sm col-10" @click="registerCustomer({username, password, passwordConfirm, fullName, phone, address})">
+        <q-btn :loading="getIsLoading" color="amber-2" label="Register" class="text-brown-6 q-ma-sm col-10" @click="registerCustomer({username, password, passwordConfirm, name, phone, address,type:'password'})">
           <q-spinner-pie slot="loading" size="25px" />
         </q-btn>
       </div>
@@ -52,7 +52,7 @@ export default {
       username: '',
       password: '',
       passwordConfirm: '',
-      fullName: '',
+      name: '',
       phone: '',
       address: '',
     }

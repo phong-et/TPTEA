@@ -1,4 +1,4 @@
 export default {
   recs: [],
-  counter: 0,
+  counter: 1,
 }

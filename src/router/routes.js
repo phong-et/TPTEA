@@ -1,16 +1,22 @@
+import loDefault from 'layouts/Default'
+import loAdminDefault from 'layouts/admin/Default'
+import loCustomer from 'layouts/Customer'
+import pgLogin from 'pages/Login'
+import pgAdminLogin from 'pages/admin/Login'
+import pgHome from 'pages/Home'
+import pgAdminHome from 'pages/admin/Home'
 import pgCategories from 'pages/Categories'
 import pgMenus from 'pages/Menus'
 import pgStores from 'pages/Stores'
-import pgHome from 'pages/Home'
 import pgCustomer from 'pages/Customer'
-import loCustomer from 'layouts/Customer'
 import pgRegister from 'pages/Register'
-import pgLogin from 'pages/Login'
 import pgMenuDetail from 'pages/MenuDetail'
+import pgError404 from 'pages/Error404'
+
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MyLayout.vue'),
+    component: loDefault,
     children: [
       {
         path: '',
@@ -56,13 +62,27 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/admin',
+    component: loAdminDefault,
+    children: [
+      {
+        path: '',
+        component: pgAdminHome,
+      },
+    ],
+  },
+  {
+    path: '/admin/login',
+    component: pgAdminLogin,
+  },
 ]
 
 // Always leave this as last one
 if (process.env.MODE !== 'ssr') {
   routes.push({
     path: '*',
-    component: () => import('pages/Error404.vue'),
+    component: pgError404,
   })
 }
 

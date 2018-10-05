@@ -1,37 +1,28 @@
 <template>
-  <q-card square class="et-login center">
+  <q-card square class="et-login text-center">
     <q-card-media>
       <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo">
       </svg>
     </q-card-media>
-    <q-card-title class="text-primary">
-      TP@Tea HongKong
-      <div slot="right" class="row items-center">
-        <q-icon name="card_membership" class="q-mr-sm" />
-        <router-link to="/customer/register" tag="a">
-          <a class="text-warning">Register</a>
-        </router-link>
-        <q-icon name="card_membership" class="q-mr-sm q-ml-sm" />
-        <a class="text-warning cursor-pointer reg-fb" @click="registerFb()">Register Facebook</a>
-      </div>
+    <q-card-title class="text-brown-6 text-center">
+      <q-icon name="security" class="q-mr-sm" /> Admin Authentication
     </q-card-title>
     <q-card-main class="q-mb-md">
-      <q-input clearable v-model="username" float-label="Username" class="q-mb-lg" color="secondary" />
-      <q-input v-model="password" float-label="Password" color="secondary" type="password" />
+      <q-input clearable v-model="username" float-label="Username" class="q-mb-lg" color="light-green-9" />
+      <q-input v-model="password" float-label="Password" color="red-9" type="password" />
     </q-card-main>
     <q-card-actions>
-      <div class="row justify-center" style="height:120px;width:100%;">
+      <div class="row justify-center btn-row">
         <q-btn :loading="getIsLoading" color="amber-3" label="Sign In" class="text-brown-6 q-ma-sm col-10" @click="loginCustomer({username,password,type:'password'})">
           <q-spinner-pie slot="loading" size="25px" />
         </q-btn>
-        <q-btn color="blue-7" label="Sign in Facebook" @click="loginFb()" class="text-white q-ma-sm col-10" />
       </div>
     </q-card-actions>
   </q-card>
 </template>
 
 <script>
-import logoData from '../assets/logoData'
+import logoData from '../../assets/logoData'
 import Vivus from 'vivus'
 import {mapActions, mapGetters} from 'vuex'
 export default {
@@ -53,7 +44,7 @@ export default {
     ...mapGetters('customer', ['getIsLoading']),
   },
   methods: {
-    ...mapActions('customer', ['loginCustomer', 'regCustomer', 'loginFb', 'registerFb']),
+    ...mapActions('customer', ['loginCustomer']),
     startAnimation() {
       this.vivus = new Vivus(
         'logo',
@@ -76,6 +67,7 @@ export default {
 
 .q-card
   width $qcardWidth
+  margin auto
 
 .q-card-media
   background url('~assets/login_banner.png') no-repeat center center
@@ -85,16 +77,19 @@ export default {
 
 .center
   margin auto
-  display block
+
+.btn-row
+  height 60px
+  width 100%
 
 @media (max-width: $breakpoint-xs)
   .et-login
     width 100%
 
   .q-card-actions
-    height calc(100vh - 527px) !important
+    height calc(100vh - 462px) !important
 
 @media (min-width: $breakpoint-xs)
   .q-card-actions
-    height 240px !important
+    height 100px !important
 </style>

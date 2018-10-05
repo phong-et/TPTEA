@@ -30,8 +30,8 @@ export function regCustomer({commit}, payload) {
   commit('setIsLoading', true)
   _post(
     payload,
-    `mutation ($input: RegInput) {
-      reg(input: $input)
+    `mutation ($input: RegisterInput) {
+      register(input: $input)
     }`
   )
     .then(({data}) => {
@@ -39,9 +39,9 @@ export function regCustomer({commit}, payload) {
       if (data.errors) _alert(data.errors[0].message, 'warning')
       else {
         // register successfully
-        localStorage.setItem('auth-token', data.reg)
-        commit('setToken', data.reg)
-        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.reg
+        localStorage.setItem('auth-token', data.register)
+        commit('setToken', data.register)
+        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.register
         _alert(`Regitered Successfully!`, 'positive')
         this.$router.push('/customer')
       }
@@ -50,4 +50,80 @@ export function regCustomer({commit}, payload) {
       _procError(err)
       commit('setIsLoading', false)
     })
+}
+
+export async function loginFb({commit}, payload) {
+  var user = await getUserFbInfo()
+  _post(
+    {
+      username: user.email,
+      password: '',
+      type: 'facebook',
+    },
+    `mutation ($input: LoginInput) {
+      loginFb(input: $input)
+    }`
+  )
+    .then(({data}) => {
+      if (data.errors) _alert(data.errors[0].message, 'warning')
+      else {
+        // Login successfully
+        localStorage.setItem('auth-token', data.loginFb)
+        commit('setToken', data.loginFb)
+        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginFb
+        _alert(`Logged In Successfully!`, 'positive')
+        this.$router.push('/customer')
+      }
+    })
+    .catch(err => {
+      _procError(err)
+    })
+}
+export async function registerFb({commit}) {
+  var user = await getUserFbInfo()
+  _post(
+    {
+      username: user.email,
+      password: '',
+      passwordConfirm: '',
+      name: user.name,
+      phone: '',
+      address: '',
+      type: 'facebook',
+    },
+    `mutation ($input: RegisterInput) {
+      registerFb(input: $input) {
+        token
+        msg
+      }
+    }`
+  )
+    .then(({data}) => {
+      if (data.errors) _alert(data.errors[0].message, 'warning')
+      else {
+        // register successfully
+        localStorage.setItem('auth-token', data.registerFb.token)
+        commit('setToken', data.regFB)
+        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.registerFb.token
+        _alert(data.registerFb.msg, 'positive')
+        this.$router.push('/customer')
+      }
+    })
+    .catch(err => {
+      _procError(err)
+    })
+}
+async function getUserFbInfo() {
+  return new Promise(resolve => {
+    window.FB.login(
+      res => {
+        if (res.status === 'connected') {
+          window.FB.api('/me?fields=name,email', person => {
+            resolve(person)
+          })
+        }
+      },
+      {scope: 'public_profile,email'}
+    )
+  })
 }

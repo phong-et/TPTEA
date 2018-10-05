@@ -28,7 +28,9 @@ const RootQuery = `
 const RootMutation = `
   type RootMutation {
     login(input:LoginInput): String
-    reg(input:RegInput): String
+    register(input:RegisterInput): String
+    loginFb(input:LoginInput): String
+    registerFb(input:RegisterInput): RegisterFbResponse
   }
 `
 
