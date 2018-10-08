@@ -27,6 +27,7 @@ All notable changes to this project will be documented in this file.
 - Use statics assets instead of google drive image download links
 - Change default value for counter [@john](https://github.com/tri-et/TPTEA/tree/feature/fix-bugs-counter)
 - Rename variable  to camel case in page MenuDetail 
+- Remove register facebook button from login page into register page
 ### Added
 - Customer Login feature
 - Customer Register feature

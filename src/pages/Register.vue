@@ -4,11 +4,19 @@
       <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo">
       </svg>
     </q-card-media>
-    <q-card-title class="text-primary">
-      TP@Tea HongKong
-    </q-card-title>
-    <q-card-main class="q-mb-md">
-      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="secondary" :error="$v.username.$error" />
+    <div class="row justify-center q-mt-lg">
+      <q-btn color="blue-7" class="col-10" @click="registerFb()" label="REGISTER with FACEBOOK" />
+    </div>
+    <div class="row justify-center q-mt-md">
+      <div class="col-10 row items-center text-primary">
+        <hr class="q-hr col-4">
+        or
+        <hr class="q-hr col-4">
+      </div>
+    </div>
+
+    <q-card-main class="q-mb-md q-pt-none">
+      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="light-green-9" :error="$v.username.$error" />
       <et-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
       <et-validator :dirty="$v.username.$dirty" :show="!$v.username.minLength" msg="Username must have at least 3 letters" />
       <et-validator :dirty="$v.username.$dirty" :show="!$v.username.alphaNum" msg="Username must be Alphanumeric only" />
@@ -85,7 +93,7 @@ export default {
     ...mapGetters('customer', ['getIsLoading']),
   },
   methods: {
-    ...mapActions('customer', ['regCustomer']),
+    ...mapActions('customer', ['regCustomer', 'registerFb']),
     startAnimation() {
       this.vivus = new Vivus(
         'logo',

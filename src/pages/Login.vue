@@ -11,8 +11,6 @@
         <router-link to="/customer/register" tag="a">
           <a class="text-warning">Register</a>
         </router-link>
-        <q-icon name="card_membership" class="q-mr-sm q-ml-sm" />
-        <a class="text-warning cursor-pointer reg-fb" @click="registerFb()">Register Facebook</a>
       </div>
     </q-card-title>
     <q-card-main class="q-mb-md">
@@ -53,7 +51,7 @@ export default {
     ...mapGetters('customer', ['getIsLoading']),
   },
   methods: {
-    ...mapActions('customer', ['loginCustomer', 'regCustomer', 'loginFb', 'registerFb']),
+    ...mapActions('customer', ['loginCustomer', 'regCustomer', 'loginFb']),
     startAnimation() {
       this.vivus = new Vivus(
         'logo',
