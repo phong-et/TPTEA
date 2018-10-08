@@ -1,5 +1,5 @@
 <template>
-  <q-card class="col-6 q-pa-xs no-shadow" style="border-radius: 8px" @click.native="openMenusListing()">
+  <q-card class="col-6 q-pa-xs no-shadow border-cat" @click.native="openMenusListing()">
     <q-card-media overlay-position="top">
       <img :src="'statics/'+cat.img">
       <q-card-title slot="overlay" class="text-right">
@@ -20,5 +20,7 @@ export default {
   },
 }
 </script>
-<style scoped>
+<style scoped lang="stylus">
+  .border-cat
+    border-radius 8px
 </style>
