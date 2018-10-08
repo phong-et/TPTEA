@@ -5,7 +5,7 @@
       </svg>
     </q-card-media>
     <div class="row justify-center q-mt-lg">
-      <q-btn color="blue-7" class="col-10" @click="registerFb()" label="REGISTER with FACEBOOK" />
+      <q-btn color="facebook" class="text-white col-10" @click="registerFb()" label="REGISTER with FACEBOOK" />
     </div>
     <div class="row justify-center q-mt-md">
       <div class="col-10 row items-center text-primary">
@@ -16,7 +16,7 @@
     </div>
 
     <q-card-main class="q-mb-md q-pt-none">
-      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="light-green-9" :error="$v.username.$error" />
+      <q-input clearable v-model.trim="$v.username.$model" float-label="Username" color="secondary" :error="$v.username.$error" />
       <et-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
       <et-validator :dirty="$v.username.$dirty" :show="!$v.username.minLength" msg="Username must have at least 3 letters" />
       <et-validator :dirty="$v.username.$dirty" :show="!$v.username.alphaNum" msg="Username must be Alphanumeric only" />
@@ -37,7 +37,7 @@
     </q-card-main>
     <q-card-actions>
       <div class="row justify-center" style="height:30px;width:100%;">
-        <q-btn :loading="getIsLoading" color="amber-2" label="Register" class="text-brown-6 q-ma-sm col-10" @click="registerCustomer({username, password, passwordConfirm, name, phone, address,type:'password'})">
+        <q-btn :loading="getIsLoading" color="tertiary" label="Register" class="text-primary q-ma-sm col-10" @click="registerCustomer({username, password, passwordConfirm, name, phone, address,type:'password'})">
           <q-spinner-pie slot="loading" size="25px" />
         </q-btn>
       </div>
