@@ -2,17 +2,17 @@
   <q-page>
     <q-modal v-model="opened" maximized class="max-width-center-h">
       <q-modal-layout>
-        <q-toolbar slot="header" class="q-pt-none q-pb-none" color="brown-6">
-          <q-btn flat round dense icon="reply" @click="backToCategories()" />
+        <q-toolbar slot="header" class="q-pt-none q-pb-none" color="secondary">
+          <q-btn color="white" flat round dense icon="reply" @click="backToCategories()" />
           <q-toolbar-title>
             {{cat.name}}
           </q-toolbar-title>
         </q-toolbar>
-        <q-toolbar slot="header" class="q-pt-none" color="brown-6">
+        <q-toolbar slot="header" class="q-pt-none" color="secondary">
           <q-search class="full-width" v-model="search" inverted color="none" />
         </q-toolbar>
         <et-menu :menus="filterMenu"></et-menu>
-        <q-toolbar slot="footer" color="brown-6" class="row inline items-center">
+        <q-toolbar slot="footer" color="secondary" class="row inline items-center">
           <q-btn label="View Carts" />
           <q-toolbar-title class="text-right">
             $0
@@ -64,5 +64,8 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped lang="stylus">
+@import '~variables'
+  .text-white:hover
+    background-color $secondary
 </style>
