@@ -105,5 +105,7 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped lang="stylus">
+.text-modifier
+  color #616161
 </style>

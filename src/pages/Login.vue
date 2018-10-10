@@ -19,7 +19,7 @@
     </q-card-main>
     <q-card-actions>
       <div class="row justify-center" style="height:120px;width:100%;">
-        <q-btn :loading="getIsLoading" color="tertiary" label="Sign In" class="text-primary q-ma-sm col-10" @click="loginCustomer({username,password,type:'password'})">
+        <q-btn :loading="getIsLoading" color="tertiary" label="Sign In" class="text-secondary q-ma-sm col-10" @click="loginCustomer({username,password,type:'password'})">
           <q-spinner-pie slot="loading" size="25px" />
         </q-btn>
         <q-btn color="facebook" label="Sign in Facebook" @click="loginFb()" class="text-white q-ma-sm col-10" />

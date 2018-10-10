@@ -1,16 +1,16 @@
 <template>
   <q-modal v-model="opened" class="max-width-center-vh">
-    <q-modal-layout >
+    <q-modal-layout>
       <div>
-        <q-btn flat icon="close" @click="opened = false" >
-          <div class="q-ml-sm" style="text-transform: initial">{{item.title}}</div>
+        <q-btn class="modal-title" flat icon="close" @click="opened = false">
+          <div class="q-ml-sm">{{item.title}}</div>
         </q-btn>
       </div>
-      <q-carousel-slide :img-src="item.img" style="height:300px"/>
-      <div style="padding: 50px">
-        <div class="q-display-1 q-mb-md">{{item.titleContent}}</div>
-        <p>{{item.content}}</p>
-        <q-btn to="/categories" color="green" class="Order" rounded>
+      <q-carousel-slide :img-src="item.img" class="header-height"/>
+      <div class="news-detail-padding">
+        <div class="q-display-1 q-mb-md news-detail-title-color">{{item.titleContent}}</div>
+        <p class="news-detail-content-color">{{item.content}}</p>
+        <q-btn to="/categories" color="tertiary" text-color="secondary" rounded>
           <div>Order</div>
         </q-btn>
       </div>
@@ -29,5 +29,17 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped lang="stylus">
+@import '~variables'
+  .header-height
+    height 300px
+  .news-detail-padding
+    padding 50px
+  .news-detail-title-color
+    color $primary
+  .news-detail-content-color
+    color grey
+  .modal-title
+    text-transform initial
+    color $primary
 </style>
