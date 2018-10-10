@@ -4,7 +4,7 @@
       <div class="absolute-top-left custom-caption-top">
         <div class="subtitle text-white q-ml-sm q-mt-sm">{{item.subTitle}}</div>
         <div class="q-display-1 text-white q-ml-sm q-mb-sm">{{item.title}}</div>
-        <q-btn class="fixed-bottom-left q-ml-sm q-mb-sm" @click="show" :label="item.label" :class="{ hidden: item.isBtnHidden }" color="secondary" text-color="white" rounded>
+        <q-btn class="fixed-bottom-left q-ml-sm q-mb-sm bg-secondary text-white" @click="show" :label="item.label" :class="{ hidden: item.isBtnHidden }" rounded>
         </q-btn>
         <slot></slot>
       </div>

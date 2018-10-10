@@ -10,7 +10,7 @@
       <div class="news-detail-padding">
         <div class="q-display-1 q-mb-md news-detail-title-color">{{item.titleContent}}</div>
         <p class="news-detail-content-color">{{item.content}}</p>
-        <q-btn to="/categories" color="tertiary" text-color="secondary" rounded>
+        <q-btn to="/categories" color="secondary" text-color="white" rounded>
           <div>Order</div>
         </q-btn>
       </div>
@@ -42,7 +42,7 @@ export default {
   color $primary
 
 .news-detail-content-color
-  color grey
+  color $neutral
 
 .modal-title
   text-transform initial

@@ -16,11 +16,11 @@
         </q-card>
         <q-list separator class="q-pa-none">
           <q-item v-for="(modifier,index) in getRecsModifier" :key="index">
-            <q-item-main class="text-modifier">
-              <q-radio v-if="modifier.type==='size'" v-model="sizes" :val="modifier" :label="modifier.name" color="secondary" @input="onChangeModifier()" />
-              <q-checkbox v-else v-model="modifiers" :label="modifier.name" :val="modifier" color="secondary" @input="onChangeModifier()" />
+            <q-item-main class="text-secondary">
+              <q-radio v-if="modifier.type==='size'" v-model="sizes" :val="modifier" :label="modifier.name" color="primary" @input="onChangeModifier()" />
+              <q-checkbox v-else v-model="modifiers" :label="modifier.name" :val="modifier" color="primary" @input="onChangeModifier()" />
             </q-item-main>
-            <q-item-side right class="text-modifier">
+            <q-item-side right class="text-secondary">
               {{modifier.price|price}}
             </q-item-side>
           </q-item>
@@ -106,6 +106,4 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
-.text-modifier
-  color #616161
 </style>
