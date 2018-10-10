@@ -24,7 +24,6 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
-@import '~variables'
-  .news-height
-    height 300px
+.news-height
+  height 300px
 </style>

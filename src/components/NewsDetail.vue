@@ -6,7 +6,7 @@
           <div class="q-ml-sm">{{item.title}}</div>
         </q-btn>
       </div>
-      <q-carousel-slide :img-src="item.img" class="header-height"/>
+      <q-carousel-slide :img-src="item.img" class="header-height" />
       <div class="news-detail-padding">
         <div class="q-display-1 q-mb-md news-detail-title-color">{{item.titleContent}}</div>
         <p class="news-detail-content-color">{{item.content}}</p>
@@ -31,15 +31,20 @@ export default {
 </script>
 <style scoped lang="stylus">
 @import '~variables'
-  .header-height
-    height 300px
-  .news-detail-padding
-    padding 50px
-  .news-detail-title-color
-    color $primary
-  .news-detail-content-color
-    color grey
-  .modal-title
-    text-transform initial
-    color $primary
+
+.header-height
+  height 300px
+
+.news-detail-padding
+  padding 50px
+
+.news-detail-title-color
+  color $primary
+
+.news-detail-content-color
+  color grey
+
+.modal-title
+  text-transform initial
+  color $primary
 </style>

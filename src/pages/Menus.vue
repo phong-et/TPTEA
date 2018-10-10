@@ -66,6 +66,7 @@ export default {
 </script>
 <style scoped lang="stylus">
 @import '~variables'
-  .text-white:hover
-    background-color $secondary
+
+.text-white:hover
+  background-color $secondary
 </style>
