@@ -28,17 +28,17 @@ export default function({store}) {
       if (to.path === '/customer') {
         next()
         // prevent route to register page
-      } else if (to.path === '/customer/register' || to.path === '/customer/login') {
+      } else if (to.path === '/customer/register' || to.path === '/customer/login' || to.path.indexOf('admin') > 0) {
         next('/customer')
       } else next()
 
-    // user is ADMIN
+      // user is ADMIN
     } else if (typeUser === 'a') {
       // route to admin home page
       if (to.path === '/admin') next()
       else next('/admin')
 
-    // user is ANONYMOUS
+      // user is ANONYMOUS
     } else if (typeUser === false) {
       // recognize page of user by path to route
       if (to.path.indexOf('customer') > -1) {
