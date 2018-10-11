@@ -75,6 +75,5 @@ export function getUserType() {
       userType = false
       break
   }
-  console.log('userType:%s', userType)
   return userType
 }
