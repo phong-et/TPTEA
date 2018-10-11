@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import routes from './routes'
-import {isAuth} from '../util/common'
+import {getUserType} from '../util/common'
 Vue.use(VueRouter)
 
 /*
@@ -22,9 +22,9 @@ export default function({store}) {
   })
 
   Router.beforeEach((to, _, next) => {
-    let typeUser = isAuth().typeUser
+    let userType = getUserType()
     // user is CUSTOMER
-    if (typeUser === 'c') {
+    if (userType === 'c') {
       if (to.path === '/customer') {
         next()
         // prevent route to register page
@@ -33,13 +33,13 @@ export default function({store}) {
       } else next()
 
       // user is ADMIN
-    } else if (typeUser === 'a') {
+    } else if (userType === 'a') {
       // route to admin home page
       if (to.path === '/admin') next()
       else next('/admin')
 
       // user is ANONYMOUS
-    } else if (typeUser === false) {
+    } else if (userType === false) {
       // recognize page of user by path to route
       if (to.path.indexOf('customer') > -1) {
         // route to CUSTOMER login page

@@ -61,16 +61,20 @@ export const _procError = err => {
 }
 
 export function isAuth() {
+  return !!localStorage.getItem('auth-token')
+}
+
+export function getUserType() {
   let token = localStorage.getItem('auth-token')
-  let typeUser = token.substr(token.length - 1)
-  switch (typeUser) {
+  let userType = token.substr(token.length - 1)
+  switch (userType) {
     case 'a':
     case 'c':
       break
     default:
-      typeUser = false
+      userType = false
       break
   }
-  console.log('typeUser:%s', typeUser)
-  return {typeUser: typeUser}
+  console.log('userType:%s', userType)
+  return userType
 }
