@@ -16,7 +16,7 @@ const Customer = `
     username: String!
     password: String
     name: String
-    add: String
+    address: String
     phone: String
     balance: Float
     points: Int

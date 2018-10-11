@@ -30,14 +30,14 @@
       <et-validator :dirty="$v.passwordConfirm.$dirty" :show="!$v.passwordConfirm.sameAsPassword" msg="Passwords must be identical" />
 
       <q-collapsible icon="people" class="text-secondary q-collapsible" label="Optional info" left>
-        <q-input clearable v-model="fullName" float-label="Full name" class="q-mb-lg" color="secondary" />
+        <q-input clearable v-model="name" float-label="Full name" class="q-mb-lg" color="secondary" />
         <q-input clearable v-model="phone" float-label="Phone" class="q-mb-lg" color="secondary" />
         <q-input clearable v-model="address" float-label="Address" class="q-mb-lg" color="secondary" />
       </q-collapsible>
     </q-card-main>
     <q-card-actions>
       <div class="row justify-center" style="height:30px;width:100%;">
-        <q-btn :loading="getIsLoading" color="tertiary" label="Register" class="text-secondary q-ma-sm col-10" @click="registerCustomer({username, password, passwordConfirm, name, phone, address,type:'password'})">
+        <q-btn :loading="getIsLoading" color="secondary" label="Register" class="text-secondary q-ma-sm col-10" @click="registerCustomer({username, password, passwordConfirm, name, phone, address,type:'password'})">
           <q-spinner-pie slot="loading" size="25px" />
         </q-btn>
       </div>

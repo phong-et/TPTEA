@@ -11,7 +11,7 @@ async function generateLoginJwt({username}, msg = '') {
       id: user.id,
       username: user.username,
       name: user.name,
-      add: user.add,
+      address: user.address,
       phone: user.phone,
       balance: user.balance,
       points: user.points,

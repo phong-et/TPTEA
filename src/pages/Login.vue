@@ -14,12 +14,14 @@
       </div>
     </q-card-title>
     <q-card-main class="q-mb-md">
-      <q-input clearable v-model="username" float-label="Username" class="q-mb-lg" color="secondary" />
-      <q-input v-model="password" float-label="Password" color="secondary" type="password" />
+      <q-input clearable v-model="username" float-label="Username" color="secondary" :error="$v.username.$error" />
+      <et-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
+      <q-input v-model="password" float-label="Password" color="secondary" type="password" :error="$v.password.$error" />
+      <et-validator :dirty="$v.password.$dirty" :show="!$v.password.required" msg="Password is required" />
     </q-card-main>
     <q-card-actions>
       <div class="row justify-center" style="height:120px;width:100%;">
-        <q-btn :loading="getIsLoading" color="tertiary" label="Sign In" class="text-secondary q-ma-sm col-10" @click="loginCustomer({username,password,type:'password'})">
+        <q-btn :loading="getIsLoading" color="secondary" label="Sign In" class="text-secondary q-ma-sm col-10" @click="logInCustomer({username,password,type:'password'})">
           <q-spinner-pie slot="loading" size="25px" />
         </q-btn>
         <q-btn color="facebook" label="Sign in Facebook" @click="loginFb()" class="text-white q-ma-sm col-10" />
@@ -30,9 +32,14 @@
 
 <script>
 import logoData from '../assets/logoData'
+import etValidator from '../components/Validator'
+import {required} from 'vuelidate/lib/validators'
 import Vivus from 'vivus'
 import {mapActions, mapGetters} from 'vuex'
 export default {
+  components: {
+    etValidator,
+  },
   data() {
     return {
       logo: 'Digitalizer',
@@ -40,6 +47,14 @@ export default {
       username: '',
       password: '',
     }
+  },
+  validations: {
+    username: {
+      required,
+    },
+    password: {
+      required,
+    },
   },
   mounted() {
     this.startAnimation()
@@ -65,6 +80,11 @@ export default {
           }
         }
       )
+    },
+    logInCustomer(payload) {
+      this.$v.$touch()
+      if (this.$v.$error) return
+      this.loginCustomer(payload)
     },
   },
 }
