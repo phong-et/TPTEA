@@ -9,8 +9,8 @@ All notable changes to this project will be documented in this file.
 - Stylus all pages & components (maxwidth = $breakpoint-xs quasar's variable)
 - Admin Default layout & Login
 - Customer Detail Page with Sign-Out feaature
-- Validator Login form
-- Routing with new token of Admin & Customer
+- Validator Login form[@phillip](https://github.com/hemvanh/TPTEA/pull/23)
+- Routing with new token of Admin & Customer[@phillip](https://github.com/hemvanh/TPTEA/pull/24)
 ### Removed 
 - Join now button
 ### Fixed
