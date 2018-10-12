@@ -66,14 +66,7 @@ export function isAuth() {
 
 export function getUserType() {
   let token = localStorage.getItem('auth-token')
-  let userType = token.substr(token.length - 1)
-  switch (userType) {
-    case 'a':
-    case 'c':
-      break
-    default:
-      userType = false
-      break
-  }
-  return userType
+  let userTYpe = token ? token.substr(token.length - 1) : null
+  console.log('userType:%s', userTYpe)
+  return userTYpe
 }
