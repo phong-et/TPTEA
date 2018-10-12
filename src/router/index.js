@@ -33,19 +33,19 @@ export default function({store}) {
       } else {
         next()
       }
-    // user is ADMIN
+      // user is ADMIN
     } else if (userType === 'a') {
       // route to admin home page
-      if (to.path.indexOf('/admin') > -1) {
-        next()
-      } else {
+      if (to.path === '/admin/login') {
         next('/admin')
+      } else {
+        next()
       }
 
       // user is ANONYMOUS
     } else {
       // recognize page of user by path to route
-      if (to.path.indexOf('customer') > -1) {
+      if (to.path === '/customer' || to.path === '/customer/') {
         // route to CUSTOMER login page
         if (
           to.path === '/customer/register' ||
