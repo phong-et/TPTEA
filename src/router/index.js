@@ -28,7 +28,11 @@ export default function({store}) {
       if (to.path === '/customer') {
         next()
         // prevent route to register, login, all admin relate page
-      } else if (to.path === '/customer/register' || to.path === '/customer/login' || to.path.substr(0, 6) === '/admin') {
+      } else if (
+        to.path === '/customer/register' ||
+        to.path === '/customer/login' ||
+        to.path.substr(0, 6) === '/admin'
+      ) {
         next('/customer')
       } else {
         next()
@@ -44,10 +48,21 @@ export default function({store}) {
       // user is ANONYMOUS (no token)
     } else {
       // recognize page of user by path to route
-      if (to.path === '/customer' || to.path === '/customer/') {
-        // route to CUSTOMER login page
-        next('/customer/login')
-      } else if (to.path === '/admin' || to.path === '/admin/' || (to.path.substr(0, 6) === '/admin' && to.path !== '/admin/login' && to.path.length > 8)) {
+      switch (to.path) {
+        case '/customer':
+        case '/customer/':
+          next('/customer/login')
+          break
+      }
+      // if (to.path === '/customer' || to.path === '/customer/') {
+      //   // route to CUSTOMER login page
+      //   next('/customer/login')
+      // } else
+      if (
+        to.path === '/admin' ||
+        to.path === '/admin/' ||
+        (to.path.substr(0, 6) === '/admin' && to.path !== '/admin/login' && to.path.length > 8)
+      ) {
         // route to ADMIN login page
         next('/admin/login')
       } else {
