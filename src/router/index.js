@@ -27,8 +27,8 @@ export default function({store}) {
     if (userType === 'c') {
       if (to.path === '/customer') {
         next()
-        // prevent route to register page
-      } else if (to.path === '/customer/register' || to.path === '/customer/login' || to.path.indexOf('admin') > 0) {
+        // prevent route to register, login, all admin relate page
+      } else if (to.path === '/customer/register' || to.path === '/customer/login' || to.path.substr(0, 6) === '/admin') {
         next('/customer')
       } else {
         next()
@@ -36,33 +36,20 @@ export default function({store}) {
       // user is ADMIN
     } else if (userType === 'a') {
       // route to admin home page
-      if (to.path === '/admin/login') {
+      if (to.path === '/admin/login' || to.path.substr(0, 9) === '/customer') {
         next('/admin')
       } else {
         next()
       }
-
-      // user is ANONYMOUS
+      // user is ANONYMOUS (no token)
     } else {
       // recognize page of user by path to route
       if (to.path === '/customer' || to.path === '/customer/') {
         // route to CUSTOMER login page
-        if (
-          to.path === '/customer/register' ||
-          to.path === '/customer/login' ||
-          (to.path !== '/customer/login' && to.path !== '/customer/' && to.path !== '/customer') // prevent route to customer page
-        ) {
-          next()
-        } else {
-          next('/customer/login')
-        }
-      } else if (to.path === '/admin' || to.path === '/admin/') {
+        next('/customer/login')
+      } else if (to.path === '/admin' || to.path === '/admin/' || (to.path.substr(0, 6) === '/admin' && to.path !== '/admin/login' && to.path.length > 8)) {
         // route to ADMIN login page
-        if (to.path === '/admin/login') {
-          next()
-        } else {
-          next('/admin/login')
-        }
+        next('/admin/login')
       } else {
         next()
       }
