@@ -1,13 +1,8 @@
 import {ClientFunction} from 'testcafe'
-// import {Role} from 'testcafe'
-
 var log = console.log
 var testRoute = function(navTo, navExpect) {
   return async function(t) {
     const getLocation = ClientFunction(() => document.location.href)
-    // log(getLocation())
-    // log('navTo:%s', navTo)
-    // log('navExpect:%s', navExpect)
     await t.navigateTo(navTo)
     await t.expect(getLocation()).contains(navExpect)
   }
@@ -92,7 +87,3 @@ TEST_CASES.noToken.routeCustomer.forEach((nav,index) => {
 // TEST_CASES.noToken.routeAdmin.forEach(nav => {
 //   testCase(nav)
 // })
-// test(
-//   `Check if ${TEST_CASES.noToken.routeCustomer[0].navTo} -> ${TEST_CASES.noToken.routeCustomer[0].navExpect}`,
-//   testRoute(TEST_CASES.noToken.routeCustomer[0].navTo, TEST_CASES.noToken.routeCustomer[0].navExpect)
-// )
