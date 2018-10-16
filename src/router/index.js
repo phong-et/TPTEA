@@ -25,7 +25,7 @@ export default function({store}) {
     let userType = getUserType()
     // user is CUSTOMER
     if (userType === 'c') {
-      if (to.path === '/customer') {
+      if (to.path === '/customer' || to.path === '/customer/') {
         next()
         // prevent route to register, login, all admin relate page
       } else if (
