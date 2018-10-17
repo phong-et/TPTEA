@@ -7,7 +7,7 @@ const getLocalStorageItem = ClientFunction(prop => {
   return localStorage.getItem(prop)
 })
 const CUSTOMER_TOKEN = 'c'
-const ADMIN_TOKEN = 'a'
+const ADMIN_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJsb2wiLCJyb2xlcyI6IjEiLCJpYXQiOjE1Mzk3NjcyMTMsImV4cCI6MTU3MTMyNDgxM30.vDM2tYJF39dCePqHejhh2lbdHbYBS0Ae0UCeVDYnkXsa'
 const URL_PREFIX = 'http://localhost:8080/#/'
 var log = console.log
 
@@ -137,11 +137,34 @@ async function testCaseToken(nav, navIndex, token) {
 // })
 
 
-fixture`AdminToken-Admin-Routing`.page`http://localhost:8080/#/`
-  test(``, async t => {
-    await t.setTestSpeed(0.4)
+// fixture`AdminToken-Admin-Routing`.page`http://localhost:8080/#/`
+//   test(``, async t => {
+//     await t.setTestSpeed(0.4)
+//     const getLocation = ClientFunction(() => document.location.href)
+//     await setLocalStorageItem('auth-token', ADMIN_TOKEN)
+//     await t.navigateTo('#/customer')
+//     await t.expect(getLocation()).eql(URL_PREFIX + 'customer')
+//   })
+
+
+import {Role, Selector} from 'testcafe'
+const adminUser = Role('http://localhost:8080/#/admin', async t => {
+  t.setTestSpeed(0.4)
+  const txtUsername = Selector('div').withText('Username').nth(5).find('.col.q-input-target.q-no-input-spinner.ellipsis')
+  const txtPassword = Selector('div').withText('Password').nth(5).find('.col.q-input-target.q-no-input-spinner.ellipsis')
+  const btLogin = Selector('button').withText('SIGN IN')
+  await t
+    .typeText(txtUsername, 'lol')
+    .typeText(txtPassword, 'lol')
+    .click(btLogin)
+})
+var testRouteAdmin = function(navTo, navExpect) {
+  return async function(t) {
+    await t.useRole(adminUser)
     const getLocation = ClientFunction(() => document.location.href)
-    await setLocalStorageItem('auth-token', CUSTOMER_TOKEN)
-    await t.navigateTo('#/customer')
-    await t.expect(getLocation()).eql(URL_PREFIX + 'customer')
-  })
+    await t.navigateTo(navTo)
+    await t.expect(getLocation()).contains(navExpect)
+  }
+}
+fixture`AdminToken-Admin-Routing`.page`http://localhost:8080/#/`
+  test(`asas`, testRouteAdmin(TEST_CASES.adminToken.adminRouting[0].navTo,TEST_CASES.adminToken.adminRouting[0].navExpect))
