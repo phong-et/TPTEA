@@ -57,7 +57,7 @@ const TEST_CASES = {
   },
   adminToken: {
     customerRouting: [
-      // {navTo: '#/', navExpect: 'admin'},
+      {navTo: '#/', navExpect: 'admin'},
       {navTo: '#/customer', navExpect: 'admin'},
       {navTo: '#/customer/', navExpect: 'admin/'},
       {navTo: '#/customer/login', navExpect: 'admin'},
@@ -98,8 +98,8 @@ async function testCase(nav, navIndex) {
   )
 }
 async function testCaseToken(nav, navIndex, token) {
-  //log(token)
-  //log(nav)
+  // await log(token)
+  // await log(nav)
   test(
     `[${navIndex}] Check if ${nav.navTo} -> ${nav.navExpect == '' ? '/' : nav.navExpect}`,
     testRouteToken(nav.navTo, nav.navExpect, token)
@@ -127,11 +127,21 @@ async function testCaseToken(nav, navIndex, token) {
 // })
 
 // ================== TEST_CASE.adminToken =============== //
-fixture`AdminToken-Customer-Routing`.page`http://localhost:8080/#/`
-TEST_CASES.adminToken.customerRouting.forEach((nav, index) => {
-  if (index === 2) testCaseToken(nav, index, ADMIN_TOKEN)
-})
+// fixture`AdminToken-Customer-Routing`.page`http://localhost:8080/#/`
+// TEST_CASES.adminToken.customerRouting.forEach((nav, index) => {
+//   if (index === 2) testCaseToken(nav, index, ADMIN_TOKEN)
+// })
 // fixture`AdminToken-Admin-Routing`.page`http://localhost:8080/#/`
 // TEST_CASES.adminToken.adminRouting.forEach((nav, index) => {
 //   testCaseToken(nav, index, ADMIN_TOKEN)
 // })
+
+
+fixture`AdminToken-Admin-Routing`.page`http://localhost:8080/#/`
+  test(``, async t => {
+    await t.setTestSpeed(0.4)
+    const getLocation = ClientFunction(() => document.location.href)
+    await setLocalStorageItem('auth-token', CUSTOMER_TOKEN)
+    await t.navigateTo('#/customer')
+    await t.expect(getLocation()).eql(URL_PREFIX + 'customer')
+  })
