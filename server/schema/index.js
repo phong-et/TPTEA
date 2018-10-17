@@ -24,6 +24,7 @@ const RootQuery = `
     listCategories: [Category]
     listMenus(input:CategoryInput): [Menu]
     fetchModifiers(input:MenuInput): [Modify]
+    fetchCustomers: [Customer]
   }
 `
 
@@ -34,10 +35,12 @@ const RootMutation = `
     loginFb(input:LoginInput): String
     registerFb(input:RegisterInput): RegisterFbResponse
     loginAdmin(input:AdminLoginInput): String
+    deleteCustomers(input:[Int]): Int
+    updateCustomer(input:CustomerInput): Customer
   }
 `
 
 export default makeExecutableSchema({
-  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifyDef,adminDef],
-  resolvers: [customerRes, categoryRes, menuRes, modifyRes,adminRes],
+  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifyDef, adminDef],
+  resolvers: [customerRes, categoryRes, menuRes, modifyRes, adminRes],
 })

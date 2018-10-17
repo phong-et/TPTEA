@@ -2,7 +2,7 @@ import {Customer} from '../../models'
 import GraphQLDate from 'graphql-date'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import {_auth} from '../../util'
+import {_auth, _authAdmin} from '../../util'
 const SALT = 10
 async function generateLoginJwt({username}, msg = '') {
   var user = await Customer.findOne({where: {username}})
@@ -26,9 +26,13 @@ async function generateLoginJwt({username}, msg = '') {
 const resolvers = {
   Date: GraphQLDate,
   RootQuery: {
-    async getCustomer(_, __, {authCustomer}) {
-      _auth(authCustomer)
-      return await Customer.findById(authCustomer.id)
+    async getCustomer(_, __, {loggedInUser}) {
+      _auth(loggedInUser)
+      return await Customer.findById(loggedInUser.id)
+    },
+    async fetchCustomers(_, __, {loggedInUser}) {
+      _authAdmin(loggedInUser)
+      return await Customer.findAll()
     },
   },
   RootMutation: {
@@ -71,6 +75,22 @@ const resolvers = {
       }
       return await Customer.upsert(input).then(async function() {
         return generateLoginJwt(input, msgRes)
+      })
+    },
+    async deleteCustomers(_, {input}, {loggedInUser}) {
+      _authAdmin(loggedInUser)
+      return await Customer.destroy({
+        where: {
+          id: {
+            $in: input,
+          },
+        },
+      })
+    },
+    async updateCustomer(_, {input}, {loggedInUser}) {
+      _authAdmin(loggedInUser)
+      return await Customer.upsert(input).then(() => {
+        return input
       })
     },
   },

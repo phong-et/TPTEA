@@ -13,9 +13,9 @@ export function loginAdmin({commit}, payload) {
       if (data.errors) _alert(data.errors[0].message, 'warning')
       else {
         // Login successfully
-        localStorage.setItem('auth-token', data.loginAmin)
-        commit('setToken', data.login)
-        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginAmin
+        localStorage.setItem('auth-token', data.loginAdmin)
+        commit('setToken', data.loginAdmin)
+        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginAdmin
         _alert(`Logged In Successfully!`, 'positive')
         this.$router.push('/admin')
       }
