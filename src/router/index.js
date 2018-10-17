@@ -25,12 +25,14 @@ export default function({store}) {
     let userType = getUserType()
     // user is CUSTOMER
     if (userType === 'c') {
+      // route to customer home page
       if (to.path === '/customer' || to.path === '/customer/') {
         next()
-        // prevent route to register, login, all admin relate page
+        // prevent route to register, login, and all pages relate admin
       } else if (
-        to.path === '/customer/register' ||
+        to.path === '/' ||
         to.path === '/customer/login' ||
+        to.path === '/customer/register' ||
         to.path.substr(0, 6) === '/admin'
       ) {
         next('/customer')
@@ -42,14 +44,19 @@ export default function({store}) {
       // route to admin home page
       if (to.path === '/admin' || to.path === '/admin/') {
         next()
-      } else if (to.path === '/admin/login' || to.path.substr(0, 9) === '/customer') {
+        // prevent route to customer, login, categories and all pages relate customer
+      } else if (
+        to.path === '/' ||
+        to.path === '/admin/login' ||
+        to.path === '/categories' ||
+        to.path.substr(0, 9) === '/customer'
+      ) {
         next('/admin')
       } else {
         next()
       }
-      // user is ANONYMOUS (no token)
     } else {
-      // recognize page of user by path to route
+      // recognize route of custmer user
       if (to.path.substr(0, 9) === '/customer') {
         switch (to.path) {
           case '/customer/register':
@@ -62,6 +69,7 @@ export default function({store}) {
             next('/customer/login')
             break
         }
+        // recognize route of admin user
       } else if (to.path.substr(0, 6) === '/admin') {
         switch (to.path) {
           case '/admin':
@@ -77,43 +85,9 @@ export default function({store}) {
             break
         }
       } else {
-        // /home, /categories
+        // route to common page(ex: home, categories...etc)
         next()
       }
-      // switch (to.path) {
-      //   case '/customer/register':
-      //   case '/customer/register/':
-      //   case '/customer/login':
-      //   case '/categories':
-      //   case '/':
-      //     next()
-      //     break
-      //   case '/admin':
-      //   case '/admin/':
-      //     next('/admin/login')
-      //     break
-      //   case '/admin/login':
-      //   case '/admin/login/':
-      //     next()
-      //     break
-      //   default:
-      //     next('/customer/login')
-      //     break
-      // }
-      // if (to.path === '/customer' || to.path === '/customer/') {
-      //   // route to CUSTOMER login page
-      //   next('/customer/login')
-      // } else
-      // if (
-      //   to.path === '/admin' ||
-      //   to.path === '/admin/' ||
-      //   (to.path.substr(0, 6) === '/admin' && to.path !== '/admin/login' && to.path.length > 8)
-      // ) {
-      //   // route to ADMIN login page
-      //   next('/admin/login')
-      // } else {
-      //   next()
-      // }
     }
   })
 
