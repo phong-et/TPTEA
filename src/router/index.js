@@ -40,7 +40,9 @@ export default function({store}) {
       // user is ADMIN
     } else if (userType === 'a') {
       // route to admin home page
-      if (to.path === '/admin/login' || to.path.substr(0, 9) === '/customer') {
+      if (to.path === '/admin' || to.path === '/admin/') {
+        next()
+      } else if (to.path === '/admin/login' || to.path.substr(0, 9) === '/customer' || to.path === '/') {
         next('/admin')
       } else {
         next()
