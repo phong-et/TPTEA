@@ -5,6 +5,7 @@ import pgLogin from 'pages/Login'
 import pgAdminLogin from 'pages/admin/Login'
 import pgHome from 'pages/Home'
 import pgAdminHome from 'pages/admin/Home'
+import pgAdminGiftCard from 'pages/admin/GiftCards'
 import pgCategories from 'pages/Categories'
 import pgMenus from 'pages/Menus'
 import pgStores from 'pages/Stores'
@@ -69,6 +70,10 @@ const routes = [
       {
         path: '',
         component: pgAdminHome,
+      },
+      {
+        path: '/GiftCards',
+        component: pgAdminGiftCard,
       },
     ],
   },
