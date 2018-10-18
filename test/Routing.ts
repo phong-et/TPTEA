@@ -1,5 +1,6 @@
 import {ClientFunction} from 'testcafe'
 const setLocalStorageItem = ClientFunction((prop, value) => {
+  // temp fix for "ResizeObserver loop limit exceeded" in Chrome
   window['ResizeObserver'] = undefined
   localStorage.setItem(prop, value)
 })
