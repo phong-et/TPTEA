@@ -10,9 +10,8 @@ All notable changes to this project will be documented in this file.
 - Admin Default layout & Login
 - Customer Detail Page with Sign-Out feaature
 - Validator Login form[@phillip](https://github.com/hemvanh/TPTEA/pull/23)
-- Routing with new token of Admin & Customer[@phillip](https://github.com/hemvanh/TPTEA/pull/24)
-- Test case routing (No-Token, TokenAdmin, TokenCustomer)
-- Automation Test Routing (Testcafe framework)
+- Routing algorithm with new token of Admin & Customer[@phillip](https://github.com/hemvanh/TPTEA/pull/33)
+- Automation test routing [@phillip](https://github.com/hemvanh/TPTEA/pull/33)
 - Schema Admin (res loginAdmin,def type Admin,input AdminLoginInput)[@john]
 ### Removed 
 - Join now button
