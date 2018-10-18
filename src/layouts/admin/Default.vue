@@ -27,9 +27,9 @@
           <q-item-side icon="shopping_basket" />
           <q-item-main label="Sản Phẩm" />
         </q-item>
-        <q-item to="/suppliers">
+        <q-item to="/admin/giftcards">
           <q-item-side icon="store" />
-          <q-item-main label="Nhà Cung Cấp" />
+          <q-item-main label="Gift Cards" />
         </q-item>
         <q-item to="/clients">
           <q-item-side icon="people" />

@@ -72,7 +72,7 @@ const routes = [
         component: pgAdminHome,
       },
       {
-        path: '/GiftCards',
+        path: 'giftcards',
         component: pgAdminGiftCard,
       },
     ],
