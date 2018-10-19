@@ -5,7 +5,8 @@ import pgLogin from 'pages/Login'
 import pgAdminLogin from 'pages/admin/Login'
 import pgHome from 'pages/Home'
 import pgAdminHome from 'pages/admin/Home'
-import pgAdminGiftCard from 'pages/admin/QRCode'
+import pgAdminGiftCard from 'pages/admin/GiftCards'
+import pgAdminQRCode from 'pages/admin/QRCode'
 import pgCategories from 'pages/Categories'
 import pgMenus from 'pages/Menus'
 import pgStores from 'pages/Stores'
@@ -74,6 +75,10 @@ const routes = [
       {
         path: 'giftcards',
         component: pgAdminGiftCard,
+      },
+      {
+        path: 'qrpage',
+        component: pgAdminQRCode,
       },
     ],
   },

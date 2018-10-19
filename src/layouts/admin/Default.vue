@@ -23,9 +23,9 @@
 
     <q-layout-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
       <q-list no-border link inset-delimiter>
-        <q-item to="/products">
+        <q-item to="admin/qrpage">
           <q-item-side icon="shopping_basket" />
-          <q-item-main label="Sản Phẩm" />
+          <q-item-main label="Test Scan QR" />
         </q-item>
         <q-item to="/admin/giftcards">
           <q-item-side icon="store" />
