@@ -4,6 +4,10 @@
     <q-card-main class="q-mb-md">
       <q-input clearable v-model="codeQR" float-label="QR Code" color="sencondary" />
       <q-btn color="amber-3" label="Scan QR Code" class="text-brown-6 q-ma-sm col-10" @click="scanQRCode()"></q-btn>
+      <QrcodeReader @decode="onDecode" @init="onInit">
+        <div class="decoded-content">{{ codeQR }}</div>
+        <LoadingIndicator v-show="loading" />
+      </QrcodeReader>
     </q-card-main>
     <q-modal v-model="opened" maximized>
       <q-modal-layout>
@@ -11,10 +15,7 @@
           <q-btn class="modal-title" flat icon="close" @click="opened = false"></q-btn>
         </div>
         <div>
-          <QrcodeReader @decode="onDecode" @init="onInit">
-            <div class="decoded-content">{{ codeQR }}</div>
-            <LoadingIndicator v-show="loading" />
-          </QrcodeReader>
+
         </div>
       </q-modal-layout>
     </q-modal>
