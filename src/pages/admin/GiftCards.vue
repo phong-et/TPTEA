@@ -3,20 +3,14 @@
     <h4 class="q-ma-xl">Welcome to Gift Cards page</h4>
     <q-card-main class="q-mb-md">
       <q-input clearable v-model="codeQR" float-label="QR Code" color="sencondary" />
-      <q-btn color="amber-3" label="Scan QR Code" class="text-brown-6 q-ma-sm col-10" @click="scanQRCode()"></q-btn>
-      <QrcodeReader @decode="onDecode" @init="onInit">
-        <div class="decoded-content">{{ codeQR }}</div>
-        <LoadingIndicator v-show="loading" />
-      </QrcodeReader>
+      <q-btn color="amber-3" label="Scan QR Code" class="text-brown-6 q-ma-sm col-10" @click="openSanner()"></q-btn>
     </q-card-main>
-    <q-modal v-model="opened" maximized>
+    <q-modal v-model="opened" maximized @show="loadScanner()">
       <q-modal-layout>
         <div>
-          <q-btn class="modal-title" flat icon="close" @click="opened = false"></q-btn>
+          <q-btn class="modal-title" flat icon="close" @click="closeModal()"></q-btn>
         </div>
-        <div>
-
-        </div>
+        <component v-bind:is="scanner"></component>
       </q-modal-layout>
     </q-modal>
   </div>
@@ -25,23 +19,31 @@
 <script>
 import {QrcodeReader} from 'vue-qrcode-reader'
 import InitHandler from '../../mixins/InitHandler'
+import ScannerQRCode from '../../components/admin/qrcode/TheDecodeAllDemo'
 export default {
-  components: {QrcodeReader},
-
+  components: {QrcodeReader, ScannerQRCode},
   mixins: [InitHandler],
   data() {
     return {
       opened: false,
       codeQR: '',
+      scanner: null,
     }
   },
   methods: {
-    scanQRCode() {
+    loadScanner() {
+      this.scanner = this.ScannerQRCode
+    },
+    openSanner() {
       this.opened = true
     },
     onDecode(content) {
       this.codeQR = content
       this.opened = false
+    },
+    closeModal() {
+      this.opened = false
+      this.scanner = null
     },
   },
 }
