@@ -1,29 +1,40 @@
 <template>
   <div>
-    <label>Demo Scanner QRCode</label>
-    <q-input clearable v-model="codeQR" float-label="QR Code" color="sencondary" placeholder="Please move camera focus to qr code image" />
-    <QrcodeReader @decode="onDecode" @init="onInit">
-      <div class="decoded-content">{{ content }}</div>
-      <LoadingIndicator v-show="loading" />
-    </QrcodeReader>
+    <h6>Demo Scanner QRCode</h6>
+    <q-card-actions>
+      <q-input v-model="codeQR" class="col-11" float-label="QR Code" color="sencondary" placeholder="Please move camera focus to qr code image" /><br />
+      <q-btn color="secondary" label="Load Scanner" class="text-secondary q-ma-sm col-3" @click="loadScanner()"></q-btn>
+      <q-btn color="secondary" label="Detroy Scanner" class="text-secondary q-ma-sm col-3" @click="detroyScanner()"></q-btn>
+    </q-card-actions>
+    <div>
+      <component ref="scanner" v-bind:is="currentQRCodeScanner"></component>
+    </div>
   </div>
 </template>
-
 <script>
-import {QrcodeReader} from 'vue-qrcode-reader'
 import QRCodeInitHandler from '../../mixins/QRCodeInitHandler'
+import QRCodeScanner from '../../components/admin/qrcode/QRCodeScanner'
 export default {
-  components: {QrcodeReader},
+  components: {QRCodeScanner},
   mixins: [QRCodeInitHandler],
   data() {
     return {
       codeQR: '',
+      currentQRCodeScanner: null,
     }
   },
   methods: {
     onDecode(content) {
       this.codeQR = content
-      this.opened = false
+    },
+    detroyScanner() {
+      // this.$refs.scanner.$destroy()
+      this.currentQRCodeScanner = null
+      console.log(this.$refs.scanner)
+    },
+    loadScanner() {
+      this.currentQRCodeScanner = QRCodeScanner
+      console.log(this.$refs.scanner)
     },
   },
 }
