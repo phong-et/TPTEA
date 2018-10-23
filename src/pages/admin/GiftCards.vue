@@ -11,10 +11,10 @@
 
 <script>
 import {QrcodeReader} from 'vue-qrcode-reader'
-import InitHandler from '../../mixins/InitHandler'
+import QRCodeInitHandler from '../../mixins/QRCodeInitHandler'
 export default {
   components: {QrcodeReader},
-  mixins: [InitHandler],
+  mixins: [QRCodeInitHandler],
   data() {
     return {
       codeQR: '',
