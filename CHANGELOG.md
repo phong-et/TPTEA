@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Automation test routing [@phillip](https://github.com/hemvanh/TPTEA/pull/33)
 - Schema Admin (res loginAdmin,def type Admin,input AdminLoginInput)[@john]
 - Demo QR code scanner
+- Admin Login validator
 ### Removed 
 - Join now button
 ### Fixed
@@ -43,3 +44,4 @@ All notable changes to this project will be documented in this file.
 - Categories Listing page
 - Logins fields validation
 - Login admin
+- Fetch admin -> fetch Admin info (username) and show to admin default logged in page

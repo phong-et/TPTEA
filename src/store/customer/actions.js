@@ -1,5 +1,5 @@
-import {_procError, _ax, _post, _alert, _get} from '../../util/common'
-
+import {_procError, _ax, _post, _alert, _get, _procAlert} from '../../util/common'
+import _ from 'lodash'
 export function loginCustomer({commit}, payload) {
   commit('setIsLoading', true)
   _post(
@@ -141,5 +141,109 @@ export const fetchCustomer = ({commit}) => {
     })
     .catch(err => {
       _procError(err)
+    })
+}
+
+export const fetchCustomers = ({commit}) => {
+  commit('setIsLoading', true)
+  _get(`{
+    fetchCustomers {
+      id
+      name
+      username
+      password
+      address
+      phone
+      balance
+      points
+    }
+  }`)
+    .then(({data}) => {
+      _procAlert(data)
+      commit('setRecs', data.fetchCustomers)
+      commit('setIsLoading', false)
+    })
+    .catch(err => {
+      _procError(err)
+      commit('setIsLoading', false)
+    })
+}
+
+export const delCustomers = ({commit, getters}) => {
+  commit('setIsLoading', true)
+  let ids = Array.from(getters.getSelected, customer => customer.id)
+  _post(
+    ids,
+    `mutation ($input: [Int]) {
+      deleteCustomers(input: $input)
+    }`
+  ).then(({data}) => {
+    _procAlert(data)
+    commit('setIsLoading', false)
+    _.remove(getters.getRecs, rec => {
+      return ids.includes(rec.id)
+    })
+    // clear selection
+    commit('setSelected', [])
+    // reactive the grid with new recs
+    commit('setRecs', _.clone(getters.getRecs))
+  })
+}
+
+export const updateCustomer = ({commit, getters}) => {
+  commit('setIsLoading', true)
+  _post(
+    _.omit(getters.getEditingRec, ['__index']),
+    `mutation ($input: CustomerInput) {
+      updateCustomer(input: $input) {
+        id
+        username
+        password
+        name
+        address
+        phone
+        balance
+        points
+      }
+    }`
+  )
+    .then(({data}) => {
+      _procAlert(data)
+      commit('setIsLoading', false)
+      commit('setIsModalOpened', false)
+    })
+    .catch(err => {
+      _procError(err)
+      commit('setIsLoading', false)
+    })
+}
+
+export function createCustomer({commit, getters}) {
+  commit('setIsLoading', true)
+  _post(
+    getters.getEditingRec,
+    `mutation ($input: CustomerInput) {
+      createCustomer(input: $input) {
+        id
+        username
+        password
+        name
+        address
+        phone
+        balance
+        points
+      }
+    }`
+  )
+    .then(({data}) => {
+      commit('setIsLoading', false)
+      _procAlert(data)
+      commit('setIsModalOpened', false)
+      getters.getRecs.push(data.createCustomer)
+      commit('setRecs', _.clone(getters.getRecs))
+    })
+    .catch(err => {
+      _procError(err)
+      commit('setIsLoading', false)
     })
 }
