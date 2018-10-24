@@ -1,5 +1,5 @@
 <template>
-  <QrcodeReader @decode="onDecode" @init="onInit">
+  <QrcodeReader ref="scanner" @decode="onDecode" @init="onInit">
     <div class="decoded-content">{{ content }}</div>
     <LoadingIndicator v-show="loading" />
   </QrcodeReader>
