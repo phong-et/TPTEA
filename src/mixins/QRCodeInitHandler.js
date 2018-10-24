@@ -1,4 +1,4 @@
-import LoadingIndicator from '../components/admin/qrcode/LoadingIndicator'
+import LoadingIndicator from '../components/qrcode/QRCodeLoadingIndicator'
 export default {
   components: {LoadingIndicator},
   data() {

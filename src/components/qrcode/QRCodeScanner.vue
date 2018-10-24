@@ -6,7 +6,7 @@
 </template>
 <script>
 import {QrcodeReader} from 'vue-qrcode-reader'
-import QRCodeInitHandler from '../../../mixins/QRCodeInitHandler'
+import QRCodeInitHandler from '../../mixins/QRCodeInitHandler'
 export default {
   components: {QrcodeReader},
   mixins: [QRCodeInitHandler],
@@ -19,7 +19,7 @@ export default {
     onDecode(content) {
       this.content = content
       this.pause = true
-      this.$emit('decoded', content)
+      this.$emit('scanned', content)
     },
   },
 }

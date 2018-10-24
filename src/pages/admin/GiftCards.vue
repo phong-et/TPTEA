@@ -11,14 +11,14 @@
           <q-btn ref="btnCloseScanner" class="modal-title" flat icon="close" @click="detroyScanner()"></q-btn>
         </div>
         <div>
-          <component @decoded="getCode" ref="scanner" v-bind:is="currentQRCodeScanner"></component>
+          <component @scanned="receiveScannerCode" ref="scanner" v-bind:is="currentQRCodeScanner"></component>
         </div>
       </q-modal-layout>
     </q-modal>
   </div>
 </template>
 <script>
-import QRCodeScanner from '../../components/admin/qrcode/QRCodeScanner'
+import QRCodeScanner from '../../components/qrcode/QRCodeScanner'
 export default {
   components: {QRCodeScanner},
   data() {
@@ -29,7 +29,7 @@ export default {
     }
   },
   methods: {
-    getCode(code) {
+    receiveScannerCode(code) {
       this.codeQR = code
       this.$refs.btnCloseScanner.click()
     },
