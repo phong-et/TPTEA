@@ -4,37 +4,42 @@
       <h5>Demo Scanner QRCode</h5>
       <q-input v-model="codeQR" class="col-11" float-label="QR Code" color="sencondary" /><br />
       <q-btn color="secondary" label="Load Scanner" class="text-secondary q-ma-sm col-3" @click="loadScanner()"></q-btn>
-      <q-btn color="secondary" label="Detroy Scanner" class="text-secondary q-ma-sm col-3" @click="detroyScanner()"></q-btn>
     </q-card-actions>
-    <div ref="scannerContainer">
-      <!-- <component ref="scanner" v-bind:is="currentQRCodeScanner"></component> -->
-    </div>
+    <q-modal v-model="openedScanner" maximized>
+      <q-modal-layout>
+        <div>
+          <q-btn ref="btnCloseScanner" class="modal-title" flat icon="close" @click="detroyScanner()"></q-btn>
+        </div>
+        <div>
+          <component @decoded="getCode" ref="scanner" v-bind:is="currentQRCodeScanner"></component>
+        </div>
+      </q-modal-layout>
+    </q-modal>
   </div>
 </template>
 <script>
 import QRCodeScanner from '../../components/admin/qrcode/QRCodeScanner'
-import Vue from 'vue'
 export default {
   components: {QRCodeScanner},
   data() {
     return {
       codeQR: '',
+      openedScanner: false,
       currentQRCodeScanner: null,
     }
   },
   methods: {
+    getCode(code) {
+      this.codeQR = code
+      this.$refs.btnCloseScanner.click()
+    },
     detroyScanner() {
-      this.$refs.scanner.$destroy()
-      // this.currentQRCodeScanner = null
-      console.log(this.$refs.scanner)
+      this.openedScanner = false
+      this.currentQRCodeScanner = null
     },
     loadScanner() {
-      // this.currentQRCodeScanner = QRCodeScanner
-      var ComponentClass = Vue.extend(QRCodeScanner)
-      var instance = new ComponentClass()
-      instance.$mount()
-      this.$refs.scannerContainer.appendChild(instance.$el)
-      console.log(this.$refs.scanner)
+      this.openedScanner = true
+      this.currentQRCodeScanner = QRCodeScanner
     },
   },
 }

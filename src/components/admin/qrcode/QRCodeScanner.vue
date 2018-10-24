@@ -18,6 +18,8 @@ export default {
   methods: {
     onDecode(content) {
       this.content = content
+      this.pause = true
+      this.$emit('decoded', content)
     },
   },
 }
@@ -29,8 +31,7 @@ export default {
   left 0
   right 0
   max-width 100%
-  color #fff
+  color #000
   font-weight bold
   padding 10px
-  background-color rgba(0, 0, 0, 0.5)
 </style>
