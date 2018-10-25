@@ -23,7 +23,7 @@
       <q-btn color="secondary" label="Scan QR Code" icon="print" class="q-ma-sm col-6" @click="openScanner()"></q-btn>
     </div>
     <div class="row justify-center q-mt-lg">
-      <q-btn color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-4" @click="apply()"></q-btn>
+      <q-btn :disable="!haveGiftCode()" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-4" @click="apply()"></q-btn>
     </div>
     <q-modal v-model="openedScanner" maximized>
       <q-modal-layout>
@@ -67,6 +67,9 @@ export default {
     },
     apply() {
       alert('apply')
+    },
+    haveGiftCode() {
+      return this.giftCardCode !== ''
     },
   },
 }
