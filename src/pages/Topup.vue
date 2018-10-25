@@ -23,7 +23,7 @@
       <q-btn color="secondary" label="Scan QR Code" icon="print" class="q-ma-sm col-6" @click="openScanner()"></q-btn>
     </div>
     <div class="row justify-center q-mt-lg">
-      <q-btn :disable="!haveGiftCode()" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-4" @click="apply()"></q-btn>
+      <q-btn :disable="!haveGiftCode()" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-4" @click="applyGiftCard()"></q-btn>
     </div>
     <q-modal v-model="openedScanner" maximized>
       <q-modal-layout>
@@ -39,8 +39,9 @@
 </template>
 <script>
 import QRCodeScanner from '../components/qrcode/QRCodeScanner'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
+  name: 'PageTopup',
   components: {QRCodeScanner},
   data() {
     return {
@@ -53,6 +54,7 @@ export default {
     ...mapGetters('customer', ['getCustomer']),
   },
   methods: {
+    ...mapActions('giftcard', ['updateGiftCard']),
     receiveScannerCode(code) {
       this.giftCardCode = code
       this.closeScanner()
@@ -65,8 +67,11 @@ export default {
       this.openedScanner = true
       this.currentQRCodeScanner = QRCodeScanner
     },
-    apply() {
-      alert('apply')
+    applyGiftCard() {
+      if (this.haveGiftCode()) {
+        this.updateGiftCard(this.giftCardCode)
+        alert('apply')
+      }
     },
     haveGiftCode() {
       return this.giftCardCode !== ''
