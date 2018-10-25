@@ -8,7 +8,7 @@
     <q-modal v-model="openedScanner" maximized>
       <q-modal-layout>
         <div>
-          <q-btn ref="btnCloseScanner" class="modal-title" flat icon="close" @click="closeScanner()"></q-btn>
+          <q-btn class="modal-title" flat icon="close" @click="closeScanner()"></q-btn>
         </div>
         <div>
           <component @scanned="receiveScannerCode" ref="scanner" v-bind:is="currentQRCodeScanner"></component>
@@ -31,7 +31,7 @@ export default {
   methods: {
     receiveScannerCode(code) {
       this.codeQR = code
-      this.$refs.btnCloseScanner.click()
+      this.closeScanner()
     },
     closeScanner() {
       this.openedScanner = false
