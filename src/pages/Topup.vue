@@ -6,7 +6,7 @@
       <q-item-side icon="attach_money" />
       <q-item-main label="Balance Amout" />
       <q-item-side right>
-        <q-item-tile color="secondary">$100</q-item-tile>
+        <q-item-tile color="secondary">$ {{getCustomer.balance}}</q-item-tile>
       </q-item-side>
     </q-item>
     <div class="row justify-center">
@@ -35,13 +35,11 @@
         </div>
       </q-modal-layout>
     </q-modal>
-    <q-card-main class="q-mb-md q-pt-none">
-
-    </q-card-main>
   </q-card>
 </template>
 <script>
 import QRCodeScanner from '../components/qrcode/QRCodeScanner'
+import {mapGetters} from 'vuex'
 export default {
   components: {QRCodeScanner},
   data() {
@@ -50,6 +48,9 @@ export default {
       openedScanner: false,
       currentQRCodeScanner: null,
     }
+  },
+  computed: {
+    ...mapGetters('customer', ['getCustomer']),
   },
   methods: {
     receiveScannerCode(code) {
