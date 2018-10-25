@@ -1,22 +1,18 @@
 <template>
   <q-card square class="center">
     <q-card-media>
-      <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px">
-      </svg>
     </q-card-media>
-    <q-list no-border class="q-mt-md q-pt-none">
-      <q-item class="q-pt-md q-pb-md">
-        <q-item-side icon="attach_money" />
-        <q-item-main label="Balance Amout" />
-        <q-item-side right>
-          <q-item-tile color="secondary">$100</q-item-tile>
-        </q-item-side>
-      </q-item>
-    </q-list>
-    <div class="row justify-center q-mt-lg">
-      <q-input v-model="giftCardCode" placeholder="Type gift card code" class="q-ma-sm col-10" inverted color="tertiary" />
+    <q-item class="q-pt-md q-pb-md">
+      <q-item-side icon="attach_money" />
+      <q-item-main label="Balance Amout" />
+      <q-item-side right>
+        <q-item-tile color="secondary">$100</q-item-tile>
+      </q-item-side>
+    </q-item>
+    <div class="row justify-center">
+      <q-input v-model="giftCardCode" placeholder="Type gift card code" class="q-ma-sm col-11" inverted color="tertiary" />
     </div>
-    <div class="row justify-center q-mt-md">
+    <div class="row justify-center">
       <div class="col-10 row items-center text-primary">
         <hr class="q-hr col-4">
         or
@@ -27,7 +23,7 @@
       <q-btn color="secondary" label="Scan QR Code" icon="print" class="q-ma-sm col-6" @click="openScanner()"></q-btn>
     </div>
     <div class="row justify-center q-mt-lg">
-      <q-btn color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-4" @click="openScanner()"></q-btn>
+      <q-btn color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-4" @click="apply()"></q-btn>
     </div>
     <q-modal v-model="openedScanner" maximized>
       <q-modal-layout>
@@ -68,6 +64,9 @@ export default {
       this.openedScanner = true
       this.currentQRCodeScanner = QRCodeScanner
     },
+    apply() {
+      alert('apply')
+    },
   },
 }
 </script>
@@ -81,7 +80,7 @@ export default {
 .q-card-media
   background url('~assets/login_banner.png') no-repeat center center
   background-size cover
-  height 230px
+  height 150px
   padding 40px 0
 
 .center
