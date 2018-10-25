@@ -3,12 +3,12 @@
     <q-card-actions>
       <h5>Demo Scanner QRCode</h5>
       <q-input v-model="codeQR" class="col-11" float-label="QR Code" color="sencondary" /><br />
-      <q-btn color="secondary" label="Load Scanner" class="text-secondary q-ma-sm col-3" @click="loadScanner()"></q-btn>
+      <q-btn color="secondary" label="Open Scanner" class="text-secondary q-ma-sm col-3" @click="openScanner()"></q-btn>
     </q-card-actions>
     <q-modal v-model="openedScanner" maximized>
       <q-modal-layout>
         <div>
-          <q-btn ref="btnCloseScanner" class="modal-title" flat icon="close" @click="detroyScanner()"></q-btn>
+          <q-btn ref="btnCloseScanner" class="modal-title" flat icon="close" @click="closeScanner()"></q-btn>
         </div>
         <div>
           <component @scanned="receiveScannerCode" ref="scanner" v-bind:is="currentQRCodeScanner"></component>
@@ -33,11 +33,11 @@ export default {
       this.codeQR = code
       this.$refs.btnCloseScanner.click()
     },
-    detroyScanner() {
+    closeScanner() {
       this.openedScanner = false
       this.currentQRCodeScanner = null
     },
-    loadScanner() {
+    openScanner() {
       this.openedScanner = true
       this.currentQRCodeScanner = QRCodeScanner
     },
