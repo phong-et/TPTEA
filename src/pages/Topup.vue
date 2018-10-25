@@ -1,11 +1,20 @@
 <template>
-  <q-card square class="et-login center">
+  <q-card square class="center">
     <q-card-media>
-      <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo">
+      <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px">
       </svg>
     </q-card-media>
+    <q-list no-border class="q-mt-md q-pt-none">
+      <q-item class="q-pt-md q-pb-md">
+        <q-item-side icon="attach_money" />
+        <q-item-main label="Balance Amout" />
+        <q-item-side right>
+          <q-item-tile color="secondary">$100</q-item-tile>
+        </q-item-side>
+      </q-item>
+    </q-list>
     <div class="row justify-center q-mt-lg">
-      <q-input clearable v-model="giftCardCode" float-label="Gift card code" color="secondary" />
+      <q-input v-model="giftCardCode" placeholder="Type gift card code" class="q-ma-sm col-10" inverted color="tertiary" />
     </div>
     <div class="row justify-center q-mt-md">
       <div class="col-10 row items-center text-primary">
@@ -15,7 +24,10 @@
       </div>
     </div>
     <div class="row justify-center q-mt-lg">
-      <q-btn color="secondary" label="Scan QR Code" class="text-secondary q-ma-sm col-3" @click="openScanner()"></q-btn>
+      <q-btn color="secondary" label="Scan QR Code" icon="print" class="q-ma-sm col-6" @click="openScanner()"></q-btn>
+    </div>
+    <div class="row justify-center q-mt-lg">
+      <q-btn color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-4" @click="openScanner()"></q-btn>
     </div>
     <q-modal v-model="openedScanner" maximized>
       <q-modal-layout>
@@ -33,20 +45,19 @@
   </q-card>
 </template>
 <script>
-import Vivus from 'vivus'
-import QRCodeScanner from '../../components/qrcode/QRCodeScanner'
+import QRCodeScanner from '../components/qrcode/QRCodeScanner'
 export default {
   components: {QRCodeScanner},
   data() {
     return {
-      codeQR: '',
+      giftCardCode: '',
       openedScanner: false,
       currentQRCodeScanner: null,
     }
   },
   methods: {
     receiveScannerCode(code) {
-      this.codeQR = code
+      this.giftCardCode = code
       this.closeScanner()
     },
     closeScanner() {
@@ -65,6 +76,7 @@ export default {
 
 .q-card
   width $qcardWidth
+  height 100%
 
 .q-card-media
   background url('~assets/login_banner.png') no-repeat center center
@@ -79,9 +91,6 @@ export default {
 @media (max-width: $breakpoint-xs)
   .et-login
     width 100%
-
-  .q-card-actions
-    height calc(100vh - 527px) !important
 
 @media (min-width: $breakpoint-xs)
   .q-card-actions
