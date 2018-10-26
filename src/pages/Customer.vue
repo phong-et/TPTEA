@@ -19,7 +19,7 @@
         </q-item-side>
       </q-item>
       <q-item class="q-pt-md q-pb-md" to="/customer/topup" link>
-        <q-item-side icon="attach_money" />
+        <q-item-side icon="credit_card" />
         <q-item-main label="Topup" />
         <q-item-side right icon="keyboard_arrow_right" />
       </q-item>
