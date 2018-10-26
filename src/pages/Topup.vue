@@ -1,7 +1,6 @@
 <template>
   <q-card square class="center">
-    <q-card-media>
-    </q-card-media>
+    <q-card-media></q-card-media>
     <q-item class="q-pt-md q-pb-md col-11">
       <q-item-side icon="attach_money" />
       <q-item-main label="Balance Amout" />
@@ -95,15 +94,7 @@ export default {
   margin auto
   display block
 
-@media (max-width: $breakpoint-xs)
-  .et-login
-    width 100%
-
 @media (min-width: $breakpoint-xs)
   .q-card-actions
     height 240px !important
-
-.q-collapsible
-  margin-top 30px
-  padding 0
 </style>
