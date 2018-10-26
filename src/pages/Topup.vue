@@ -2,7 +2,7 @@
   <q-card square class="center">
     <q-card-media>
     </q-card-media>
-    <q-item class="q-pt-md q-pb-md">
+    <q-item class="q-pt-md q-pb-md col-11">
       <q-item-side icon="attach_money" />
       <q-item-main label="Balance Amout" />
       <q-item-side right>
@@ -19,11 +19,11 @@
         <hr class="q-hr col-4">
       </div>
     </div>
-    <div class="row justify-center q-mt-lg">
-      <q-btn color="secondary" label="Scan QR Code" icon="image_search" class="q-ma-sm col-6" @click="openScanner()"></q-btn>
+    <div class="row justify-center">
+      <q-btn color="secondary" label="Scan QR Code" icon="center_focus_strong" class="q-ma-sm col-11" @click="openScanner()"></q-btn>
     </div>
     <div class="row justify-center q-mt-lg">
-      <q-btn :disable="!haveGiftCode()" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-4" @click="applyGiftCard()"></q-btn>
+      <q-btn :disable="!haveGiftCode()" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-11" @click="applyGiftCard()"></q-btn>
     </div>
     <q-modal v-model="openedScanner" maximized>
       <q-modal-layout>
@@ -70,7 +70,6 @@ export default {
     applyGiftCard() {
       if (this.haveGiftCode()) {
         this.updateGiftCard(this.giftCardCode)
-        alert('apply')
       }
     },
     haveGiftCode() {
