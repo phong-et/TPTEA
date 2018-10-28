@@ -9,7 +9,7 @@
       </q-item-side>
     </q-item>
     <div class="row justify-center">
-      <q-input v-model="giftCardCode" placeholder="Type gift card code" class="q-ma-sm col-11" inverted color="tertiary" />
+      <q-input v-model="giftCardCode" placeholder="Type gift card code" @focus="clearGiftCardCode()" :class=classGiftCardCode inverted :color="colorGiftCardCode" />
     </div>
     <div class="row justify-center">
       <div class="col-10 row items-center text-primary">
@@ -22,15 +22,15 @@
       <q-btn color="secondary" label="Scan QR Code" icon="center_focus_strong" class="q-ma-sm col-11" @click="openScanner()"></q-btn>
     </div>
     <div class="row justify-center q-mt-lg">
-      <q-btn :disable="!haveGiftCode()" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-11" @click="applyGiftCard()"></q-btn>
+      <q-btn :disable="!haveGiftCardCode" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-11" @click="applyGiftCard()"></q-btn>
     </div>
-    <q-modal v-model="openedScanner" maximized>
+    <q-modal v-model="scannerStarted" maximized>
       <q-modal-layout>
         <div>
           <q-btn class="modal-title" flat icon="close" @click="closeScanner()"></q-btn>
         </div>
         <div>
-          <component @scanned="receiveScannerCode" ref="scanner" v-bind:is="currentQRCodeScanner"></component>
+          <component @scanned="receiveScannerCode" ref="scanner" v-bind:is="theScanner"></component>
         </div>
       </q-modal-layout>
     </q-modal>
@@ -45,34 +45,50 @@ export default {
   data() {
     return {
       giftCardCode: '',
-      openedScanner: false,
-      currentQRCodeScanner: null,
+
+      scannerStarted: false,
+      theScanner: null,
     }
   },
   computed: {
     ...mapGetters('customer', ['getCustomer']),
+    haveGiftCardCode() {
+      return this.giftCardCode !== ''
+    },
+    colorGiftCardCode() {
+      return this.giftCardCode === '' ? 'tertiary' : 'tertiarylight'
+    },
+    classGiftCardCode() {
+      return this.giftCardCode === '' ? 'q-ma-sm col-11' : 'q-ma-sm col-11 text-secondary'
+    },
   },
   methods: {
     ...mapActions('giftcard', ['updateGiftCard']),
+    clearGiftCardCode() {
+      this.giftCardCode = ''
+    },
+    setGiftCardCode(code) {
+      setTimeout(() => {
+        this.giftCardCode = code
+      }, 250)
+    },
     receiveScannerCode(code) {
-      this.giftCardCode = code
+      this.setGiftCardCode(code)
       this.closeScanner()
     },
     closeScanner() {
-      this.openedScanner = false
-      this.currentQRCodeScanner = null
+      this.scannerStarted = false
+      this.theScanner = null
     },
     openScanner() {
-      this.openedScanner = true
-      this.currentQRCodeScanner = QRCodeScanner
+      this.clearGiftCardCode()
+      this.scannerStarted = true
+      this.theScanner = QRCodeScanner
     },
     applyGiftCard() {
-      if (this.haveGiftCode()) {
+      if (this.haveGiftCardCode) {
         this.updateGiftCard(this.giftCardCode)
       }
-    },
-    haveGiftCode() {
-      return this.giftCardCode !== ''
     },
   },
 }
@@ -97,4 +113,10 @@ export default {
 @media (min-width: $breakpoint-xs)
   .q-card-actions
     height 240px !important
+
+.bg-tertiarylight
+  background-color lighten($tertiary, 50%)
+
+.text-secondary
+  color $primary !important
 </style>
