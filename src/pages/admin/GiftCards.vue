@@ -15,12 +15,14 @@
         </div>
       </q-modal-layout>
     </q-modal>
+    <create-gift-card-modal type="giftcard"></create-gift-card-modal>
   </div>
 </template>
 <script>
+import CreateGiftCardModal from '../../components/CreateGiftCardModal'
 import QRCodeScanner from '../../components/qrcode/QRCodeScanner'
 export default {
-  components: {QRCodeScanner},
+  components: {QRCodeScanner, CreateGiftCardModal},
   data() {
     return {
       codeQR: '',
