@@ -5,9 +5,6 @@ export const getCurrentGiftCardCode = state => {
   return state.currentGiftCardCode
 }
 export const getIsAuth = state => !!state.token
-export const getIsModalOpened = state => {
-  return state.isModalOpened
-}
 
 export const getCustomer = state => {
   return state.customer
