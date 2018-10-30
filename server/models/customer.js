@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     Customer.hasMany(models.Order, {
       foreignKey: 'customerId',
     })
+    Customer.hasMany(models.GiftCard, {
+      foreignKey: 'customerId',
+    })
   }
   return Customer
 }
