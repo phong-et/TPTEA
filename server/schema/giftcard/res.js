@@ -16,7 +16,8 @@ const resolvers = {
   GiftCard: {
     async userName(giftCard, _, {loggedInUser}) {
       _authAdmin(loggedInUser)
-      return (await giftCard.get('customerId')) !== null ? giftCard.getCustomer().get('username') : ''
+      let customer = await giftCard.getCustomer()
+      return customer && customer.get('username')
     },
   },
 }
