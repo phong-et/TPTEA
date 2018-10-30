@@ -10,6 +10,8 @@ import modifyDef from './modify/def'
 import modifyRes from './modify/res'
 import adminDef from './admin/def'
 import adminRes from './admin/res'
+import giftCardDef from './giftcard/def'
+import giftCardRes from './giftcard/res'
 
 const SchemaDefinition = `
   schema {
@@ -26,6 +28,7 @@ const RootQuery = `
     fetchModifiers(input:MenuInput): [Modify]
     fetchAdmin(input:Int): Admin
     fetchCustomers: [Customer]
+    fetchGiftCards: [GiftCard]
   }
 `
 
@@ -39,10 +42,21 @@ const RootMutation = `
     deleteCustomers(input:[Int]): Int
     updateCustomer(input:CustomerInput): Customer
     createCustomer(input:CustomerInput): Customer
+    genGiftCard(input:GenGiftCardInput): String
   }
 `
 
 export default makeExecutableSchema({
-  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifyDef, adminDef],
-  resolvers: [customerRes, categoryRes, menuRes, modifyRes, adminRes],
+  typeDefs: [
+    SchemaDefinition,
+    RootQuery,
+    RootMutation,
+    customerDef,
+    categoryDef,
+    menuDef,
+    modifyDef,
+    adminDef,
+    giftCardDef,
+  ],
+  resolvers: [customerRes, categoryRes, menuRes, modifyRes, adminRes, giftCardRes],
 })
