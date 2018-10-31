@@ -25,21 +25,20 @@ export const fetchGiftcards = ({commit}) => {
 export const delGiftcards = ({commit, getters}) => {
   commit('setIsLoading', true)
   let ids = Array.from(getters.getSelected, giftcard => giftcard.id)
-  // _post(
-  //   ids,
-  //   `mutation ($input: [Int]) {
-  //     deleteGiftcards(input: $input)
-  //   }`
-  // ).then(({data}) => {
-  //   _procAlert(data, true)
-  //   commit('setIsLoading', false)
-  //   _.remove(getters.getRecs, rec => {
-  //     return ids.includes(rec.id)
-  //   })
-  //   commit('setSelected', [])
-  //   commit('setRecs', _.clone(getters.getRecs))
-  // })
-  console.log(ids)
+  _post(
+    ids,
+    `mutation ($input: [Int]) {
+      deleteGiftCard(input: $input)
+    }`
+  ).then(({data}) => {
+    _procAlert(data, true)
+    commit('setIsLoading', false)
+    _.remove(getters.getRecs, rec => {
+      return ids.includes(rec.id)
+    })
+    commit('setSelected', [])
+    commit('setRecs', _.clone(getters.getRecs))
+  })
 }
 
 export const updateGiftCard = ({commit, getters}) => {
