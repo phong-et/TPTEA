@@ -110,15 +110,19 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.q-pa-none
-  padding 0 !important
+.q-pa-none {
+  padding: 0 !important;
+}
 
-.q-hide-add
-  display none
+.q-hide-add {
+  display: none;
+}
 
-.input-search
-  width 300px
+.input-search {
+  width: 300px;
+}
 
-.et-icon
-  font-size 25px
+.et-icon {
+  font-size: 25px;
+}
 </style>
