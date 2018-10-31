@@ -19,7 +19,7 @@ export default {
     },
     size: {
       type: Number,
-      default: () => 4,
+      default: () => 11,
     },
   },
   mounted() {

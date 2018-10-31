@@ -10,12 +10,13 @@
         </q-field>
       </div>
       <div class="row q-my-lg q-py-md gutter-x-sm justify-center" style="background:#fff">
-        <q-input class="q-mt-lg q-mx-lg col-xs-11 col-sm-11 col-md-8" placeholder="code" v-model="currentGenGiftCardCode" readonly inverted color="tertiary" />
+        <q-input class="q-mt-lg q-mx-lg col-xs-11 col-sm-11 col-md-8" placeholder="code" v-model="getCurrentGenGiftCardCode" readonly inverted color="tertiary" />
         <q-btn @click="genGiftCardCode({expiry,amount})" class="q-mt-lg q-py-sm col-11 col-xs-11 col-sm-11 col-md-3" color="secondary" label="Gen Code" icon="brush"></q-btn>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 q-mt-lg q-mt-lg q-py-sm">
         <q-card-media class="justify-center">
-          <img class="qr-code" src="statics/qr-code-sample.png">
+          <img v-show="!haveGenGiftCardCode" class="qr-code" src="statics/qr-code-sample.png">
+          <component v-bind:is="genQRCode"></component>
         </q-card-media>
       </div>
     </et-modal>
@@ -23,7 +24,8 @@
 </template>
 <script>
 import etModal from './EtModal'
-import {mapActions, mapState} from 'vuex'
+import genQRCode from './GenQRcode'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   props: {
     type: {
@@ -33,28 +35,19 @@ export default {
   },
   components: {
     etModal,
+    genQRCode,
   },
   data() {
     return {
       expiry: '0',
       amount: '0',
+      genQRCode: null,
     }
   },
   computed: {
-    ...mapState('giftcard', ['getCurrentGenGiftCardCode']),
-    // ...mapState({
-    //   getIsLoading(state, getters) {
-    //     console.log(state)
-    //     return getters[this.type + '/getCurrentGenGiftCardCode']
-    //   },
-    // }),
-    currentGenGiftCardCode: {
-      get() {
-        return this.$store.getters[this.type + '/getcurrentGenGiftCardCode']
-      },
-      set(val) {
-        this.$store.commit(this.type + '/setcurrentGenGiftCardCode', val)
-      },
+    ...mapGetters('giftcard', ['getCurrentGenGiftCardCode']),
+    haveGenGiftCardCode() {
+      return this.getCurrentGenGiftCardCode !== ''
     },
   },
   methods: {
