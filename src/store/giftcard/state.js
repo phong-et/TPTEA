@@ -1,6 +1,6 @@
 export default {
   currentGiftCardCode: '',
-  isModalOpened: true,
+  isModalOpened: false,
   token: localStorage.getItem('auth-token') || '',
   isLoading: false,
   name: '',
@@ -34,29 +34,5 @@ export default {
       sortable: true,
     },
   ],
-  fields: [
-    {
-      name: 'id',
-      hidden: true,
-    },
-    {
-      name: 'code',
-      hidden: true,
-    },
-    {
-      name: 'expiry',
-      label: 'Expiry',
-      type: 'number',
-      icon: 'date_range',
-      hidden: true,
-    },
-    {
-      name: 'amout',
-      label: 'Amount',
-      type: 'number',
-      prefix: '$',
-      icon: 'attach_money',
-      hidden: true,
-    },
-  ],
+  fields: [],
 }

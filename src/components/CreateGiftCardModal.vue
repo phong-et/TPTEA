@@ -3,7 +3,7 @@
     <et-modal :type="type">
       <div class="row">
         <q-field class="q-mb-md col-11" label-width="3" icon="date_range" label="Expiry">
-          <q-input v-model="amount" type="number" suffix="days" color="secondary" />
+          <q-input v-model="expiry" type="number" suffix="days" color="secondary" />
         </q-field>
         <q-field class="q-mb-md col-11" label-width="3" icon="attach_money" label="Amout">
           <q-input v-model="amount" type="number" prefix="$" color="secondary" />
@@ -32,6 +32,13 @@ export default {
   },
   components: {
     etModal,
+  },
+  data() {
+    return {
+      expiry: '',
+      code: '',
+      amount: '',
+    }
   },
 }
 </script>
