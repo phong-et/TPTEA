@@ -12,6 +12,7 @@ export default {
   selected: [],
   editingRec: {},
   backupRec: {},
+  currentGenGiftCardCode: '',
   cols: [
     {
       name: 'edit',

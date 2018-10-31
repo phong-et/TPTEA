@@ -5,6 +5,9 @@ export const setIsLoading = (state, payload) => {
 export const setCurrentGiftCardCode = (state, payload) => {
   state.currentGiftCardCode = payload
 }
+export const setCurrentGenGiftCardCode = (state, payload) => {
+  state.currentGenGiftCardCode = payload
+}
 
 export const setEditingRec = (state, payload) => {
   payload.password = ''

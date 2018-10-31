@@ -39,3 +39,24 @@ export const updateGiftCard = ({commit, getters}) => {
       commit('setIsLoading', false)
     })
 }
+
+export function genGiftCard({commit}, payload) {
+  commit('setIsLoading', true)
+  _post(
+    payload,
+    `mutation ($input:GenGiftCardInput) {
+      genGiftCard(input: $input)
+    }`
+  )
+    .then(({data}) => {
+      commit('setIsLoading', false)
+      _procAlert(data, 'Generate Successfully!')
+      // if (!data.errors) {
+      commit('setCurrentGenGiftCardCode', data.genGiftCard)
+      // }
+    })
+    .catch(err => {
+      _procError(err)
+      commit('setIsLoading', false)
+    })
+}

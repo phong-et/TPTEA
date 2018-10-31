@@ -4,6 +4,10 @@ export const getIsLoading = state => {
 export const getCurrentGiftCardCode = state => {
   return state.currentGiftCardCode
 }
+export const getCurrentGenGiftCardCode = state => {
+  return state.currentGenGiftCardCode
+}
+
 export const getIsAuth = state => !!state.token
 
 export const getCustomer = state => {
