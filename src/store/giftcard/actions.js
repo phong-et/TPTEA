@@ -64,7 +64,6 @@ export const updateGiftCard = ({commit, getters}) => {
 
 export function createGiftCard({commit, getters}, payload) {
   commit('setIsLoading', true)
-  console.log(payload)
   _post(
     payload,
     `mutation ($input:GiftCardInput) {
@@ -82,9 +81,8 @@ export function createGiftCard({commit, getters}, payload) {
       commit('setIsLoading', false)
       _procAlert(data, 'Create Successfully!')
       commit('setIsModalOpened', false)
-      console.log(data.createGiftCard)
-      // getters.getRecs.push(data.createCustomer)
-      // commit('setRecs', _.clone(getters.getRecs))
+      getters.getRecs.push(data.createGiftCard)
+      commit('setRecs', _.clone(getters.getRecs))
     })
     .catch(err => {
       _procError(err)

@@ -19,6 +19,12 @@ export default {
       width: '34px',
     },
     {
+      name: 'qrcode',
+      align: 'left',
+      field: 'id',
+      width: '34px',
+    },
+    {
       name: 'userName',
       label: 'User Name',
       align: 'left',
