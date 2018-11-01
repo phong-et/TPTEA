@@ -17,6 +17,7 @@
         <q-card-media class="justify-center">
           <img v-show="!haveGenGiftCardCode" class="qr-code" src="statics/qr-code-sample.png">
           <component v-bind:is="genQRCode"></component>
+          <gen-q-r-code v-show="haveGenGiftCardCode" v-model="getCurrentGenGiftCardCode" :qrcode="getCurrentGenGiftCardCode"/>
         </q-card-media>
       </div>
     </et-modal>
@@ -47,7 +48,7 @@ export default {
   computed: {
     ...mapGetters('giftcard', ['getCurrentGenGiftCardCode']),
     haveGenGiftCardCode() {
-      return this.getCurrentGenGiftCardCode !== ''
+      return this.getCurrentGenGiftCardCode !== 'qrcode'
     },
   },
   methods: {

@@ -12,7 +12,7 @@ export default {
   selected: [],
   editingRec: {},
   backupRec: {},
-  currentGenGiftCardCode: '',
+  currentGenGiftCardCode: 'qrcode',
   cols: [
     {
       name: 'edit',
