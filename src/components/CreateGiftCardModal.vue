@@ -1,9 +1,9 @@
 <template>
   <q-modal v-model="isModalOpened" no-backdrop-dismiss no-esc-dismiss>
     <q-modal-layout>
-       <q-toolbar class="" slot="header" color="primary">
+      <q-toolbar color="primary">
         <q-btn class="modal-title" flat color="white" icon="close" @click="isModalOpened=false"></q-btn>
-       </q-toolbar>
+      </q-toolbar>
       <div class="q-pa-lg">
         <div class="row">
           <q-field class="q-mb-md col-11" label-width="3" icon="date_range" label="Expiry">
@@ -40,8 +40,8 @@ export default {
   },
   data() {
     return {
-      expiry: '',
-      amount: '',
+      expiry: '1',
+      amount: '1',
     }
   },
   validations: {
@@ -68,14 +68,10 @@ export default {
   },
   methods: {
     ...mapActions('giftcard', ['createGiftCard']),
-    createGiftCardCode() {
+    createGiftCardCode(payload) {
       this.$v.$touch()
       if (this.$v.$error) return
-      alert('okl')
-      // this.createGiftCard()
-    },
-    closeModal() {
-      this.$store.commit('giftcard/setIsModalOpened', false)
+      this.createGiftCard(payload)
     },
   },
 }

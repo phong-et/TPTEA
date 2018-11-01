@@ -10,8 +10,7 @@ export const fetchGiftcards = ({commit}) => {
       userName
       amount
       expiry
-      createdAt    
-      updatedAt  
+      createdAt
     }
   }`)
     .then(({data}) => {
@@ -63,20 +62,29 @@ export const updateGiftCard = ({commit, getters}) => {
     })
 }
 
-export function genGiftCard({commit}, payload) {
+export function createGiftCard({commit, getters}, payload) {
   commit('setIsLoading', true)
+  console.log(payload)
   _post(
     payload,
-    `mutation ($input:GenGiftCardInput) {
-      genGiftCard(input: $input)
+    `mutation ($input:GiftCardInput) {
+      createGiftCard(input: $input){
+        id
+        code
+        userName
+        amount
+        expiry
+        createdAt
+      }
     }`
   )
     .then(({data}) => {
       commit('setIsLoading', false)
-      _procAlert(data, 'Generate Successfully!')
-      // if (!data.errors) {
-      commit('setCurrentGenGiftCardCode', data.genGiftCard)
-      // }
+      _procAlert(data, 'Create Successfully!')
+      commit('setIsModalOpened', false)
+      console.log(data.createGiftCard)
+      // getters.getRecs.push(data.createCustomer)
+      // commit('setRecs', _.clone(getters.getRecs))
     })
     .catch(err => {
       _procError(err)

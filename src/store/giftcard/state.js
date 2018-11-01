@@ -1,5 +1,4 @@
 export default {
-  currentGiftCardCode: '',
   isModalOpened: false,
   token: localStorage.getItem('auth-token') || '',
   isLoading: false,
@@ -12,7 +11,6 @@ export default {
   selected: [],
   editingRec: {},
   backupRec: {},
-  currentGenGiftCardCode: 'qrcode',
   cols: [
     {
       name: 'edit',
@@ -48,13 +46,5 @@ export default {
       field: 'createdAt',
       sortable: true,
     },
-    {
-      name: 'updatedAt',
-      label: 'Update Date',
-      align: 'left',
-      field: 'updatedAt',
-      sortable: true,
-    },
   ],
-  fields: [],
 }
