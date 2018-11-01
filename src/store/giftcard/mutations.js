@@ -20,3 +20,7 @@ export const discardEditingRec = state => {
   _.extend(state.editingRec, state.backupRec)
   state.isModalOpened = false
 }
+
+export const setIsModalOpened = (state, payload) => {
+  state.isModalOpened = payload
+}

@@ -1,23 +1,32 @@
 <template>
-  <et-modal type="giftcard">
-    <div class="row">
-      <q-field class="q-mb-md col-11" label-width="3" icon="date_range" label="Expiry">
-        <q-input v-model="expiry" type="number" suffix="days" color="secondary" :error="$v.expiry.$error" />
-        <et-validator :dirty="$v.expiry.$dirty" :show="!$v.expiry.required" msg="expiry is required" />
-        <et-validator :dirty="$v.expiry.$dirty" :show="!$v.expiry.integer" msg="expiry must have a interger" />
-        <et-validator :dirty="$v.expiry.$dirty" :show="!$v.expiry.between" msg="expiry is greater than or equal to 1 and less than or equal to 1000 " />
-      </q-field>
-      <q-field class="q-mb-md col-11" label-width="3" icon="attach_money" label="Amout">
-        <q-input v-model="amount" type="number" prefix="$" color="secondary" :error="$v.amount.$error" />
-        <et-validator :dirty="$v.amount.$dirty" :show="!$v.amount.required" msg="amount is required" />
-        <et-validator :dirty="$v.amount.$dirty" :show="!$v.amount.numeric" msg="amount must have a interger" />
-        <et-validator :dirty="$v.amount.$dirty" :show="!$v.amount.between" msg="amount is greater than or equal to 1 and less than or equal to 1000" />
-      </q-field>
-    </div>
-    <div class="row q-my-lg q-py-md gutter-x-sm justify-center" style="background:#fff">
-      <q-btn @click="createGiftCardCode({expiry,amount})" class="q-mt-lg q-py-sm col-11 col-xs-11 col-sm-11 col-md-11" color="secondary" label="Save"></q-btn>
-    </div>
-  </et-modal>
+  <q-modal v-model="isModalOpened" no-backdrop-dismiss no-esc-dismiss>
+    <q-modal-layout>
+       <q-toolbar class="" slot="header" color="primary">
+        <q-btn class="modal-title" flat color="white" icon="close" @click="isModalOpened=false"></q-btn>
+       </q-toolbar>
+      <div class="q-pa-lg">
+        <div class="row">
+          <q-field class="q-mb-md col-11" label-width="3" icon="date_range" label="Expiry">
+            <q-input v-model="expiry" type="number" suffix="days" color="secondary" :error="$v.expiry.$error" />
+            <et-validator :dirty="$v.expiry.$dirty" :show="!$v.expiry.required" msg="expiry is required" />
+            <et-validator :dirty="$v.expiry.$dirty" :show="!$v.expiry.integer" msg="expiry must have a interger" />
+            <et-validator :dirty="$v.expiry.$dirty" :show="!$v.expiry.between" msg="expiry is greater than or equal to 1 and less than or equal to 1000 " />
+          </q-field>
+          <q-field color="secondary" class="q-mb-md col-11" label-width="3" icon="attach_money" label="Amout">
+            <q-input v-model="amount" type="number" prefix="$" color="secondary" :error="$v.amount.$error" />
+            <et-validator :dirty="$v.amount.$dirty" :show="!$v.amount.required" msg="amount is required" />
+            <et-validator :dirty="$v.amount.$dirty" :show="!$v.amount.numeric" msg="amount must have a numeric" />
+            <et-validator :dirty="$v.amount.$dirty" :show="!$v.amount.between" msg="amount is greater than or equal to 1 and less than or equal to 1000" />
+          </q-field>
+        </div>
+        <div class="row q-py-md gutter-x-sm justify-center" style="background:#fff">
+          <q-btn @click="createGiftCardCode({expiry,amount})" class="q-mt-lg q-py-sm col-11" color="secondary" label="Save">
+            <q-spinner-pie slot="loading" size="25px" />
+          </q-btn>
+        </div>
+      </div>
+    </q-modal-layout>
+  </q-modal>
 </template>
 <script>
 import etModal from './EtModal'
@@ -31,8 +40,8 @@ export default {
   },
   data() {
     return {
-      expiry: '0',
-      amount: '0',
+      expiry: '',
+      amount: '',
     }
   },
   validations: {
@@ -48,8 +57,13 @@ export default {
     },
   },
   computed: {
-    haveGenGiftCardCode() {
-      return this.getCurrentGenGiftCardCode !== ''
+    isModalOpened: {
+      get() {
+        return this.$store.getters['giftcard/getIsModalOpened']
+      },
+      set(val) {
+        this.$store.commit('giftcard/setIsModalOpened', val)
+      },
     },
   },
   methods: {
@@ -59,6 +73,9 @@ export default {
       if (this.$v.$error) return
       alert('okl')
       // this.createGiftCard()
+    },
+    closeModal() {
+      this.$store.commit('giftcard/setIsModalOpened', false)
     },
   },
 }
