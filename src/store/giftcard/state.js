@@ -26,10 +26,31 @@ export default {
       sortable: true,
     },
     {
+      name: 'amount',
+      label: 'Amount',
+      align: 'left',
+      field: 'amount',
+      sortable: true,
+    },
+    {
+      name: 'expiry',
+      label: 'Expiry',
+      align: 'left',
+      field: 'expiry',
+      sortable: true,
+    },
+    {
       name: 'createdAt',
       label: 'Create Date',
       align: 'left',
       field: 'createdAt',
+      sortable: true,
+    },
+    {
+      name: 'updatedAt',
+      label: 'Update Date',
+      align: 'left',
+      field: 'updatedAt',
       sortable: true,
     },
   ],
@@ -43,16 +64,30 @@ export default {
       hidden: true,
     },
     {
-      name: 'createdate',
-      label: 'Create Date',
-      type: 'text',
-      icon: 'person',
-    },
-    {
       name: 'userName',
       label: 'User Name',
       type: 'text',
       icon: 'account_box',
+    },
+    {
+      name: 'amount',
+      label: 'Amount',
+      type: 'text',
+    },
+    {
+      name: 'expiry',
+      label: 'Expiry',
+      type: 'text',
+    },
+    {
+      name: 'createdAt',
+      label: 'Create Date',
+      type: 'text',
+    },
+    {
+      name: 'updatedAt',
+      label: 'Update Date',
+      type: 'text',
     },
   ],
 }

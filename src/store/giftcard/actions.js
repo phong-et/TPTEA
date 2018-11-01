@@ -8,7 +8,10 @@ export const fetchGiftcards = ({commit}) => {
       id
       code
       userName
-      createdAt      
+      amount
+      expiry
+      createdAt    
+      updatedAt  
     }
   }`)
     .then(({data}) => {
@@ -28,7 +31,7 @@ export const delGiftcards = ({commit, getters}) => {
   _post(
     ids,
     `mutation ($input: [Int]) {
-      deleteGiftCard(input: $input)
+      deleteGiftCards(input: $input)
     }`
   ).then(({data}) => {
     _procAlert(data, true)

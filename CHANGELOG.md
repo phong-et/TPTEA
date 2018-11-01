@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - Topup page
 - Authenticate a GiftCard utility function
 - Apply gift card function
+- Create grid gift card
 ### Removed 
 - Join now button
 ### Fixed
