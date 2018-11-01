@@ -8,10 +8,6 @@ const resolvers = {
     },
   },
   RootMutation: {
-    async genGiftCard(_, {input}, {loggedInUser}) {
-      _authAdmin(loggedInUser)
-      return genGiftCard(input.amount, input.expiry)
-    },
     async deleteGiftCard(_, {input}, {loggedInUser}) {
       _authAdmin(loggedInUser)
       return await GiftCard.destroy({
@@ -24,7 +20,10 @@ const resolvers = {
     },
     async createGiftCard(_, {input}, {loggedInUser}) {
       _authAdmin(loggedInUser)
-      return await GiftCard.create(input).then(giftCard => giftCard)
+      return await GiftCard.create(input).then(async giftCard => {
+        let code = genGiftCard(giftCard.id)
+        return await giftCard.update({code}).then(giftCard => giftCard)
+      })
     },
   },
   GiftCard: {
