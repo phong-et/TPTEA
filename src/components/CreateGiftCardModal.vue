@@ -10,23 +10,14 @@
         </q-field>
       </div>
       <div class="row q-my-lg q-py-md gutter-x-sm justify-center" style="background:#fff">
-        <q-input class="q-mt-lg q-mx-lg col-xs-11 col-sm-11 col-md-8" placeholder="code" v-model="getCurrentGenGiftCardCode" readonly inverted color="tertiary" />
-        <q-btn @click="genGiftCardCode({expiry,amount})" class="q-mt-lg q-py-sm col-11 col-xs-11 col-sm-11 col-md-3" color="secondary" label="Gen Code" icon="brush"></q-btn>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-12 q-mt-lg q-mt-lg q-py-sm">
-        <q-card-media class="justify-center">
-          <img v-show="!haveGenGiftCardCode" class="qr-code" src="statics/qr-code-sample.png">
-          <component v-bind:is="genQRCode"></component>
-          <gen-q-r-code v-show="haveGenGiftCardCode" v-model="getCurrentGenGiftCardCode" :qrcode="getCurrentGenGiftCardCode"/>
-        </q-card-media>
+        <q-btn @click="createGiftCard({expiry,amount})" class="q-mt-lg q-py-sm col-11 col-xs-11 col-sm-11 col-md-11" color="secondary" label="Save" icon="brush"></q-btn>
       </div>
     </et-modal>
   </div>
 </template>
 <script>
 import etModal from './EtModal'
-import genQRCode from './GenQRcode'
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions} from 'vuex'
 export default {
   props: {
     type: {
@@ -36,32 +27,22 @@ export default {
   },
   components: {
     etModal,
-    genQRCode,
   },
   data() {
     return {
       expiry: '0',
       amount: '0',
-      genQRCode: null,
     }
   },
   computed: {
-    ...mapGetters('giftcard', ['getCurrentGenGiftCardCode']),
     haveGenGiftCardCode() {
-      return this.getCurrentGenGiftCardCode !== 'qrcode'
+      return this.getCurrentGenGiftCardCode !== ''
     },
   },
   methods: {
-    ...mapActions('giftcard', ['genGiftCard']),
-    genGiftCardCode(payload) {
-      this.genGiftCard(payload)
-    },
+    ...mapActions('giftcard', ['createGiftCard']),
   },
 }
 </script>
 <style lang="stylus" scoped>
-.qr-code
-  width 256px
-  height 256px
-  margin 0 auto
 </style>
