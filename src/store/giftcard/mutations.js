@@ -5,8 +5,12 @@ export const setIsLoading = (state, payload) => {
 export const setCurrentGiftCardCode = (state, payload) => {
   state.currentGiftCardCode = payload
 }
-export const setCurrentGenGiftCardCode = (state, payload) => {
-  state.currentGenGiftCardCode = payload
+export const setRecs = (state, payload) => {
+  state.recs = payload
+}
+
+export const setSelected = (state, payload) => {
+  state.selected = payload
 }
 
 export const setEditingRec = (state, payload) => {
