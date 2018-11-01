@@ -1,7 +1,7 @@
 <template>
   <div>
     <et-grid type="giftcard" />
-    <create-gift-card-modal type="giftcard"></create-gift-card-modal>
+    <create-gift-card-modal />
   </div>
 </template>
 <script>
