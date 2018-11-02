@@ -1,7 +1,7 @@
 <template>
-<div>
-  <canvas id="canvas"></canvas>
-</div>
+  <div>
+    <canvas id="canvas"></canvas>
+  </div>
 </template>
 <script>
 import {_procError} from '../util/common'
@@ -36,6 +36,20 @@ export default {
     }).catch(err => {
       _procError(err)
     })
+  },
+  watch: {
+    qrcode(newQRCode, oldQRCode) {
+      var canvas = this.$el.querySelector('#canvas')
+      QRCode.toCanvas(canvas, newQRCode, {
+        color: {
+          dark: this.dark,
+          light: this.light,
+        },
+        version: this.version,
+      }).catch(err => {
+        _procError(err)
+      })
+    },
   },
 }
 </script>
