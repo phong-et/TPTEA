@@ -1,5 +1,7 @@
 export default {
   isModalOpened: false,
+  isModalQRCodeOpened: false,
+  currentGenGiftCardCode: 'eee',
   token: localStorage.getItem('auth-token') || '',
   isLoading: false,
   name: '',

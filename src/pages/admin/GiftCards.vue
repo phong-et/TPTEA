@@ -1,16 +1,23 @@
 <template>
   <div>
     <et-grid type="giftcard" />
-    <create-gift-card-modal />
+    <modal-create-gift-card />
+    <modal-q-r-code :qrcode="getCurrentGenGiftCardCode" />
   </div>
 </template>
 <script>
-import createGiftCardModal from '../../components/CreateGiftCardModal'
+import modalCreateGiftCard from '../../components/CreateGiftCardModal'
+import modalQRCode from '../../components/QRCodeModal'
 import etGrid from '../../components/EtGrid'
+import {mapGetters} from 'vuex'
 export default {
   components: {
     etGrid,
-    createGiftCardModal,
+    modalQRCode,
+    modalCreateGiftCard,
+  },
+  computed: {
+    ...mapGetters('giftcard', ['getCurrentGenGiftCardCode']),
   },
 }
 </script>

@@ -2,8 +2,9 @@ import _ from 'lodash'
 export const setIsLoading = (state, payload) => {
   state.isLoading = payload
 }
-export const setCurrentGiftCardCode = (state, payload) => {
+export const setCurrentGenGiftCardCode = (state, payload) => {
   state.currentGiftCardCode = payload
+  state.isModalQRCodeOpened = true
 }
 export const setRecs = (state, payload) => {
   state.recs = payload
