@@ -3,8 +3,7 @@ export const setIsLoading = (state, payload) => {
 }
 
 export const setCurrentGenGiftCardCode = (state, payload) => {
-  state.currentGiftCardCode = payload
-  state.isModalQRCodeOpened = true
+  state.currentGenGiftCardCode = payload
 }
 
 export const setRecs = (state, payload) => {

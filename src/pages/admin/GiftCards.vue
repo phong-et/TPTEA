@@ -20,7 +20,7 @@ export default {
     ...mapGetters('giftcard', ['getCurrentGenGiftCardCode', 'getIsModalQRCodeOpened']),
   },
   methods: {
-    ...mapMutations('giftcard', ['setIsModalQRCodeOpened']),
+    ...mapMutations('giftcard', ['setCurrentGenGiftCardCode', 'setIsModalQRCodeOpened']),
   },
   mounted() {
     console.log(this.getIsModalQRCodeOpened)
@@ -32,8 +32,10 @@ export default {
         fieldName: 'qrcode',
         hidden: false,
         icon: 'crop_free',
-        action: function() {
+        action: function(payload) {
           me.setIsModalQRCodeOpened(true)
+          me.setCurrentGenGiftCardCode(payload.code)
+          console.log(payload.code)
         },
       },
     }
