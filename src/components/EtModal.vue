@@ -15,7 +15,6 @@
         <q-field class="q-mb-md" :key="field.name" v-for="field in getFields" v-if="!field.hidden" :label-width="3" :icon="field.icon" :label="field.label" :helper="field.desc" error-label="Some error">
           <q-input v-model="getEditingRec[field.name]" :type="field.type" color="secondary" />
         </q-field>
-        <slot></slot>
       </div>
     </q-modal-layout>
   </q-modal>
