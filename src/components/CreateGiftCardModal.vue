@@ -20,7 +20,7 @@
           </q-field>
         </div>
         <div class="row q-py-md gutter-x-sm justify-center" style="background:#fff">
-          <q-btn @click="createGiftCardCode({expiry,amount})" class="q-mt-lg q-py-sm col-11" color="secondary" label="Save">
+          <q-btn :loading="getIsLoading" @click="createGiftCardCode({expiry,amount})" class="q-mt-lg q-py-sm col-11" color="secondary" label="Save">
             <q-spinner-pie slot="loading" size="25px" />
           </q-btn>
         </div>
@@ -30,7 +30,7 @@
 </template>
 <script>
 import etModal from './EtModal'
-import {mapActions} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import etValidator from './Validator'
 import {required, between, numeric, integer} from 'vuelidate/lib/validators'
 export default {
@@ -57,6 +57,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('giftcard', ['getIsLoading']),
     isModalOpened: {
       get() {
         return this.$store.getters['giftcard/getIsModalOpened']

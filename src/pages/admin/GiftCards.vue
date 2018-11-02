@@ -3,7 +3,6 @@
     <et-grid type="giftcard" :disableEditting="true" :expandedCol="expandedCol" />
     <modal-create-gift-card />
     <modal-q-r-code :qrcode="getCurrentGenGiftCardCode" />
-    <component v-bind:is="currentQRCode"></component>
   </div>
 </template>
 <script>
@@ -23,13 +22,9 @@ export default {
   methods: {
     ...mapMutations('giftcard', ['setCurrentGenGiftCardCode', 'setIsModalQRCodeOpened']),
   },
-  mounted() {
-    console.log(this.getIsModalQRCodeOpened)
-  },
   data() {
     let me = this
     return {
-      currentQRCode: modalCreateGiftCard,
       expandedCol: {
         fieldName: 'qrcode',
         hidden: false,
@@ -37,7 +32,6 @@ export default {
         action: function(payload) {
           me.setIsModalQRCodeOpened(true)
           me.setCurrentGenGiftCardCode(payload.code)
-          console.log(payload.code)
         },
       },
     }

@@ -18,10 +18,6 @@ export const setEditingRec = state => {
   state.isModalOpened = true
 }
 
-export const discardEditingRec = state => {
-  state.isModalOpened = false
-}
-
 export const setIsModalOpened = (state, payload) => {
   state.isModalOpened = payload
 }

@@ -12,7 +12,6 @@
 </template>
 <script>
 import genQRCode from './GenQRCode'
-// import {mapGetters, mapMutations} from 'vuex'
 export default {
   props: {
     qrcode: {
@@ -24,7 +23,6 @@ export default {
     genQRCode,
   },
   computed: {
-    // ...mapGetters('giftcard', ['getIsModalQRCodeOpened']),
     isModalQRCodeOpened: {
       get() {
         return this.$store.getters['giftcard/getIsModalQRCodeOpened']
@@ -33,9 +31,6 @@ export default {
         this.$store.commit('giftcard/setIsModalQRCodeOpened', val)
       },
     },
-  },
-  methods: {
-    //  ...mapMutations('giftcard', ['setIsModalQRCodeOpened']),
   },
 }
 </script>

@@ -25,10 +25,7 @@
       <q-btn round flat wait-for-ripple dense :icon="expandedCol.icon" color="secondary" @click="excuteExpanedColAction(props.row,expandedCol.action)">
       </q-btn>
     </q-td>
-    <!-- <q-td v-show="!disableEditting" class="q-pa-none" auto-width slot="body-cell-qrcode" slot-scope="props" :props="props">
-      <q-btn round flat wait-for-ripple dense icon="crop_free" color="secondary" @click="setEditingRec(props.row)">
-      </q-btn>
-    </q-td> -->
+
     <!-- gets displayed only when there's at least one row selected -->
     <template slot="top-selection" slot-scope="props">
       <div class="q-table-control">
