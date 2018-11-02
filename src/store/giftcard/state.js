@@ -1,23 +1,20 @@
 export default {
   isModalOpened: false,
-  isModalQRCodeOpened: false,
+  isModalQRCodeOpened: true,
   currentGenGiftCardCode: 'eee',
   token: localStorage.getItem('auth-token') || '',
   isLoading: false,
-  name: '',
+  name: 'Gift Card',
   role: '',
-  giftcard: {},
   recs: [],
   title: 'Gift Card',
   icon: 'card_giftcard',
   selected: [],
-  editingRec: {},
-  backupRec: {},
   cols: [
     {
       name: 'edit',
       align: 'left',
-      field: 'edit',
+      field: 'id',
       width: '34px',
     },
     {

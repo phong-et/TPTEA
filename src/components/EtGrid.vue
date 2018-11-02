@@ -17,11 +17,18 @@
     </template>
 
     <!-- slot name syntax: body-cell-<column_name> -->
-    <q-td class="q-pa-none" auto-width slot="body-cell-edit" slot-scope="props" :props="props">
+    <q-td v-show="!disableEditting" class="q-pa-none" auto-width slot="body-cell-edit" slot-scope="props" :props="props">
       <q-btn round flat wait-for-ripple dense icon="settings" color="secondary" @click="setEditingRec(props.row)">
       </q-btn>
     </q-td>
-
+    <q-td v-show="!expandedCol.hidden" class="q-pa-none" auto-width :slot="getExpandecColName" slot-scope="props" :props="props">
+      <q-btn round flat wait-for-ripple dense :icon="expandedCol.icon" color="secondary" @click="excuteExpanedColAction(props.row,expandedCol.action)">
+      </q-btn>
+    </q-td>
+    <!-- <q-td v-show="!disableEditting" class="q-pa-none" auto-width slot="body-cell-qrcode" slot-scope="props" :props="props">
+      <q-btn round flat wait-for-ripple dense icon="crop_free" color="secondary" @click="setEditingRec(props.row)">
+      </q-btn>
+    </q-td> -->
     <!-- gets displayed only when there's at least one row selected -->
     <template slot="top-selection" slot-scope="props">
       <div class="q-table-control">
@@ -46,6 +53,27 @@ export default {
     type: {
       default: 'xxx',
       type: String,
+    },
+    disableEditting: {
+      default: false,
+      type: Boolean,
+    },
+    disableExpandCol: {
+      default: true,
+      type: Boolean,
+    },
+    expandedCol: {
+      default: () => {
+        return {
+          fieldName: 'id',
+          hidden: true,
+          icon: 'settings',
+          action: function(payload) {
+            console.log(payload)
+          },
+        }
+      },
+      type: Object,
     },
     hideSelection: Boolean,
     hideAdd: Boolean,
@@ -87,6 +115,9 @@ export default {
         this.$store.commit(this.type + '/setSelected', val)
       },
     },
+    getExpandecColName() {
+      return 'body-cell-' + this.expandedCol.fieldName
+    },
   },
   methods: {
     ...mapActions({
@@ -105,24 +136,23 @@ export default {
     selectedLabel(rowsNo) {
       return `Selected ${rowsNo}`
     },
+    excuteExpanedColAction(payload, action) {
+      action(payload)
+    },
   },
 }
 </script>
 
 <style scoped lang="stylus">
-.q-pa-none {
-  padding: 0 !important;
-}
+.q-pa-none
+  padding 0 !important
 
-.q-hide-add {
-  display: none;
-}
+.q-hide-add
+  display none
 
-.input-search {
-  width: 300px;
-}
+.input-search
+  width 300px
 
-.et-icon {
-  font-size: 25px;
-}
+.et-icon
+  font-size 25px
 </style>

@@ -1,9 +1,15 @@
 export const getIsLoading = state => {
   return state.isLoading
 }
-export const getCurrentGiftCardCode = state => {
-  return state.currentGiftCardCode
+
+export const getIsModalOpened = state => {
+  return state.isModalOpened
 }
+
+export const getIsModalQRCodeOpened = state => {
+  return state.isModalQRCodeOpened
+}
+
 export const getCurrentGenGiftCardCode = state => {
   return state.currentGenGiftCardCode
 }
@@ -13,6 +19,7 @@ export const getIsAuth = state => !!state.token
 export const getCustomer = state => {
   return state.customer
 }
+
 export const getRecs = state => {
   return state.recs
 }
@@ -35,10 +42,6 @@ export const getIcon = state => {
 
 export const getSelected = state => {
   return state.selected
-}
-
-export const getIsModalOpened = state => {
-  return state.isModalOpened
 }
 
 export const getEditingRec = state => {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <et-grid type="giftcard" />
+    <et-grid type="giftcard" :disableEditting="true" :expandedCol="expandedCol" />
     <modal-create-gift-card />
     <modal-q-r-code :qrcode="getCurrentGenGiftCardCode" />
   </div>
@@ -9,7 +9,7 @@
 import modalCreateGiftCard from '../../components/CreateGiftCardModal'
 import modalQRCode from '../../components/QRCodeModal'
 import etGrid from '../../components/EtGrid'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 export default {
   components: {
     etGrid,
@@ -17,7 +17,26 @@ export default {
     modalCreateGiftCard,
   },
   computed: {
-    ...mapGetters('giftcard', ['getCurrentGenGiftCardCode']),
+    ...mapGetters('giftcard', ['getCurrentGenGiftCardCode', 'getIsModalQRCodeOpened']),
+  },
+  methods: {
+    ...mapMutations('giftcard', ['setIsModalQRCodeOpened']),
+  },
+  mounted() {
+    console.log(this.getIsModalQRCodeOpened)
+  },
+  data() {
+    let me = this
+    return {
+      expandedCol: {
+        fieldName: 'qrcode',
+        hidden: false,
+        icon: 'crop_free',
+        action: function() {
+          me.setIsModalQRCodeOpened(true)
+        },
+      },
+    }
   },
 }
 </script>
