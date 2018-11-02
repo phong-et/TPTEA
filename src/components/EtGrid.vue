@@ -55,10 +55,6 @@ export default {
       default: false,
       type: Boolean,
     },
-    disableExpandCol: {
-      default: true,
-      type: Boolean,
-    },
     expandedCol: {
       default: () => {
         return {
