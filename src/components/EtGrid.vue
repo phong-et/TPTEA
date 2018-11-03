@@ -21,7 +21,7 @@
       <q-btn round flat wait-for-ripple dense icon="settings" color="secondary" @click="setEditingRec(props.row)">
       </q-btn>
     </q-td>
-    <q-td v-show="!expandedCol.hidden" class="q-pa-none" auto-width :slot="getExpandecColName" slot-scope="props" :props="props">
+    <q-td v-show="!expandedCol.hidden" class="q-pa-none" auto-width :slot="getExpandedColName" slot-scope="props" :props="props">
       <q-btn round flat wait-for-ripple dense :icon="expandedCol.icon" color="secondary" @click="excuteExpanedColAction(props.row,expandedCol.action)">
       </q-btn>
     </q-td>
@@ -108,7 +108,7 @@ export default {
         this.$store.commit(this.type + '/setSelected', val)
       },
     },
-    getExpandecColName() {
+    getExpandedColName() {
       return 'body-cell-' + this.expandedCol.fieldName
     },
   },
@@ -135,7 +135,6 @@ export default {
   },
 }
 </script>
-
 <style scoped lang="stylus">
 .q-pa-none
   padding 0 !important

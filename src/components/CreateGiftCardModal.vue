@@ -2,7 +2,7 @@
   <q-modal v-model="isModalOpened" no-backdrop-dismiss no-esc-dismiss>
     <q-modal-layout>
       <q-toolbar color="primary">
-        <q-btn class="modal-title" flat icon="close" @click="isModalOpened=false"></q-btn>
+        <q-btn flat icon="close" @click="isModalOpened = false"></q-btn>
       </q-toolbar>
       <div class="q-pa-lg">
         <div class="row">
