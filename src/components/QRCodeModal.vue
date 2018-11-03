@@ -4,8 +4,8 @@
       <q-toolbar color="primary">
         <q-btn class="modal-title" flat icon="close" @click="isModalQRCodeOpened = false"></q-btn>
       </q-toolbar>
-      <div class="q-pa-lg row">
-        <gen-q-r-code :qrcode="qrcode" />
+      <div class="q-pa-lg">
+        <gen-q-r-code :qrcode="qrcode" class="row justify-center" />
       </div>
     </q-modal-layout>
   </q-modal>
