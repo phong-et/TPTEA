@@ -42,6 +42,7 @@ export default {
       align: 'left',
       field: 'createdAt',
       sortable: true,
+      format: val => `${new Date(val).toLocaleString('en-US')}`,
     },
   ],
 }
