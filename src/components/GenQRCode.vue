@@ -25,22 +25,10 @@ export default {
       default: () => 5,
     },
   },
-  mounted() {
-    var canvas = this.$el.querySelector('#canvas')
-    QRCode.toCanvas(canvas, this.qrcode, {
-      color: {
-        dark: this.dark,
-        light: this.light,
-      },
-      version: this.version,
-    }).catch(err => {
-      _procError(err)
-    })
-  },
-  watch: {
-    qrcode(newQRCode, oldQRCode) {
+  methods: {
+    drawImage(qrcode) {
       var canvas = this.$el.querySelector('#canvas')
-      QRCode.toCanvas(canvas, newQRCode, {
+      QRCode.toCanvas(canvas, qrcode, {
         color: {
           dark: this.dark,
           light: this.light,
@@ -49,6 +37,14 @@ export default {
       }).catch(err => {
         _procError(err)
       })
+    },
+  },
+  mounted() {
+    this.drawImage(this.qrcode)
+  },
+  watch: {
+    qrcode(newQRCode, oldQRCode) {
+      this.drawImage(newQRCode)
     },
   },
 }
