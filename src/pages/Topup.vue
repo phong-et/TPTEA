@@ -45,7 +45,6 @@ export default {
   data() {
     return {
       giftCardCode: '',
-
       scannerStarted: false,
       theScanner: null,
     }
@@ -109,6 +108,13 @@ export default {
 .center
   margin auto
   display block
+
+@media (max-width: $breakpoint-xs)
+  .center
+    width 100%
+
+  .q-card-actions
+    height calc(100vh - 527px) !important
 
 @media (min-width: $breakpoint-xs)
   .q-card-actions
