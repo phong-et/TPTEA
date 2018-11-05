@@ -22,7 +22,9 @@
       <q-btn color="secondary" label="Scan QR Code" icon="center_focus_strong" class="q-ma-sm col-11" @click="openScanner()"></q-btn>
     </div>
     <div class="row justify-center q-mt-lg">
-      <q-btn :disable="!haveGiftCardCode" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-11" @click="applyGiftCard()"></q-btn>
+      <q-btn :loading="getIsLoading" :disable="!haveGiftCardCode" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-11" @click="applyGiftCardCode({jwt:giftCardCode, customerId:getCustomer.id})">
+        <q-spinner-pie slot="loading" size="25px" />
+      </q-btn>
     </div>
     <q-modal v-model="scannerStarted" maximized>
       <q-modal-layout>
@@ -50,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('customer', ['getCustomer']),
+    ...mapGetters('customer', ['getCustomer', 'getIsLoading']),
     haveGiftCardCode() {
       return this.giftCardCode !== ''
     },
@@ -62,7 +64,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('giftcard', ['updateGiftCard']),
+    ...mapActions('customer', ['applyGiftCard']),
     clearGiftCardCode() {
       this.giftCardCode = ''
     },
@@ -84,10 +86,13 @@ export default {
       this.scannerStarted = true
       this.theScanner = QRCodeScanner
     },
-    applyGiftCard() {
+    applyGiftCardCode(payload) {
       if (this.haveGiftCardCode) {
-        this.updateGiftCard(this.giftCardCode)
+        this.applyGiftCard(payload)
       }
+    },
+    getToken() {
+      return localStorage.getItem('auth-token')
     },
   },
 }

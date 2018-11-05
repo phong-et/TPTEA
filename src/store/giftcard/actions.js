@@ -43,25 +43,6 @@ export const delGiftcards = ({commit, getters}) => {
   })
 }
 
-export const updateGiftCard = ({commit, getters}) => {
-  commit('setIsLoading', true)
-  _post(
-    _.omit(getters.getEditingRec, ['__index']),
-    `mutation ($input: [String]) {
-      updateGiftCard(input: $input) 
-    }`
-  )
-    .then(({data}) => {
-      _procAlert(data)
-      commit('setIsLoading', false)
-      commit('setIsModalOpened', false)
-    })
-    .catch(err => {
-      _procError(err)
-      commit('setIsLoading', false)
-    })
-}
-
 export function createGiftCard({commit, getters}, payload) {
   commit('setIsLoading', true)
   _post(

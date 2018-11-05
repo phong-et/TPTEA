@@ -126,6 +126,7 @@ async function getUserFbInfo() {
 export const fetchCustomer = ({commit}) => {
   _get(`{
     getCustomer {
+      id
       name
       balance
       points
@@ -237,6 +238,24 @@ export function createCustomer({commit, getters}) {
       commit('setIsModalOpened', false)
       getters.getRecs.push(data.createCustomer)
       commit('setRecs', _.clone(getters.getRecs))
+    })
+    .catch(err => {
+      _procError(err)
+      commit('setIsLoading', false)
+    })
+}
+
+export const applyGiftCard = ({commit}, payload) => {
+  commit('setIsLoading', true)
+  _post(
+    payload,
+    `mutation ($input: ApplyGiftCardInput) {
+      applyGiftCard(input: $input) 
+    }`
+  )
+    .then(({data}) => {
+      _procAlert(data)
+      commit('setIsLoading', false)
     })
     .catch(err => {
       _procError(err)
