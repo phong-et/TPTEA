@@ -94,6 +94,7 @@ export default {
 
 .q-card
   width $qcardWidth
+  box-shadow none
 
 .q-card-media
   background url('~assets/login_banner.png') no-repeat center center
@@ -108,7 +109,6 @@ export default {
 @media (max-width: $breakpoint-xs)
   .et-login
     width 100%
-    height 100vh
 
   .q-card-actions
     height calc(100vh - 527px) !important
