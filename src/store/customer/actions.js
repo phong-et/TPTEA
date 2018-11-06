@@ -257,15 +257,14 @@ export const applyGiftCard = ({commit}, payload) => {
     }`
   )
     .then(({data}) => {
-      if (data.applyGiftCard !== undefined) {
-        _procAlert(data, `$${data.applyGiftCard.amount} was apllied successful`)
-        commit('setCustomerBalance', data.applyGiftCard.balance)
-      } else _procAlert(data, true)
-      commit('setIsLoading', false)
-      commit('setCurrentScannedGiftCardCode', '')
+      let amount = (data.applyGiftCard && data.applyGiftCard.amount) || 0
+      _procAlert(data, `$${amount} has just been applied successfully`)
+      if (data.applyGiftCard) commit('setCustomerBalance', data.applyGiftCard.balance)
     })
     .catch(err => {
       _procError(err)
+    })
+    .finally(() => {
       commit('setIsLoading', false)
       commit('setCurrentScannedGiftCardCode', '')
     })

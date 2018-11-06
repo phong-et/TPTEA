@@ -25,7 +25,7 @@
               <q-btn color="secondary" label="Scan QR Code" icon="center_focus_strong" class="q-ma-sm col-11" @click="openScanner()"></q-btn>
             </div>
             <div class="row justify-center q-mt-lg">
-              <q-btn :loading="getIsLoading" :disable="!haveGiftCardCode" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-11" @click="applyGiftCardCode({jwt:giftCardCode, customerId:getCustomer.id})">
+              <q-btn :loading="getIsLoading" :disable="giftCardCode.length === 0" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-11" @click="applyGiftCard({jwt:giftCardCode, customerId:getCustomer.id})">
                 <q-spinner-pie slot="loading" size="25px" />
               </q-btn>
             </div>
@@ -58,9 +58,6 @@ export default {
   },
   computed: {
     ...mapGetters('customer', ['getCustomer', 'getIsLoading', 'getCurrentScannedGiftCardCode']),
-    haveGiftCardCode() {
-      return this.giftCardCode !== ''
-    },
     colorGiftCardCode() {
       return this.giftCardCode === '' ? 'tertiary' : 'tertiarylight'
     },
@@ -99,11 +96,6 @@ export default {
       this.clearGiftCardCode()
       this.scannerStarted = true
       this.theScanner = QRCodeScanner
-    },
-    applyGiftCardCode(payload) {
-      if (this.haveGiftCardCode) {
-        this.applyGiftCard(payload)
-      }
     },
     closeTopup() {
       this.$router.go(-1)
