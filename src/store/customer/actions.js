@@ -254,11 +254,16 @@ export const applyGiftCard = ({commit}, payload) => {
     }`
   )
     .then(({data}) => {
-      _procAlert(data)
+      _procAlert(data, true)
       commit('setIsLoading', false)
+      commit('setCurrentScannedGiftCardCode', '')
+      if (!isNaN(data.applyGiftCard)) {
+        commit('setCustomerBalance', data.applyGiftCard)
+      }
     })
     .catch(err => {
       _procError(err)
       commit('setIsLoading', false)
+      commit('setCurrentScannedGiftCardCode', '')
     })
 }

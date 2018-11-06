@@ -10,6 +10,9 @@ export const setIsLoading = (state, payload) => {
 export const setCustomer = (state, payload) => {
   state.customer = payload
 }
+export const setCustomerBalance = (state, payload) => {
+  state.customer.balance = payload
+}
 
 export const setRecs = (state, payload) => {
   state.recs = payload
@@ -33,4 +36,8 @@ export const discardEditingRec = state => {
 
 export const setIsModalOpened = (state, payload) => {
   state.isModalOpened = payload
+}
+
+export const setCurrentScannedGiftCardCode = (state, payload) => {
+  state.currentScannedGiftCardCode = payload
 }

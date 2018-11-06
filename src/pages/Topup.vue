@@ -40,19 +40,18 @@
 </template>
 <script>
 import QRCodeScanner from '../components/qrcode/QRCodeScanner'
-import {mapGetters, mapActions} from 'vuex'
+import {mapGetters, mapActions, mapMutations} from 'vuex'
 export default {
   name: 'PageTopup',
   components: {QRCodeScanner},
   data() {
     return {
-      giftCardCode: '',
       scannerStarted: false,
       theScanner: null,
     }
   },
   computed: {
-    ...mapGetters('customer', ['getCustomer', 'getIsLoading']),
+    ...mapGetters('customer', ['getCustomer', 'getIsLoading', 'getCurrentScannedGiftCardCode']),
     haveGiftCardCode() {
       return this.giftCardCode !== ''
     },
@@ -62,9 +61,19 @@ export default {
     classGiftCardCode() {
       return this.giftCardCode === '' ? 'q-ma-sm col-11' : 'q-ma-sm col-11 text-secondary'
     },
+    giftCardCode: {
+      get() {
+        return this.$store.getters['customer/getCurrentScannedGiftCardCode']
+      },
+      set(val) {
+        this.$store.commit('customer/setCurrentScannedGiftCardCode', val)
+      },
+    },
+
   },
   methods: {
     ...mapActions('customer', ['applyGiftCard']),
+    ...mapMutations('customer', ['setCurrentScannedGiftCardCode']),
     clearGiftCardCode() {
       this.giftCardCode = ''
     },

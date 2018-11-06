@@ -11,6 +11,7 @@ export default {
   isModalOpened: false,
   editingRec: {},
   backupRec: {},
+  currentScannedGiftCardCode: '',
   cols: [
     {
       name: 'edit',
