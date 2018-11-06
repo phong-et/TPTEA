@@ -32,7 +32,6 @@ export default {
         action: function(payload) {
           me.setIsModalQRCodeOpened(true)
           me.setCurrentGenGiftCardCode(payload.code)
-          console.log(payload.code)
         },
       },
     }
