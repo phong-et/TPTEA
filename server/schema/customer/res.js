@@ -119,9 +119,12 @@ const resolvers = {
       if (giftCard.customerId) throw new Error('The gift card is not available anymore!')
       let user = await Customer.findById(input.customerId)
       if (user) {
-        let balance = user.get('balance') + giftCard.amount
+        let amount = giftCard.amount
+        let balance = user.get('balance') + amount
         return await user.update({balance}).then(async () => {
-          return await giftCard.update({customerId: input.customerId}).then(() => balance)
+          return await giftCard.update({customerId: input.customerId}).then(() => {
+            return {balance, amount}
+          })
         })
       } else throw new Error('Not found Customer info!')
     },

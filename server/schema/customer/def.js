@@ -44,5 +44,9 @@ const Customer = `
     jwt: String!
     customerId: Int!
   }
+  type ApplyGiftCardOutput {
+    balance: Int
+    amount: Int
+  }
 `
 export default Customer

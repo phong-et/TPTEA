@@ -250,16 +250,19 @@ export const applyGiftCard = ({commit}, payload) => {
   _post(
     payload,
     `mutation ($input: ApplyGiftCardInput) {
-      applyGiftCard(input: $input) 
+      applyGiftCard(input: $input){
+        balance
+        amount
+      } 
     }`
   )
     .then(({data}) => {
-      _procAlert(data, true)
+      if (data.applyGiftCard !== undefined) {
+        _procAlert(data, `$${data.applyGiftCard.amount} was apllied successful`)
+        commit('setCustomerBalance', data.applyGiftCard.balance)
+      } else _procAlert(data, true)
       commit('setIsLoading', false)
       commit('setCurrentScannedGiftCardCode', '')
-      if (!isNaN(data.applyGiftCard)) {
-        commit('setCustomerBalance', data.applyGiftCard)
-      }
     })
     .catch(err => {
       _procError(err)
