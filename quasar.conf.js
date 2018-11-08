@@ -101,6 +101,7 @@ module.exports = function(ctx) {
         'QRadio',
         'QBtnGroup',
         'QToggle',
+        'QTree',
       ],
       directives: ['Ripple', 'CloseOverlay'],
       // Quasar plugins
