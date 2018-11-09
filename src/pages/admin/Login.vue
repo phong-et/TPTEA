@@ -102,6 +102,7 @@ export default {
 @media (max-width: $breakpoint-xs)
   .et-login
     width 100%
+    height 100vh
 
   .q-card-actions
     height calc(100vh - 462px) !important
