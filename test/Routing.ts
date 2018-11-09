@@ -5,11 +5,11 @@ const setLocalStorageItem = ClientFunction((prop, value) => {
   localStorage.setItem(prop, value)
 })
 
-const TEST_PAGE = 'http://localhost:8080/#/home'
+const TEST_PAGE = 'https://localhost:8080/#/home'
 const TEST_SPEED = 0.3
 const CUSTOMER_TOKEN = 'c'
 const ADMIN_TOKEN = 'a'
-const URL_PREFIX = 'http://localhost:8080/#/'
+const URL_PREFIX = 'https://localhost:8080/#/'
 
 const TEST_CASES = {
   noToken: {
@@ -39,7 +39,7 @@ const TEST_CASES = {
   },
   customerToken: {
     customerRouting: [
-      {navTo: '#/', navExpect: 'customer'},
+      {navTo: '#/', navExpect: ''},
       {navTo: '#/customer', navExpect: 'customer'},
       {navTo: '#/customer/', navExpect: 'customer/'},
       {navTo: '#/customer/login', navExpect: 'customer'},

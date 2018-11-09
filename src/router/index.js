@@ -30,7 +30,6 @@ export default function({store}) {
           case '/customer/':
             next()
             break
-          case '/':
           case '/customer/login':
           case '/customer/register':
             next('/customer')
