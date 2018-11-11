@@ -55,6 +55,7 @@ export default {
                     handler: function(node) {
                       this.call(node)
                     },
+                    lat: '',
                     children: [
                       {
                         handler: function(node) {

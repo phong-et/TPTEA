@@ -15,7 +15,7 @@ import pgMenuDetail from 'pages/MenuDetail'
 import pgError404 from 'pages/Error404'
 import pgAdminCustomers from 'pages/admin/Customers'
 import pgTopup from 'pages/Topup'
-
+import pgTree from 'pages/Tree'
 const routes = [
   {
     path: '/',
@@ -32,6 +32,10 @@ const routes = [
       {
         path: 'stores',
         component: pgStores,
+      },
+      {
+        path: 'tree',
+        component: pgTree,
       },
       {
         path: 'menus/:catId',
