@@ -37,6 +37,7 @@ export default {
     userPosition: null,
     zoom: 12,
     propsExpanded: ['Stores List', 'Taiwan', 'Hong Kong'],
+    tickStrategy: 'leaf',
     stores: [
       {
         label: 'Stores List',
@@ -44,15 +45,23 @@ export default {
         children: [
           {
             label: 'Taiwan',
+            avatar: 'statics/icons/taiwan-flag.png',
             children: [
               {
                 label: 'Taichung City',
                 children: [
                   {
                     label: 'Taichung Dajhih Store',
+                    handler: function(node) {
+                      this.call(node)
+                    },
                     children: [
                       {
-                        label: '<a href="tel:04-22077317">04-22077317</a>',
+                        handler: function(node) {
+                          console.log(this.zoom)
+                          this.call(node)
+                        },
+                        label: '04-22077317',
                       },
                       {
                         label: 'No.161, Syueshih Rd., North Dist., Taichung City 40454, Taiwan (R.O.C.)',
@@ -70,22 +79,63 @@ export default {
                   },
                 ],
               },
-              {
-                label: 'Pleasant surroundings',
-                children: [{label: 'Happy atmosphere'}, {label: 'Good table presentation'}, {label: 'Pleasing decor'}],
-              },
             ],
           },
           {
             label: 'Hong Kong',
+            avatar: 'statics/icons/hongkong-flag.png',
             children: [
               {
                 label: 'Hong Kong City',
-                children: [{label: 'Syueshih Store'}, {label: 'Good recipe'}],
+                children: [
+                  {
+                    label: 'Central Flagship Shop',
+                    children: [
+                      {
+                        label: '2866-1977',
+                      },
+                      {label: 'Shop No. C1, G/F, World-Wide House, No.19 Des Voeux Road Central, Hong Kong'},
+                    ],
+                  },
+                  {
+                    label: 'Central Shop',
+                    children: [
+                      {
+                        label: '2391-9006',
+                      },
+                      {label: 'Shop A3, G/F, Siu Ying Commercial Building, 151-155 Queens Road, Central'},
+                    ],
+                  },
+                ],
               },
+            ],
+          },
+          {
+            label: 'China',
+            avatar: 'statics/icons/china-flag.png',
+            children: [
               {
-                label: 'Pleasant surroundings 2',
-                children: [{label: 'Happy atmosphere'}, {label: 'Good table presentation'}],
+                label: 'Shanghai City',
+                children: [
+                  {
+                    label: 'New World Store',
+                    children: [
+                      {
+                        label: '021-68866189',
+                      },
+                      {label: '1F, No. 588, Nan Cyuan Bei Road Pudong New District Shanghai, China'},
+                    ],
+                  },
+                  {
+                    label: 'SML Center Store',
+                    children: [
+                      {
+                        label: '173-17733285',
+                      },
+                      {label: '1F, No. 618, Syu Jia Huei Road  Huang Pu District Shanghai, China'},
+                    ],
+                  },
+                ],
               },
             ],
           },
@@ -93,6 +143,12 @@ export default {
       },
     ],
   }),
+  methods: {
+    call(phone) {
+      alert(phone)
+      window.open('tel:' + phone)
+    },
+  },
 }
 </script>
 <style scoped lang="stylus">
