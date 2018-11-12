@@ -1,6 +1,6 @@
 <template>
   <div>
-    <googlemaps-map ref="map" class="map" :center.sync="center" :zoom.sync="zoom">
+    <googlemaps-map id="map" ref="map" class="map" :center.sync="center" :zoom.sync="zoom">
       <googlemaps-marker :title="currentStore.name" :position="currentStore.position" icon="statics/icons/tptea-marker-icon.png" />
     </googlemaps-map>
     <q-tree :nodes="stores" color="primary" node-key="label" :expanded.sync="propsExpanded" :selected.sync="selected">
@@ -8,7 +8,7 @@
         <span @click="gotoStore(prop.node.children[0].position, prop.node.label)">{{prop.node.label}}</span>
       </div>
       <div slot="header-addr" slot-scope="prop">
-        Address: <a href="#" @click="gotoStore(prop.node.position, prop.node.label)">{{prop.node.label}}</a>
+        Address: <a href="#map" @click="gotoStore(prop.node.position, prop.node.label)">{{prop.node.label}}</a>
       </div>
       <div slot="body-addr" slot-scope="prop">
         Phone: <a :href="'tel:' + prop.node.phone">{{prop.node.phone}}</a>
@@ -38,7 +38,6 @@ export default {
         position: position,
       }
       this.center = position
-      window.scrollTo(0, 0)
     },
   },
   computed: {},
