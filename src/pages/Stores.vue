@@ -1,13 +1,19 @@
 <template>
   <div>
-    <googlemaps-map ref="map" class="map" :center.sync="center" :zoom.sync="zoom"></googlemaps-map>
-    <q-tree :nodes="stores" color="primary" node-key="label" :expanded.sync="propsExpanded">
-      <!-- <div slot="header-root" slot-scope="prop" class="row items-center">
-        <img src="statics/icons/location_icon.png" class="avatar q-mr-sm">
-        <div>
-          {{ prop.node.label }} <q-chip color="orange" small>New!</q-chip>
-        </div>
-      </div> -->
+    <googlemaps-map ref="map" class="map" :center.sync="center" :zoom.sync="zoom">
+      <!-- Marker -->
+      <googlemaps-marker title="Paris" :position="{ lat: 31.2292, lng: 121.5186 }" />
+    </googlemaps-map>
+    <q-tree :nodes="stores" color="primary" node-key="label" :expanded.sync="propsExpanded" :selected.sync="selected">
+      <div slot="header-store" slot-scope="prop">
+        <span @click="moveGmapPin(prop.node.children[1].position)">{{prop.node.label}}</span>
+      </div>
+      <div slot="header-phone" slot-scope="prop">
+        Phone: <a :href="'tel:' + prop.node.label">{{prop.node.label}}</a>
+      </div>
+      <div slot="header-addr" slot-scope="prop">
+        Address: <a href="#" @click="moveGmapPin(prop.node.position)">{{prop.node.label}}</a>
+      </div>
     </q-tree>
   </div>
 </template>
@@ -29,15 +35,33 @@ export default {
   components: {
     VueGoogleMaps,
   },
+  methods: {
+    call(phone) {
+      alert(phone)
+      window.open('tel:' + phone)
+    },
+    moveGmapPin(position) {
+      console.log(position)
+      alert(position)
+    },
+  },
+  computed: {
+    selectedStorePosition() {
+      if (this.selected !== null) {
+        return this.getNodeByKey(this.selected).position
+      }
+      return {lat: 31.2292, lng: 121.5186}
+    },
+  },
   data: () => ({
     center: {
-      lat: 48.853,
-      lng: 2.298,
+      lat: 31.2292,
+      lng: 121.5186,
     },
     userPosition: null,
     zoom: 12,
     propsExpanded: ['Stores List', 'Taiwan', 'Hong Kong'],
-    tickStrategy: 'leaf',
+    selected: null,
     stores: [
       {
         label: 'Stores List',
@@ -52,20 +76,16 @@ export default {
                 children: [
                   {
                     label: 'Taichung Dajhih Store',
-                    handler: function(node) {
-                      this.call(node)
-                    },
-                    lat: '',
+                    header: 'store',
                     children: [
                       {
-                        handler: function(node) {
-                          console.log(this.zoom)
-                          this.call(node)
-                        },
                         label: '04-22077317',
+                        header: 'phone',
                       },
                       {
                         label: 'No.161, Syueshih Rd., North Dist., Taichung City 40454, Taiwan (R.O.C.)',
+                        position: {lat: 24.136206, lng: 120.68831},
+                        header: 'addr',
                       },
                     ],
                   },
@@ -144,12 +164,6 @@ export default {
       },
     ],
   }),
-  methods: {
-    call(phone) {
-      alert(phone)
-      window.open('tel:' + phone)
-    },
-  },
 }
 </script>
 <style scoped lang="stylus">

@@ -60,8 +60,10 @@ export default {
     },
   },
   computed: {
-    currentSelectedKey() {
-      return ''
+    currentSelectedKey(node, meta) {
+      console.log(node)
+      console.log(meta)
+      return this.selected
     },
   },
 }
