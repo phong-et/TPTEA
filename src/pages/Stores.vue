@@ -1,18 +1,18 @@
 <template>
   <div>
-    <googlemaps-map ref="map" class="map" :center.sync="center" :zoom.sync="zoom">
+    <googlemaps-map ref="map" class="map" :center.sync="{lat: 31.2292, lng: 121.5186}" :zoom.sync="zoom">
       <!-- Marker -->
-      <googlemaps-marker title="Paris" :position="{ lat: 31.2292, lng: 121.5186 }" />
+      <googlemaps-marker :title="currentStore.name" :position="currentStore.position" />
     </googlemaps-map>
     <q-tree :nodes="stores" color="primary" node-key="label" :expanded.sync="propsExpanded" :selected.sync="selected">
       <div slot="header-store" slot-scope="prop">
-        <span @click="moveGmapPin(prop.node.children[1].position)">{{prop.node.label}}</span>
-      </div>
-      <div slot="header-phone" slot-scope="prop">
-        Phone: <a :href="'tel:' + prop.node.label">{{prop.node.label}}</a>
+        <span @click="moveGmapPin(prop.node)">{{prop.node.label}}</span>
       </div>
       <div slot="header-addr" slot-scope="prop">
-        Address: <a href="#" @click="moveGmapPin(prop.node.position)">{{prop.node.label}}</a>
+        Address: <a href="#" @click="moveGmapPin(prop.node)">{{prop.node.label}}</a>
+      </div>
+      <div slot="body-addr" slot-scope="prop">
+        Phone: <a :href="'tel:' + prop.node.phone">{{prop.node.phone}}</a>
       </div>
     </q-tree>
   </div>
@@ -36,13 +36,8 @@ export default {
     VueGoogleMaps,
   },
   methods: {
-    call(phone) {
-      alert(phone)
-      window.open('tel:' + phone)
-    },
-    moveGmapPin(position) {
-      console.log(position)
-      alert(position)
+    moveGmapPin(store) {
+      this.currentStore = store
     },
   },
   computed: {
@@ -60,101 +55,118 @@ export default {
     },
     userPosition: null,
     zoom: 12,
-    propsExpanded: ['Stores List', 'Taiwan', 'Hong Kong'],
+    currentStore: {
+      name: '',
+      position: {lat: 31.2292, lng: 121.5186},
+    },
+    propsExpanded: ['Taiwan', 'Hong Kong', 'China'],
     selected: null,
     stores: [
       {
-        label: 'Stores List',
-        avatar: 'statics/icons/location_icon.png',
+        label: 'Taiwan',
+        avatar: 'statics/icons/taiwan-flag.png',
         children: [
           {
-            label: 'Taiwan',
-            avatar: 'statics/icons/taiwan-flag.png',
+            label: 'Taichung City',
             children: [
               {
-                label: 'Taichung City',
+                label: 'Taichung Dajhih Store',
+                header: 'store',
                 children: [
                   {
-                    label: 'Taichung Dajhih Store',
-                    header: 'store',
-                    children: [
-                      {
-                        label: '04-22077317',
-                        header: 'phone',
-                      },
-                      {
-                        label: 'No.161, Syueshih Rd., North Dist., Taichung City 40454, Taiwan (R.O.C.)',
-                        position: {lat: 24.136206, lng: 120.68831},
-                        header: 'addr',
-                      },
-                    ],
+                    label: 'No.161, Syueshih Rd., North Dist., Taichung City 40454, Taiwan (R.O.C.)',
+                    phone: '04-22077317',
+                    position: {lat: 24.136206, lng: 120.68831},
+                    header: 'addr',
+                    body: 'addr',
                   },
+                ],
+              },
+              {
+                label: 'Syueshih Store',
+                header: 'store',
+                children: [
                   {
-                    label: 'Syueshih Store',
-                    children: [
-                      {
-                        label: '04-22232332 ',
-                      },
-                      {label: 'No.5, Dajhih Rd., East Dist., Taichung City 40150, Taiwan (R.O.C.)'},
-                    ],
+                    label: 'No.5, Dajhih Rd., East Dist., Taichung City 40150, Taiwan (R.O.C.)',
+                    phone: '04-22232332 ',
+                    position: {lat: 24.1588157, lng: 120.68079209999996},
+                    header: 'addr',
+                    body: 'addr',
                   },
                 ],
               },
             ],
           },
+        ],
+      },
+      {
+        label: 'Hong Kong',
+        avatar: 'statics/icons/hongkong-flag.png',
+        children: [
           {
-            label: 'Hong Kong',
-            avatar: 'statics/icons/hongkong-flag.png',
+            label: 'Hong Kong City',
             children: [
               {
-                label: 'Hong Kong City',
+                label: 'Central Flagship Shop',
+                header: 'store',
                 children: [
                   {
-                    label: 'Central Flagship Shop',
-                    children: [
-                      {
-                        label: '2866-1977',
-                      },
-                      {label: 'Shop No. C1, G/F, World-Wide House, No.19 Des Voeux Road Central, Hong Kong'},
-                    ],
+                    label: 'Shop No. C1, G/F, World-Wide House, No.19 Des Voeux Road Central, Hong Kong',
+                    phone: '2866-1977',
+                    position: {lat: 24.136206, lng: 120.68831},
+                    header: 'addr',
+                    body: 'addr',
                   },
+                ],
+              },
+              {
+                label: 'Central Shop',
+                header: 'store',
+                children: [
                   {
-                    label: 'Central Shop',
-                    children: [
-                      {
-                        label: '2391-9006',
-                      },
-                      {label: 'Shop A3, G/F, Siu Ying Commercial Building, 151-155 Queens Road, Central'},
-                    ],
+                    label: 'Shop A3, G/F, Siu Ying Commercial Building, 151-155 Queens Road, Central',
+                    phone: '2391-9006',
+                    position: {lat: 24.136206, lng: 120.68831},
+                    header: 'addr',
+                    body: 'addr',
                   },
                 ],
               },
             ],
           },
+        ],
+      },
+      {
+        label: 'China',
+        avatar: 'statics/icons/china-flag.png',
+
+        children: [
           {
-            label: 'China',
-            avatar: 'statics/icons/china-flag.png',
+            label: 'Shanghai City',
             children: [
               {
-                label: 'Shanghai City',
+                label: 'New World Store',
+                header: 'store',
                 children: [
                   {
-                    label: 'New World Store',
-                    children: [
-                      {
-                        label: '021-68866189',
-                      },
-                      {label: '1F, No. 588, Nan Cyuan Bei Road Pudong New District Shanghai, China'},
-                    ],
+                    label: '1F, No. 588, Nan Cyuan Bei Road Pudong New District Shanghai, China',
+                    phone: '021-68866189',
+                    position: {lat: 24.136206, lng: 120.68831},
+                    header: 'addr',
+                    body: 'addr',
                   },
+                ],
+              },
+              {
+                label: 'SML Center Store',
+                header: 'store',
+                children: [
                   {
-                    label: 'SML Center Store',
-                    children: [
-                      {
-                        label: '173-17733285',
-                      },
-                      {label: '1F, No. 618, Syu Jia Huei Road  Huang Pu District Shanghai, China'},
-                    ],
+                    label: '1F, No. 618, Syu Jia Huei Road  Huang Pu District Shanghai, China',
+                    phone: '173-17733285',
+                    position: {lat: 24.136206, lng: 120.68831},
+                    header: 'addr',
+                    body: 'addr',
                   },
                 ],
               },
