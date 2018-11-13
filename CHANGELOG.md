@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - Topup page
 - Authenticate a GiftCard utility function
 - GiftCard page [@phillip](https://github.com/hemvanh/TPTEA/pull/55)
+- Stores page
 ### Removed 
 - Join now button
 - Remove parameter "expiry" and change parameter "amount" to "giftCardid" in genGiftCard function

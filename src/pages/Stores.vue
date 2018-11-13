@@ -1,16 +1,23 @@
 <template>
-  <div>
-    <googlemaps-map id="map" ref="map" class="map" :center.sync="center" :zoom.sync="zoom">
+  <div id="stores">
+    <googlemaps-map ref="map" class="map" :center.sync="center" :zoom.sync="zoom">
       <googlemaps-marker :title="currentStore.name" :position="currentStore.position" icon="statics/icons/tptea-marker-icon.png" />
     </googlemaps-map>
     <q-tree :nodes="stores" color="primary" node-key="label" :expanded.sync="propsExpanded" :selected.sync="selected">
+      <div slot="header-country" slot-scope="prop">
+        <img :src="prop.node.avatar" class="q-tree-img q-mr-sm avatar">
+        <span class="country-name">{{prop.node.label}}</span>
+      </div>
+      <div slot="header-city" slot-scope="prop">
+        <span class="city-name">{{prop.node.label}}</span>
+      </div>
       <div slot="header-store" slot-scope="prop">
-        <span @click="gotoStore(prop.node.children[0].position, prop.node.label)">{{prop.node.label}}</span>
+        <span class="store-name" @click="gotoStore(prop.node.children[0].position, prop.node.label)">{{prop.node.label}}</span>
       </div>
-      <div slot="header-addr" slot-scope="prop">
-        Address: <a href="#map" @click="gotoStore(prop.node.position, prop.node.label)">{{prop.node.label}}</a>
+      <div class="address-store" slot="header-addr" slot-scope="prop">
+        Address: <a href="#" @click="gotoStore(prop.node.position, prop.node.label)">{{prop.node.label}}</a>
       </div>
-      <div slot="body-addr" slot-scope="prop">
+      <div class="phone-store" slot="body-addr" slot-scope="prop">
         Phone: <a :href="'tel:' + prop.node.phone">{{prop.node.phone}}</a>
       </div>
     </q-tree>
@@ -33,11 +40,16 @@ export default {
   },
   methods: {
     gotoStore(position, name) {
-      this.currentStore = {
-        name: name,
-        position: position,
-      }
-      this.center = position
+      document.getElementById('stores').parentNode.scrollTo(0, 0)
+      var me = this
+      // fix lost marker icon when scroll top
+      setTimeout(function() {
+        me.currentStore = {
+          name: name,
+          position: position,
+        }
+        me.center = position
+      }, 300)
     },
   },
   computed: {},
@@ -57,9 +69,11 @@ export default {
       {
         label: 'Taiwan',
         avatar: 'statics/icons/taiwan-flag.png',
+        header: 'country',
         children: [
           {
             label: 'Taichung City',
+            header: 'city',
             children: [
               {
                 label: 'Taichung Dajhih Store',
@@ -94,9 +108,11 @@ export default {
       {
         label: 'Hong Kong',
         avatar: 'statics/icons/hongkong-flag.png',
+        header: 'country',
         children: [
           {
             label: 'Hong Kong City',
+            header: 'city',
             children: [
               {
                 label: 'Central Flagship Shop',
@@ -131,9 +147,11 @@ export default {
       {
         label: 'China',
         avatar: 'statics/icons/china-flag.png',
+        header: 'country',
         children: [
           {
             label: 'Shanghai City',
+            header: 'city',
             children: [
               {
                 label: 'New World Store',
@@ -170,8 +188,21 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
+@import '~variables'
+
 .map
   flex 100% 1 1
   width 100%
   height 350px
+
+span.store-name, span.city-name, span.country-name
+  font-size 22px
+  font-weight bold
+  color $primary
+
+.address-store, .phone-store
+  color $secondary
+
+.address-store a, .phone-store a
+  color $tertiary
 </style>
