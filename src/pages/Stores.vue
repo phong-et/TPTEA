@@ -15,7 +15,7 @@
         <span class="store-name" @click="gotoStore(prop.node.children[0].position, prop.node.label)">{{prop.node.label}}</span>
       </div>
       <div class="address-store" slot="header-addr" slot-scope="prop">
-        Address: <a href="#" @click="gotoStore(prop.node.position, prop.node.label)">{{prop.node.label}}</a>
+        Address: <a href="#stores" @click="gotoStore(prop.node.position, prop.node.label)">{{prop.node.label}}</a>
       </div>
       <div class="phone-store" slot="body-addr" slot-scope="prop">
         Phone: <a :href="'tel:' + prop.node.phone">{{prop.node.phone}}</a>
@@ -58,7 +58,7 @@ export default {
       lat: 31.2292,
       lng: 121.5186,
     },
-    zoom: 12,
+    zoom: 16,
     currentStore: {
       name: 'New World Store',
       position: {lat: 31.2056323, lng: 121.46787489999997},
