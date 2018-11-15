@@ -34,20 +34,12 @@ export default {
       }
       // Detects if device is in standalone mode
       const isInStandaloneMode = () => 'standalone' in window.navigator && window.navigator.standalone
-
       // Checks if should display install popup notification:
-      if (isIos() && isInStandaloneMode()) {
-        return true
-      }
-      return false
+      return isIos() && isInStandaloneMode()
     },
   },
   mounted() {
-    if (this.isIosPwa) {
-      this.theQRCodeReader = QrcodeCapture
-    } else {
-      this.theQRCodeReader = QrcodeStream
-    }
+    this.theQRCodeReader = this.isIosPwa ? QrcodeCapture : QrcodeStream
   },
 }
 </script>
