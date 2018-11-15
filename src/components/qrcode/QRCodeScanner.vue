@@ -1,12 +1,8 @@
 <template>
   <div>
-    <!-- <qrcode-reader v-show="!isIosPwa" ref="scanner" @decode="onDecode" @init="onInit">
+    <component @decode="onDecode" @init="onInit" v-bind:is="theQRCodeReader">
       <LoadingIndicator v-show="loading" />
-    </qrcode-reader>
-    <qrcode-capture v-show="isIosPwa" ref="scanner" @decode="onDecode" @init="onInit">
-      <LoadingIndicator v-show="loading" />
-    </qrcode-capture> -->
-    <component @decode="onDecode" v-bind:is="theQRCodeReader"></component>
+    </component>
   </div>
 </template>
 <script>
@@ -31,20 +27,19 @@ export default {
   },
   computed: {
     isIosPwa() {
-      // // Detects if device is on iOS
-      // const isIos = () => {
-      //   const userAgent = window.navigator.userAgent.toLowerCase()
-      //   return /iphone|ipad|ipod/.test(userAgent)
-      // }
-      // // Detects if device is in standalone mode
-      // const isInStandaloneMode = () => 'standalone' in window.navigator && window.navigator.standalone
+      // Detects if device is on iOS
+      const isIos = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase()
+        return /iphone|ipad|ipod/.test(userAgent)
+      }
+      // Detects if device is in standalone mode
+      const isInStandaloneMode = () => 'standalone' in window.navigator && window.navigator.standalone
 
-      // // Checks if should display install popup notification:
-      // if (isIos() && isInStandaloneMode()) {
-      //   return true
-      // }
-      // return false
-      return true
+      // Checks if should display install popup notification:
+      if (isIos() && isInStandaloneMode()) {
+        return true
+      }
+      return false
     },
   },
   mounted() {
