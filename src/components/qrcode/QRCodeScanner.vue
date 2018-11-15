@@ -1,19 +1,58 @@
 <template>
-  <QrcodeReader ref="scanner" @decode="onDecode" @init="onInit">
-    <LoadingIndicator v-show="loading" />
-  </QrcodeReader>
+  <div>
+    <!-- <qrcode-reader v-show="!isIosPwa" ref="scanner" @decode="onDecode" @init="onInit">
+      <LoadingIndicator v-show="loading" />
+    </qrcode-reader>
+    <qrcode-capture v-show="isIosPwa" ref="scanner" @decode="onDecode" @init="onInit">
+      <LoadingIndicator v-show="loading" />
+    </qrcode-capture> -->
+    <component @decode="onDecode" v-bind:is="theQRCodeReader"></component>
+  </div>
 </template>
 <script>
-import {QrcodeReader} from 'vue-qrcode-reader'
+import {QrcodeStream, QrcodeCapture} from 'vue-qrcode-reader'
 import QRCodeInitHandler from '../../mixins/QRCodeInitHandler'
 export default {
-  components: {QrcodeReader},
+  components: {
+    QrcodeStream,
+    QrcodeCapture,
+  },
   mixins: [QRCodeInitHandler],
   methods: {
     onDecode(content) {
       this.pause = true
       this.$emit('scanned', content)
     },
+  },
+  data() {
+    return {
+      theQRCodeReader: null,
+    }
+  },
+  computed: {
+    isIosPwa() {
+      // // Detects if device is on iOS
+      // const isIos = () => {
+      //   const userAgent = window.navigator.userAgent.toLowerCase()
+      //   return /iphone|ipad|ipod/.test(userAgent)
+      // }
+      // // Detects if device is in standalone mode
+      // const isInStandaloneMode = () => 'standalone' in window.navigator && window.navigator.standalone
+
+      // // Checks if should display install popup notification:
+      // if (isIos() && isInStandaloneMode()) {
+      //   return true
+      // }
+      // return false
+      return true
+    },
+  },
+  mounted() {
+    if (this.isIosPwa) {
+      this.theQRCodeReader = QrcodeCapture
+    } else {
+      this.theQRCodeReader = QrcodeStream
+    }
   },
 }
 </script>
