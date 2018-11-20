@@ -38,7 +38,7 @@ export default {
   methods: {
     ...mapActions('customer', ['genCustomerPaymentId']),
     ...mapMutations('customer', ['setQRCodePaymentId']),
-    closePayment(e) {
+    closePayment() {
       this.$router.go(-1)
       clearInterval(this.countDownHandler)
     },
