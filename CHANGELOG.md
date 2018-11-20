@@ -24,7 +24,7 @@ All notable changes to this project will be documented in this file.
 - iOS splash screen - dark
 - Stores page with Google Maps
 - QRCodeCapture for test PWA iOS
-- ModalPage component (use for pages are a modal/popup)
+- ModalPage component (use for page is a modal/popup) [@phillip](https://github.com/hemvanh/TPTEA/pull/85)
 - ModalPage to Register & Login page
 ### Removed 
 - Join now button
