@@ -1,5 +1,5 @@
 <template>
-  <modal-page @close="closePayment()">
+  <modal-page @close="closePayment">
     <div class="q-title row justify-center q-mt-sm text-grey">{{getCustomer.name}}</div>
     <div class="row justify-center q-mt-sm">Give this code to the cashier for payment</div>
     <div class="q-pa-lg">
@@ -38,7 +38,7 @@ export default {
   methods: {
     ...mapActions('customer', ['genCustomerPaymentId']),
     ...mapMutations('customer', ['setQRCodePaymentId']),
-    closePayment() {
+    closePayment(e) {
       this.$router.go(-1)
       clearInterval(this.countDownHandler)
     },
