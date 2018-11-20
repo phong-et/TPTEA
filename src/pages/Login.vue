@@ -1,33 +1,35 @@
 <template>
-  <q-card square class="et-login center">
-    <q-card-media>
-      <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo">
-      </svg>
-    </q-card-media>
-    <q-card-title class="text-primary">
-      TP@Tea HongKong
-      <div slot="right" class="row items-center">
-        <q-icon name="card_membership" class="q-mr-sm" />
-        <router-link to="/customer/register" tag="a">
-          <a class="text-warning">Register</a>
-        </router-link>
-      </div>
-    </q-card-title>
-    <q-card-main class="q-mb-md">
-      <q-input clearable v-model="username" float-label="Username" color="secondary" :error="$v.username.$error" />
-      <et-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
-      <q-input v-model="password" float-label="Password" color="secondary" type="password" :error="$v.password.$error" />
-      <et-validator :dirty="$v.password.$dirty" :show="!$v.password.required" msg="Password is required" />
-    </q-card-main>
-    <q-card-actions>
-      <div class="row justify-center" style="height:120px;width:100%;">
-        <q-btn :loading="getIsLoading" color="secondary" label="Sign In" class="text-secondary q-ma-sm col-10" @click="login({username,password,type:'password'})">
-          <q-spinner-pie slot="loading" size="25px" />
-        </q-btn>
-        <q-btn color="facebook" label="Sign in Facebook" @click="loginFb()" class="text-white q-ma-sm col-10" />
-      </div>
-    </q-card-actions>
-  </q-card>
+  <modal-page>
+    <q-card square class="et-login center">
+      <q-card-media>
+        <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo">
+        </svg>
+      </q-card-media>
+      <q-card-title class="text-primary">
+        TP@Tea HongKong
+        <div slot="right" class="row items-center">
+          <q-icon name="card_membership" class="q-mr-sm" />
+          <router-link to="/customer/register" tag="a">
+            <a class="text-warning">Register</a>
+          </router-link>
+        </div>
+      </q-card-title>
+      <q-card-main class="q-mb-md">
+        <q-input clearable v-model="username" float-label="Username" color="secondary" :error="$v.username.$error" />
+        <et-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
+        <q-input v-model="password" float-label="Password" color="secondary" type="password" :error="$v.password.$error" />
+        <et-validator :dirty="$v.password.$dirty" :show="!$v.password.required" msg="Password is required" />
+      </q-card-main>
+      <q-card-actions>
+        <div class="row justify-center" style="height:120px;width:100%;">
+          <q-btn :loading="getIsLoading" color="secondary" label="Sign In" class="text-secondary q-ma-sm col-10" @click="login({username,password,type:'password'})">
+            <q-spinner-pie slot="loading" size="25px" />
+          </q-btn>
+          <q-btn color="facebook" label="Sign in Facebook" @click="loginFb()" class="text-white q-ma-sm col-10" />
+        </div>
+      </q-card-actions>
+    </q-card>
+  </modal-page>
 </template>
 
 <script>
@@ -36,9 +38,11 @@ import etValidator from '../components/Validator'
 import {required} from 'vuelidate/lib/validators'
 import Vivus from 'vivus'
 import {mapActions, mapGetters} from 'vuex'
+import ModalPage from '../components/EtModalPage'
 export default {
   components: {
     etValidator,
+    ModalPage,
   },
   data() {
     return {
