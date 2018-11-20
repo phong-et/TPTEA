@@ -24,7 +24,6 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
-  .absolute-top-left{
-    z-index 999
-  }
+.absolute-top-left
+  z-index 999
 </style>
