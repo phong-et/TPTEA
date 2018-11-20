@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <q-modal v-model="isOpenedPayment" maximized>
-      <q-btn class="absolute-top-left" color="primary" flat round dense icon="reply" @click="closePayment()"></q-btn>
+      <btn-close-modal @click="closePayment()" />
       <div>
         <div class="q-title row justify-center q-mt-sm text-grey">{{getCustomer.name}}</div>
         <div class="row justify-center q-mt-sm">Give this code to the cashier for payment</div>
@@ -20,6 +20,7 @@
 </template>
 <script>
 import etGenQRCode from '../components/GenQRCode'
+import BtnCloseModal from '../components/EtButtonCloseModal'
 import {mapGetters, mapActions, mapMutations} from 'vuex'
 const VALID_COLOR = '#00F'
 const EXPIRED_COLOR = '#F00'
@@ -34,6 +35,7 @@ export default {
   },
   components: {
     etGenQRCode,
+    BtnCloseModal,
   },
   computed: {
     ...mapGetters('customer', ['getCustomer', 'getQRCodePaymentId', 'getIsLoading']),

@@ -5,7 +5,10 @@
 export default {
   methods: {
     close() {
-      this.$router.go(-1)
+      // call separator handler
+      if (this.$listeners && this.$listeners.click) this.$emit('click')
+      // call hander default
+      else this.$router.go(-1)
     },
   },
 }

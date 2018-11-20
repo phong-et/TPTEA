@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <q-modal v-model="isTopupOpened" maximized>
-      <btn-close-modal />
+      <btn-close-modal/>
       <q-card square class="center">
         <q-card-media></q-card-media>
         <q-item class="q-pt-md q-pb-md col-11">
