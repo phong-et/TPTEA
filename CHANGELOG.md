@@ -24,6 +24,8 @@ All notable changes to this project will be documented in this file.
 - iOS splash screen - dark
 - Stores page with Google Maps
 - QRCodeCapture for test PWA iOS
+- EtButtonCloseModal component
+- Modalize Register & Login page
 ### Removed 
 - Join now button
 - Remove parameter "expiry" and change parameter "amount" to "giftCardid" in genGiftCard function

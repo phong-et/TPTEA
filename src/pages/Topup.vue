@@ -1,54 +1,55 @@
 <template>
   <q-page>
     <q-modal v-model="isTopupOpened" maximized>
-      <q-btn class="absolute-top-left" color="primary" flat round dense icon="reply" @click="closeTopup()"></q-btn>
-          <q-card square class="center">
-            <q-card-media></q-card-media>
-            <q-item class="q-pt-md q-pb-md col-11">
-              <q-item-side icon="attach_money" />
-              <q-item-main label="Balance Amount" />
-              <q-item-side right>
-                <q-item-tile color="secondary">$ {{getCustomer.balance}}</q-item-tile>
-              </q-item-side>
-            </q-item>
-            <div class="row justify-center">
-              <q-input v-model="giftCardCode" placeholder="Type gift card code" @focus="clearGiftCardCode()" :class=classGiftCardCode inverted :color="colorGiftCardCode" />
+      <btn-close-modal />
+      <q-card square class="center">
+        <q-card-media></q-card-media>
+        <q-item class="q-pt-md q-pb-md col-11">
+          <q-item-side icon="attach_money" />
+          <q-item-main label="Balance Amount" />
+          <q-item-side right>
+            <q-item-tile color="secondary">$ {{getCustomer.balance}}</q-item-tile>
+          </q-item-side>
+        </q-item>
+        <div class="row justify-center">
+          <q-input v-model="giftCardCode" placeholder="Type gift card code" @focus="clearGiftCardCode()" :class=classGiftCardCode inverted :color="colorGiftCardCode" />
+        </div>
+        <div class="row justify-center">
+          <div class="col-10 row items-center text-primary">
+            <hr class="q-hr col-4">
+            or
+            <hr class="q-hr col-4">
+          </div>
+        </div>
+        <div class="row justify-center">
+          <q-btn color="secondary" label="Scan QR Code" icon="center_focus_strong" class="q-ma-sm col-11" @click="openScanner()"></q-btn>
+        </div>
+        <div class="row justify-center q-mt-lg">
+          <q-btn :loading="getIsLoading" :disable="giftCardCode.length === 0" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-11" @click="applyGiftCard({jwt:giftCardCode, customerId:getCustomer.id})">
+            <q-spinner-pie slot="loading" size="25px" />
+          </q-btn>
+        </div>
+        <q-modal v-model="scannerStarted" maximized>
+          <q-modal-layout>
+            <div>
+              <q-btn flat icon="close" @click="closeScanner()"></q-btn>
             </div>
-            <div class="row justify-center">
-              <div class="col-10 row items-center text-primary">
-                <hr class="q-hr col-4">
-                or
-                <hr class="q-hr col-4">
-              </div>
+            <div>
+              <component @scanned="receiveScannerCode" v-bind:is="theScanner"></component>
             </div>
-            <div class="row justify-center">
-              <q-btn color="secondary" label="Scan QR Code" icon="center_focus_strong" class="q-ma-sm col-11" @click="openScanner()"></q-btn>
-            </div>
-            <div class="row justify-center q-mt-lg">
-              <q-btn :loading="getIsLoading" :disable="giftCardCode.length === 0" color="secondary" label="Apply" icon="save_alt" class="q-ma-sm col-11" @click="applyGiftCard({jwt:giftCardCode, customerId:getCustomer.id})">
-                <q-spinner-pie slot="loading" size="25px" />
-              </q-btn>
-            </div>
-            <q-modal v-model="scannerStarted" maximized>
-              <q-modal-layout>
-                <div>
-                  <q-btn flat icon="close" @click="closeScanner()"></q-btn>
-                </div>
-                <div>
-                  <component @scanned="receiveScannerCode" v-bind:is="theScanner"></component>
-                </div>
-              </q-modal-layout>
-            </q-modal>
-          </q-card>
+          </q-modal-layout>
+        </q-modal>
+      </q-card>
     </q-modal>
   </q-page>
 </template>
 <script>
 import QRCodeScanner from '../components/qrcode/QRCodeScanner'
+import BtnCloseModal from '../components/EtButtonCloseModal'
 import {mapGetters, mapActions, mapMutations} from 'vuex'
 export default {
   name: 'PageTopup',
-  components: {QRCodeScanner},
+  components: {QRCodeScanner, BtnCloseModal},
   data() {
     return {
       isTopupOpened: true,
