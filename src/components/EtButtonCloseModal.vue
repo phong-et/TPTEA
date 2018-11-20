@@ -7,7 +7,7 @@ export default {
     close() {
       // call separator handler
       if (this.$listeners && this.$listeners.click) this.$emit('click')
-      // call hander default
+      // call default handler
       else this.$router.go(-1)
     },
   },
