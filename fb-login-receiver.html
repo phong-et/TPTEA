@@ -7,9 +7,14 @@
   <body>
     Facebook login completed.
     <script type="text/javascript">
-      const urlParams = new URLSearchParams(window.location.hash.split('#')[1])
-      window.opener.postMessage(urlParams.get('access_token'), window.location.href)
-      window.close()
+      try {
+        const urlParams = new URLSearchParams(window.location.hash.split('#')[1])
+        window.opener.postMessage(urlParams.get('access_token'), window.location.href)
+        window.close()
+      } catch (error) {
+        console.log(error)
+        window.location.href = 'https://tptea01.herokuapp.com/#/customer'
+      }      
     </script>
   </body>
 </html>
