@@ -11,7 +11,7 @@ deploytest() {
     npm run build
     git add -A 
     git commit -m "$*"
-    git subtree push --prefix dist/pwa-mat upstream tes01
+    git subtree push --prefix dist/pwa-mat upstream test01
 }
 
 dev() {
