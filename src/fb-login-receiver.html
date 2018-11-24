@@ -12,9 +12,9 @@
         window.opener.postMessage(urlParams.get('access_token'), window.location.href)
         window.close()
       } catch (error) {
-        console.log(error)
+        alert(error)
         window.location.href = 'https://tptea01.herokuapp.com/#/customer'
-      }      
+      }
     </script>
   </body>
 </html>
