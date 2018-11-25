@@ -78,43 +78,45 @@ export function getFbToken() {
 }
 
 export async function getUserFbInfo() {
-  window.open(
-    'https://www.facebook.com/v3.2/dialog/oauth?client_id=253998778647702&response_type=token&redirect_uri=' +
-      window.location.origin +
-      '/fb-login-receiver.html',
-    'Facebook Login',
-    'width=500px,height=500px'
-  )
-  return new Promise(resolve => {
-    window.addEventListener(
-      'message',
-      ({data}) => {
-        _ax
-          .get('https://graph.facebook.com/me', {
-            params: {
-              fields: 'id,name,email',
-              access_token: data,
-            },
-          })
-          .then(({data}) => {
-            resolve(data)
-          })
-      },
-      {once: true}
+  let token = getFbToken()
+  if (token) {
+    return new Promise(resolve => {
+      _ax
+        .get('https://graph.facebook.com/me', {
+          params: {
+            fields: 'id,name,email',
+            access_token: token,
+          },
+        })
+        .then(({data}) => {
+          resolve(data)
+        })
+    })
+  } else {
+    window.open(
+      'https://www.facebook.com/v3.2/dialog/oauth?client_id=253998778647702&response_type=token&redirect_uri=' +
+        window.location.origin +
+        '/fb-login-receiver.html',
+      'Facebook Login',
+      'width=500px,height=500px'
     )
-  })
-}
-export async function getUserFbInfoByToken(token) {
-  return new Promise(resolve => {
-    _ax
-      .get('https://graph.facebook.com/me', {
-        params: {
-          fields: 'id,name,email',
-          access_token: token,
+    return new Promise(resolve => {
+      window.addEventListener(
+        'message',
+        ({data}) => {
+          _ax
+            .get('https://graph.facebook.com/me', {
+              params: {
+                fields: 'id,name,email',
+                access_token: data,
+              },
+            })
+            .then(({data}) => {
+              resolve(data)
+            })
         },
-      })
-      .then(({data}) => {
-        resolve(data)
-      })
-  })
+        {once: true}
+      )
+    })
+  }
 }

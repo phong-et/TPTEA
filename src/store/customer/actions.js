@@ -1,13 +1,4 @@
-import {
-  _procError,
-  _ax,
-  _post,
-  _get,
-  _procAlert,
-  getUserFbInfo,
-  getFbToken,
-  getUserFbInfoByToken,
-} from '../../util/common'
+import {_procError, _ax, _post, _get, _procAlert, getUserFbInfo, getFbToken} from '../../util/common'
 import _ from 'lodash'
 export function loginCustomer({commit}, payload) {
   commit('setIsLoading', true)
@@ -60,8 +51,7 @@ export function regCustomer({commit}, payload) {
 }
 
 export async function loginFb({commit}) {
-  let token = getFbToken(),
-    user = token !== null ? await getUserFbInfoByToken(token) : await getUserFbInfo()
+  let user = await getUserFbInfo()
   _post(
     {
       username: user.email,
@@ -80,7 +70,7 @@ export async function loginFb({commit}) {
         commit('setToken', data.loginFb)
 
         // prevent user logout and automatic login fb again
-        if (token) localStorage.removeItem('access_token')
+        if (getFbToken()) localStorage.removeItem('access_token')
 
         _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginFb
         this.$router.push('/customer')
@@ -92,8 +82,7 @@ export async function loginFb({commit}) {
 }
 
 export async function registerFb({commit}) {
-  let token = getFbToken(),
-    user = token !== null ? await getUserFbInfoByToken(token) : await getUserFbInfo()
+  let user = await getUserFbInfo()
   _post(
     {
       username: user.email,
@@ -119,7 +108,7 @@ export async function registerFb({commit}) {
         commit('setToken', data.registerFb)
 
         // prevent user logout and automatic login fb again
-        if (token) localStorage.removeItem('access_token')
+        if (getFbToken()) localStorage.removeItem('access_token')
 
         _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.registerFb.token
         this.$router.push('/customer')
