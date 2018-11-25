@@ -60,8 +60,8 @@ export function regCustomer({commit}, payload) {
 }
 
 export async function loginFb({commit}) {
-  var user
-  let token = getFbToken()
+  let user,
+    token = getFbToken()
   if (token) {
     user = await getUserFbInfoByToken(token)
   } else {
@@ -96,34 +96,14 @@ export async function loginFb({commit}) {
     })
 }
 
-export async function loginFbToken({commit}) {
-  var user = await getUserFbInfoByToken(getFbToken())
-  _post(
-    {
-      username: user.email,
-      password: '',
-      type: 'facebook',
-    },
-    `mutation ($input: LoginInput) {
-      loginFb(input: $input)
-    }`
-  )
-    .then(({data}) => {
-      _procAlert(data, 'Logged In Successfully!')
-      if (!data.errors) {
-        // Login successfully
-        localStorage.setItem('auth-token', data.loginFb)
-        commit('setToken', data.loginFb)
-        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginFb
-        this.$router.push('/customer')
-      }
-    })
-    .catch(err => {
-      _procError(err)
-    })
-}
 export async function registerFb({commit}) {
-  var user = await getUserFbInfo()
+  let user,
+    token = getFbToken()
+  if (token) {
+    user = await getUserFbInfoByToken(token)
+  } else {
+    user = await getUserFbInfo()
+  }
   _post(
     {
       username: user.email,
@@ -147,6 +127,10 @@ export async function registerFb({commit}) {
         // register successfully
         localStorage.setItem('auth-token', data.registerFb.token)
         commit('setToken', data.registerFb)
+
+        // prevent user logout and automatic login fb again
+        if (token) localStorage.removeItem('access_token')
+
         _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.registerFb.token
         this.$router.push('/customer')
       }
