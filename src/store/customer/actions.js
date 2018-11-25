@@ -60,13 +60,8 @@ export function regCustomer({commit}, payload) {
 }
 
 export async function loginFb({commit}) {
-  let user,
-    token = getFbToken()
-  if (token) {
-    user = await getUserFbInfoByToken(token)
-  } else {
-    user = await getUserFbInfo()
-  }
+  let token = getFbToken(),
+    user = token !== null ? await getUserFbInfoByToken(token) : await getUserFbInfo()
   _post(
     {
       username: user.email,
@@ -97,13 +92,8 @@ export async function loginFb({commit}) {
 }
 
 export async function registerFb({commit}) {
-  let user,
-    token = getFbToken()
-  if (token) {
-    user = await getUserFbInfoByToken(token)
-  } else {
-    user = await getUserFbInfo()
-  }
+  let token = getFbToken(),
+    user = token !== null ? await getUserFbInfoByToken(token) : await getUserFbInfo()
   _post(
     {
       username: user.email,
