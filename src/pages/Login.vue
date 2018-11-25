@@ -28,20 +28,10 @@
           <q-btn color="facebook" label="Sign in Facebook" @click="loginFb" class="text-white q-ma-sm col-10" />
         </div>
       </q-card-actions>
-      <q-modal v-model="openedModalLoginFacebook" maximized>
-        <q-modal-layout>
-          <div>
-            <q-btn flat icon="close" @click="closeModalLoginFacebook"></q-btn>
-          </div>
-          <div>
-            <component @loggedIn="receiveFacebookToken" v-bind:is="modalLoginFacebook"></component>
-          </div>
-        </q-modal-layout>
-      </q-modal>
+      <component @loggedIn="receiveFacebookToken" v-bind:is="modalLoginFacebook"></component>
     </q-card>
   </modal-page>
 </template>
-
 <script>
 import logoData from '../assets/logoData'
 import etValidator from '../components/Validator'
@@ -62,7 +52,6 @@ export default {
       vivus: '',
       username: '',
       password: '',
-      openedModalLoginFacebook: false,
       modalLoginFacebook: null,
     }
   },
@@ -76,9 +65,10 @@ export default {
   },
   mounted() {
     this.startAnimation()
-    // login tptra after login facebook successfully on browser
+    // login TPTEA after logged in facebook successfully on browser
+    // only apply for device don't support open popup webview
     if (localStorage.getItem('access_token')) {
-      this.openModalLoginFacebook()
+      this.modalLoginFacebook = ModalLoginFacebook
     }
   },
   computed: {
@@ -108,17 +98,9 @@ export default {
       if (this.$v.$error) return
       this.loginCustomer(payload)
     },
-    openModalLoginFacebook() {
-      this.openedModalLoginFacebook = true
-      this.modalLoginFacebook = ModalLoginFacebook
-    },
-    closeModalLoginFacebook() {
-      this.openedModalLoginFacebook = false
-      this.modalLoginFacebook = null
-    },
     receiveFacebookToken(token) {
       this.loginFacebook(token)
-      this.closeModalLoginFacebook()
+      this.modalLoginFacebook = null
     },
   },
 }
