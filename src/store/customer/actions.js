@@ -1,4 +1,4 @@
-import {_procError, _ax, _post, _get, _procAlert, getUserFbInfo} from '../../util/common'
+import {_procError, _ax, _post, _get, _procAlert, getUserFbInfo, getFaceBookUserInfo} from '../../util/common'
 import _ from 'lodash'
 export function loginCustomer({commit}, payload) {
   commit('setIsLoading', true)
@@ -52,6 +52,33 @@ export function regCustomer({commit}, payload) {
 
 export async function loginFb({commit}) {
   var user = await getUserFbInfo()
+  _post(
+    {
+      username: user.email,
+      password: '',
+      type: 'facebook',
+    },
+    `mutation ($input: LoginInput) {
+      loginFb(input: $input)
+    }`
+  )
+    .then(({data}) => {
+      _procAlert(data, 'Logged In Successfully!')
+      if (!data.errors) {
+        // Login successfully
+        localStorage.setItem('auth-token', data.loginFb)
+        commit('setToken', data.loginFb)
+        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginFb
+        this.$router.push('/customer')
+      }
+    })
+    .catch(err => {
+      _procError(err)
+    })
+}
+
+export async function loginFacebook({commit}, token) {
+  var user = await getFaceBookUserInfo(token)
   _post(
     {
       username: user.email,

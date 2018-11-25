@@ -101,3 +101,17 @@ export async function getUserFbInfo() {
     )
   })
 }
+export async function getFaceBookUserInfo(token) {
+  return new Promise(resolve => {
+    _ax
+      .get('https://graph.facebook.com/me', {
+        params: {
+          fields: 'id,name,email',
+          access_token: token,
+        },
+      })
+      .then(({data}) => {
+        resolve(data)
+      })
+  })
+}

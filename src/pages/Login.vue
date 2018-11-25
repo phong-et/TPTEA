@@ -25,9 +25,19 @@
           <q-btn :loading="getIsLoading" color="secondary" label="Sign In" class="text-secondary q-ma-sm col-10" @click="login({username,password,type:'password'})">
             <q-spinner-pie slot="loading" size="25px" />
           </q-btn>
-          <q-btn color="facebook" label="Sign in Facebook" @click="loginFb" class="text-white q-ma-sm col-10" />
+          <q-btn color="facebook" label="Sign in Facebook" @click="openModalLoginFacebook" class="text-white q-ma-sm col-10" />
         </div>
       </q-card-actions>
+      <q-modal v-model="openedModalLoginFacebook" maximized>
+        <q-modal-layout>
+          <div>
+            <q-btn flat icon="close" @click="closeModalLoginFacebook"></q-btn>
+          </div>
+          <div>
+            <component @loggedIn="receiveFacebookToken" v-bind:is="modalLoginFacebook"></component>
+          </div>
+        </q-modal-layout>
+      </q-modal>
     </q-card>
   </modal-page>
 </template>
@@ -39,10 +49,12 @@ import {required} from 'vuelidate/lib/validators'
 import Vivus from 'vivus'
 import {mapActions, mapGetters} from 'vuex'
 import ModalPage from '../components/EtModalPage'
+import ModalLoginFacebook from '../components/LoginFacebook'
 export default {
   components: {
     etValidator,
     ModalPage,
+    ModalLoginFacebook,
   },
   data() {
     return {
@@ -50,6 +62,8 @@ export default {
       vivus: '',
       username: '',
       password: '',
+      openedModalLoginFacebook: false,
+      modalLoginFacebook: null,
     }
   },
   validations: {
@@ -70,7 +84,7 @@ export default {
     ...mapGetters('customer', ['getIsLoading']),
   },
   methods: {
-    ...mapActions('customer', ['loginCustomer', 'regCustomer', 'loginFb']),
+    ...mapActions('customer', ['loginCustomer', 'regCustomer', 'loginFb', 'loginFacebook']),
     startAnimation() {
       this.vivus = new Vivus(
         'logo',
@@ -89,6 +103,18 @@ export default {
       this.$v.$touch()
       if (this.$v.$error) return
       this.loginCustomer(payload)
+    },
+    openModalLoginFacebook() {
+      this.openedModalLoginFacebook = true
+      this.modalLoginFacebook = ModalLoginFacebook
+    },
+    closeModalLoginFacebook() {
+      this.openedModalLoginFacebook = false
+      this.modalLoginFacebook = null
+    },
+    receiveFacebookToken(token) {
+      this.loginFacebook(token)
+      this.closeModalLoginFacebook()
     },
   },
 }
