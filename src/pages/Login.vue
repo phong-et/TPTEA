@@ -25,7 +25,7 @@
           <q-btn :loading="getIsLoading" color="secondary" label="Sign In" class="text-secondary q-ma-sm col-10" @click="login({username,password,type:'password'})">
             <q-spinner-pie slot="loading" size="25px" />
           </q-btn>
-          <q-btn color="facebook" label="Sign in Facebook" @click="openModalLoginFacebook" class="text-white q-ma-sm col-10" />
+          <q-btn color="facebook" label="Sign in Facebook" @click="loginFb" class="text-white q-ma-sm col-10" />
         </div>
       </q-card-actions>
       <q-modal v-model="openedModalLoginFacebook" maximized>
@@ -76,6 +76,10 @@ export default {
   },
   mounted() {
     this.startAnimation()
+    // login tptra after login facebook successfully on browser
+    if (localStorage.getItem('access_token')) {
+      this.openModalLoginFacebook()
+    }
   },
   computed: {
     getLoginLogo() {

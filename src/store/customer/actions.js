@@ -95,6 +95,10 @@ export async function loginFacebook({commit}, token) {
         // Login successfully
         localStorage.setItem('auth-token', data.loginFb)
         commit('setToken', data.loginFb)
+
+        // prevent user logout and automatic login fb again
+        localStorage.removeItem('access_token')
+
         _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginFb
         this.$router.push('/customer')
       }

@@ -2,7 +2,6 @@
   <iframe @load="getTokenRedirect($event.path[0].contentWindow.location)" :src="urlFacebook" frameborder="0" />
 </template>
 <script>
-// import {mapGetters, mapActions, mapMutations} from 'vuex'
 export default {
   data() {
     return {
@@ -15,13 +14,13 @@ export default {
   },
   methods: {
     getTokenRedirect(location) {
+      // setTimeout(() => {
       let urlParams = new URLSearchParams(location.hash.split('#')[1])
       let token = urlParams.get('access_token')
       console.log(token)
       this.$emit('loggedIn', token)
+      // }, 2000)
     },
-    // ...mapActions('customer', ['genCustomerPaymentId']),
-    // ...mapMutations('customer', ['setQRCodePaymentId']),
   },
 }
 </script>
