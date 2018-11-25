@@ -28,7 +28,6 @@
           <q-btn color="facebook" label="Sign in Facebook" @click="loginFb" class="text-white q-ma-sm col-10" />
         </div>
       </q-card-actions>
-      <component @loggedIn="receiveFacebookToken" v-bind:is="modalLoginFacebook"></component>
     </q-card>
   </modal-page>
 </template>
@@ -39,12 +38,11 @@ import {required} from 'vuelidate/lib/validators'
 import Vivus from 'vivus'
 import {mapActions, mapGetters} from 'vuex'
 import ModalPage from '../components/EtModalPage'
-import ModalLoginFacebook from '../components/LoginFacebook'
+import {getFbToken} from '../util/common'
 export default {
   components: {
     etValidator,
     ModalPage,
-    ModalLoginFacebook,
   },
   data() {
     return {
@@ -52,7 +50,6 @@ export default {
       vivus: '',
       username: '',
       password: '',
-      modalLoginFacebook: null,
     }
   },
   validations: {
@@ -65,10 +62,11 @@ export default {
   },
   mounted() {
     this.startAnimation()
+
     // login TPTEA after logged in facebook successfully on browser
     // only apply for device don't support open popup webview
-    if (localStorage.getItem('access_token')) {
-      this.modalLoginFacebook = ModalLoginFacebook
+    if (getFbToken()) {
+      this.loginFb()
     }
   },
   computed: {
@@ -78,7 +76,7 @@ export default {
     ...mapGetters('customer', ['getIsLoading']),
   },
   methods: {
-    ...mapActions('customer', ['loginCustomer', 'regCustomer', 'loginFb', 'loginFacebook']),
+    ...mapActions('customer', ['loginCustomer', 'regCustomer', 'loginFb', 'loginFbToken']),
     startAnimation() {
       this.vivus = new Vivus(
         'logo',
@@ -97,10 +95,6 @@ export default {
       this.$v.$touch()
       if (this.$v.$error) return
       this.loginCustomer(payload)
-    },
-    receiveFacebookToken(token) {
-      this.loginFacebook(token)
-      this.modalLoginFacebook = null
     },
   },
 }

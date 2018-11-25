@@ -73,6 +73,9 @@ export function getUserType() {
   let token = localStorage.getItem('auth-token')
   return token ? token.substr(token.length - 1) : null
 }
+export function getFbToken() {
+  return localStorage.getItem('access_token')
+}
 
 export async function getUserFbInfo() {
   window.open(
@@ -101,7 +104,7 @@ export async function getUserFbInfo() {
     )
   })
 }
-export async function getFaceBookUserInfo(token) {
+export async function getUserFbInfoByToken(token) {
   return new Promise(resolve => {
     _ax
       .get('https://graph.facebook.com/me', {

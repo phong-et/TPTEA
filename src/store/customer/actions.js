@@ -1,4 +1,13 @@
-import {_procError, _ax, _post, _get, _procAlert, getUserFbInfo, getFaceBookUserInfo} from '../../util/common'
+import {
+  _procError,
+  _ax,
+  _post,
+  _get,
+  _procAlert,
+  getUserFbInfo,
+  getFbToken,
+  getUserFbInfoByToken,
+} from '../../util/common'
 import _ from 'lodash'
 export function loginCustomer({commit}, payload) {
   commit('setIsLoading', true)
@@ -51,34 +60,13 @@ export function regCustomer({commit}, payload) {
 }
 
 export async function loginFb({commit}) {
-  var user = await getUserFbInfo()
-  _post(
-    {
-      username: user.email,
-      password: '',
-      type: 'facebook',
-    },
-    `mutation ($input: LoginInput) {
-      loginFb(input: $input)
-    }`
-  )
-    .then(({data}) => {
-      _procAlert(data, 'Logged In Successfully!')
-      if (!data.errors) {
-        // Login successfully
-        localStorage.setItem('auth-token', data.loginFb)
-        commit('setToken', data.loginFb)
-        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginFb
-        this.$router.push('/customer')
-      }
-    })
-    .catch(err => {
-      _procError(err)
-    })
-}
-
-export async function loginFacebook({commit}, token) {
-  var user = await getFaceBookUserInfo(token)
+  var user
+  let token = getFbToken()
+  if (token) {
+    user = await getUserFbInfoByToken(token)
+  } else {
+    user = await getUserFbInfo()
+  }
   _post(
     {
       username: user.email,
@@ -97,8 +85,35 @@ export async function loginFacebook({commit}, token) {
         commit('setToken', data.loginFb)
 
         // prevent user logout and automatic login fb again
-        localStorage.removeItem('access_token')
+        if (token) localStorage.removeItem('access_token')
 
+        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginFb
+        this.$router.push('/customer')
+      }
+    })
+    .catch(err => {
+      _procError(err)
+    })
+}
+
+export async function loginFbToken({commit}) {
+  var user = await getUserFbInfoByToken(getFbToken())
+  _post(
+    {
+      username: user.email,
+      password: '',
+      type: 'facebook',
+    },
+    `mutation ($input: LoginInput) {
+      loginFb(input: $input)
+    }`
+  )
+    .then(({data}) => {
+      _procAlert(data, 'Logged In Successfully!')
+      if (!data.errors) {
+        // Login successfully
+        localStorage.setItem('auth-token', data.loginFb)
+        commit('setToken', data.loginFb)
         _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.loginFb
         this.$router.push('/customer')
       }
