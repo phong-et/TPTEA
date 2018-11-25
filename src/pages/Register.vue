@@ -93,9 +93,7 @@ export default {
 
     // login TPTEA after logged in facebook successfully on browser
     // only apply for device don't support open popup webview
-    if (getFbToken()) {
-      this.registerFb()
-    }
+    if (getFbToken()) this.registerFb()
   },
   computed: {
     getLoginLogo() {
