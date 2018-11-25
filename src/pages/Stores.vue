@@ -207,13 +207,13 @@ span.store-name, span.city-name, span.country-name
   color $primary
 
 span.store-name
-  font-size 18px
+  font-size 17px
 
 span.city-name
   font-size 20px
 
 span.country-name
-  font-size 20px
+  font-size 23px
 
 .address-store, .phone-store
   color $secondary
