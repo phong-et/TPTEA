@@ -81,16 +81,7 @@ export async function getUserFbInfo() {
   let token = getFbToken()
   if (token) {
     return new Promise(resolve => {
-      _ax
-        .get('https://graph.facebook.com/me', {
-          params: {
-            fields: 'id,name,email',
-            access_token: token,
-          },
-        })
-        .then(({data}) => {
-          resolve(data)
-        })
+      getUserFbInfoByToken(token, resolve)
     })
   } else {
     window.open(
@@ -104,19 +95,22 @@ export async function getUserFbInfo() {
       window.addEventListener(
         'message',
         ({data}) => {
-          _ax
-            .get('https://graph.facebook.com/me', {
-              params: {
-                fields: 'id,name,email',
-                access_token: data,
-              },
-            })
-            .then(({data}) => {
-              resolve(data)
-            })
+          getUserFbInfoByToken(data, resolve)
         },
         {once: true}
       )
     })
   }
+}
+export async function getUserFbInfoByToken(token, resolve) {
+  _ax
+    .get('https://graph.facebook.com/me', {
+      params: {
+        fields: 'id,name,email',
+        access_token: token,
+      },
+    })
+    .then(({data}) => {
+      resolve(data)
+    })
 }
