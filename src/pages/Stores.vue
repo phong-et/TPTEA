@@ -3,16 +3,16 @@
     <googlemaps-map ref="map" class="map" :center.sync="center" :zoom.sync="zoom">
       <googlemaps-marker :title="currentStore.name" :position="currentStore.position" icon="statics/icons/tptea-marker-icon.png" />
     </googlemaps-map>
-    <q-tree :nodes="stores" color="primary" node-key="label" :expanded.sync="propsExpanded" :selected.sync="selected">
+    <q-tree class="q-mt-md" :nodes="stores" color="primary" node-key="label" :expanded.sync="propsExpanded" :selected.sync="selected">
       <div slot="header-country" slot-scope="prop">
         <img :src="prop.node.avatar" class="q-tree-img q-mr-sm avatar">
-        <span class="country-name">{{prop.node.label}}</span>
+        <span class="country-name" @click="select(prop.node.label)">{{prop.node.label}}</span>
       </div>
       <div slot="header-city" slot-scope="prop">
-        <span class="city-name">{{prop.node.label}}</span>
+        <span @click="select(prop.node.label)" class="city-name">{{prop.node.label}}</span>
       </div>
       <div slot="header-store" slot-scope="prop">
-        <span class="store-name" @click="gotoStore(prop.node.children[0].position, prop.node.label)">{{prop.node.label}}</span>
+        <span class="store-name" @click="select(prop.node.label)">{{prop.node.label}}</span>
       </div>
       <div class="address-store" slot="header-addr" slot-scope="prop">
         Address: <a href="#stores" @click="gotoStore(prop.node.position, prop.node.label)">{{prop.node.label}}</a>
@@ -49,6 +49,14 @@ export default {
         }
         this.center = position
       }, 300)
+    },
+    select(label) {
+      const index = this.propsExpanded.indexOf(label)
+      if (index > -1) {
+        this.propsExpanded.splice(index, 1)
+      } else {
+        this.propsExpanded.push(label)
+      }
     },
   },
   computed: {},
@@ -195,9 +203,17 @@ export default {
   height 350px
 
 span.store-name, span.city-name, span.country-name
-  font-size 22px
-  font-weight bold
+  font-weight 500
   color $primary
+
+span.store-name
+  font-size 17px
+
+span.city-name
+  font-size 20px
+
+span.country-name
+  font-size 23px
 
 .address-store, .phone-store
   color $secondary

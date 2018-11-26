@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <q-modal v-model="opened" maximized>
-      <q-btn class="absolute-top-left" color="primary" flat round dense icon="reply" @click="close"></q-btn>
+      <q-btn class="fixed-top-left" color="primary" flat round dense size="20px" icon="reply" @click="close"></q-btn>
       <slot></slot>
     </q-modal>
   </q-page>
@@ -24,6 +24,6 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
-.absolute-top-left
+.fixed-top-left
   z-index 999
 </style>
