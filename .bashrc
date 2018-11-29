@@ -37,3 +37,11 @@ seed() {
 testcafe() {
   npm run test
 }
+
+devq() {
+  quasar dev
+}
+apiq() {
+  cd server
+  npx babel-node server
+}

@@ -5,7 +5,7 @@
     <div class="q-pa-lg">
       <et-gen-q-r-code :dark="dark" :qrcode="getQRCodePaymentId" class="row justify-center"/>
     </div>
-    <div id="countdown" class="row justify-center"></div>
+    <div id="countdown" class="row justify-center">Generating payment code ...</div>
     <div class="row justify-center q-mt-xl">
       <q-btn :loading="getIsLoading" :disabled="disabled" color="secondary" @click="genCustomerPaymentId" label="Get New Code">
         <q-spinner-pie slot="loading" size="25px"/>
@@ -19,7 +19,7 @@ import ModalPage from '../components/EtModalPage'
 import {mapGetters, mapActions, mapMutations} from 'vuex'
 const VALID_COLOR = '#00F'
 const EXPIRED_COLOR = '#F00'
-const EXPIRED_SECONDS = 5
+const EXPIRED_SECONDS = 31
 export default {
   data() {
     return {
@@ -43,6 +43,9 @@ export default {
       this.$router.go(-1)
       clearInterval(this.countDownHandler)
     },
+    setMsg(second) {
+      document.getElementById('countdown').textContent = 'This code will be expired after   ' + second + ' seconds'
+    },
   },
   mounted() {
     this.genCustomerPaymentId()
@@ -54,11 +57,13 @@ export default {
       this.setQRCodePaymentId(newQRCode)
       var timeleft = EXPIRED_SECONDS
       clearInterval(this.countDownHandler)
+      this.setMsg(--timeleft)
       this.countDownHandler = setInterval(() => {
-        document.getElementById('countdown').textContent = 'This code will be expired after   ' + --timeleft + ' seconds'
+        --timeleft
+        this.setMsg(timeleft)
         if (timeleft <= 0) {
           this.disabled = false
-          document.getElementById('countdown').textContent = 'This code is expired.Please get a new one!'
+          document.getElementById('countdown').textContent = 'This code is expired. Please get a new one!'
           this.dark = EXPIRED_COLOR
           clearInterval(this.countDownHandler)
         }
