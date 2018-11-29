@@ -3,12 +3,12 @@
     <div class="q-title row justify-center q-mt-sm text-grey">{{getCustomer.name}}</div>
     <div class="row justify-center q-mt-sm">Give this code to the cashier for payment</div>
     <div class="q-pa-lg">
-      <et-gen-q-r-code :dark='dark' :qrcode='getQRCodePaymentId' class="row justify-center" />
+      <et-gen-q-r-code :dark="dark" :qrcode="getQRCodePaymentId" class="row justify-center"/>
     </div>
-    <span id="countdown" class="row justify-center"></span>
+    <div id="countdown" class="row justify-center"></div>
     <div class="row justify-center q-mt-xl">
       <q-btn :loading="getIsLoading" :disabled="disabled" color="secondary" @click="genCustomerPaymentId" label="Get New Code">
-        <q-spinner-pie slot="loading" size="25px" />
+        <q-spinner-pie slot="loading" size="25px"/>
       </q-btn>
     </div>
   </modal-page>
@@ -19,10 +19,11 @@ import ModalPage from '../components/EtModalPage'
 import {mapGetters, mapActions, mapMutations} from 'vuex'
 const VALID_COLOR = '#00F'
 const EXPIRED_COLOR = '#F00'
+const EXPIRED_SECONDS = 5
 export default {
   data() {
     return {
-      dark: VALID_COLOR,
+      dark: EXPIRED_COLOR,
       disabled: true,
       isOpenedPayment: true,
       countDownHandler: null,
@@ -51,11 +52,10 @@ export default {
       this.dark = VALID_COLOR
       this.disabled = true
       this.setQRCodePaymentId(newQRCode)
-      var timeleft = 31
+      var timeleft = EXPIRED_SECONDS
       clearInterval(this.countDownHandler)
       this.countDownHandler = setInterval(() => {
-        document.getElementById('countdown').textContent =
-          'This code will be expired after   ' + --timeleft + ' seconds'
+        document.getElementById('countdown').textContent = 'This code will be expired after   ' + --timeleft + ' seconds'
         if (timeleft <= 0) {
           this.disabled = false
           document.getElementById('countdown').textContent = 'This code is expired.Please get a new one!'
@@ -68,4 +68,6 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+div#countdown
+  height 20px
 </style>
