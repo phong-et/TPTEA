@@ -10,17 +10,20 @@ export default {
   props: {
     qrcode: {
       type: String,
-      default: () => 'xxx',
+      default: 'xxx',
     },
     dark: {
       type: String,
-      default: () => '#00F',
+      default: '#00F',
     },
     light: {
       type: String,
-      default: () => '#0000',
+      default: '#0000',
     },
-    version: 6,
+    version: {
+      type: Number,
+      default: 6,
+    },
   },
   methods: {
     drawImage(qrcode) {
