@@ -119,20 +119,24 @@ const resolvers = {
       return await Customer.create(input).then(customer => customer)
     },
     async applyGiftCard(_, {input}, {loggedInUser}) {
-      _auth(loggedInUser)
-      let {giftCard, expired} = await authGiftCard(input.jwt)
-      if (expired) throw new Error('This gift card has expired!')
-      if (giftCard.customerId) throw new Error('The gift card is not available anymore!')
-      let user = await Customer.findById(input.customerId)
-      if (user) {
-        let amount = giftCard.amount
-        let balance = user.get('balance') + amount
-        return await user.update({balance}).then(async () => {
-          return await giftCard.update({customerId: input.customerId}).then(() => {
-            return {balance, amount}
+      try {
+        _auth(loggedInUser)
+        let {giftCard, expired} = await authGiftCard(input.jwt)
+        if (expired) throw new Error('This gift card has expired!')
+        if (giftCard.customerId) throw new Error('The gift card is not available anymore!')
+        let user = await Customer.findById(input.customerId)
+        if (user) {
+          let amount = giftCard.amount
+          let balance = user.get('balance') + amount
+          return await user.update({balance}).then(async () => {
+            return await giftCard.update({customerId: input.customerId}).then(() => {
+              return {balance, amount}
+            })
           })
-        })
-      } else throw new Error('Not found Customer info!')
+        } else throw new Error('Not found Customer info!')
+      } catch (error) {
+        throw new Error(error)
+      }
     },
   },
 }
