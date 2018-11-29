@@ -45,7 +45,7 @@ const Customer = `
     customerId: Int!
   }
   type ApplyGiftCardOutput {
-    balance: Int
+    balance: Float
     amount: Int
   }
 `
