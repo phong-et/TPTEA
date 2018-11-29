@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "28f75e604a5048ee11cf3665ce1ba471",
-    "url": "statics/icons/icon-256x256.png"
+    "revision": "33fa3c71f424a8e2cbc06ddeadce0779",
+    "url": "statics/icons/icon-384x384.png"
   },
   {
-    "revision": "67df19dee5479dad677a36cedf5ac673",
+    "revision": "89f46ad51c19026cb9747904b4dc3ef1",
     "url": "index.html"
   },
   {
@@ -48,20 +48,20 @@ self.__precacheManifest = [
     "url": "statics/category-05.jpg"
   },
   {
-    "revision": "e7d738849c406fb0708b6e212dabf9a2",
-    "url": "statics/icons/favicon-16x16.png"
+    "revision": "94927b05c26b2a1b4d585c7305b9d04d",
+    "url": "statics/icons/apple-icon-152x152.png"
   },
   {
     "revision": "c285996d6f7dbef24ebbbfbe630e812a",
     "url": "statics/icons/china-flag.png"
   },
   {
-    "revision": "943b239ce0d615228200f7190de047d8",
-    "url": "statics/icons/favicon-32x32.png"
+    "revision": "e7d738849c406fb0708b6e212dabf9a2",
+    "url": "statics/icons/favicon-16x16.png"
   },
   {
-    "revision": "94927b05c26b2a1b4d585c7305b9d04d",
-    "url": "statics/icons/apple-icon-152x152.png"
+    "revision": "943b239ce0d615228200f7190de047d8",
+    "url": "statics/icons/favicon-32x32.png"
   },
   {
     "revision": "7d658a65f98809eb34686beb06e127d3",
@@ -72,16 +72,16 @@ self.__precacheManifest = [
     "url": "statics/icons/icon-192x192.png"
   },
   {
-    "revision": "262f954ddadfae773a3548b2330ea819",
-    "url": "statics/icons/taiwan-flag.png"
-  },
-  {
     "revision": "c3033218b49491bb0ac4cc87d10c8ed8",
     "url": "statics/icons/ms-icon-144x144.png"
   },
   {
     "revision": "6af85f4c91ff8304e9448667906a39c4",
     "url": "statics/icons/tptea-marker-icon.png"
+  },
+  {
+    "revision": "262f954ddadfae773a3548b2330ea819",
+    "url": "statics/icons/taiwan-flag.png"
   },
   {
     "revision": "644d672e528a3a2c937bb8156ee55e73",
@@ -96,24 +96,24 @@ self.__precacheManifest = [
     "url": "statics/icons/hongkong-flag.png"
   },
   {
-    "revision": "5f6e096d77ff1e258de8",
-    "url": "js/app.1c2e25a.js"
-  },
-  {
-    "revision": "33fa3c71f424a8e2cbc06ddeadce0779",
-    "url": "statics/icons/icon-384x384.png"
+    "revision": "3e0190d3fdecfa18bb89",
+    "url": "js/app.b3ec389.js"
   },
   {
     "revision": "c2b35452f36dcfc83a03c07a8ead6104",
     "url": "statics/icons/icon-512x512.png"
   },
   {
-    "revision": "a54d4cff09320803d08dc3c14eb436ad",
-    "url": "statics/category-01.jpg"
+    "revision": "28f75e604a5048ee11cf3665ce1ba471",
+    "url": "statics/icons/icon-256x256.png"
   },
   {
     "revision": "c38f90d42db60f76c44a13d9ca345b04",
     "url": "statics/category-02.jpg"
+  },
+  {
+    "revision": "a54d4cff09320803d08dc3c14eb436ad",
+    "url": "statics/category-01.jpg"
   },
   {
     "revision": "b3b5cd863f68ad9e430a1df56904a8d2",
@@ -192,7 +192,7 @@ self.__precacheManifest = [
     "url": "fonts/KFOkCnqEu92Fr1MmgVxIIzQ.e9dbbe8.woff"
   },
   {
-    "revision": "5f6e096d77ff1e258de8",
-    "url": "css/app.0a6ac8b5.css"
+    "revision": "3e0190d3fdecfa18bb89",
+    "url": "css/app.23526fe5.css"
   }
 ];
