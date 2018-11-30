@@ -49,7 +49,7 @@ All notable changes to this project will be documented in this file.
 - Fix layout MakePayment page
 - Updating balance after leaving the topup page & make payment page
 - Provide scope with email/public_profile for FB Access token grant request
-- Mesage invaild jwt giftcard code
+- Message invaild jwt giftcard code
 
 ## 0.0.1 - 2018-09-17
 ### Fixed
