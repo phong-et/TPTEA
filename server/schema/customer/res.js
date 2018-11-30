@@ -133,9 +133,9 @@ const resolvers = {
               return {balance, amount}
             })
           })
-        } else throw new Error('Not found Customer info!')
+        } else throw new Error('Customer info Not Found!')
       } catch (error) {
-        throw new Error(error)
+        throw new Error(error.message)
       }
     },
   },
