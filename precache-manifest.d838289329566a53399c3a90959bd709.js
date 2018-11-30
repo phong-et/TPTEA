@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "33fa3c71f424a8e2cbc06ddeadce0779",
-    "url": "statics/icons/icon-384x384.png"
+    "revision": "28f75e604a5048ee11cf3665ce1ba471",
+    "url": "statics/icons/icon-256x256.png"
   },
   {
-    "revision": "89f46ad51c19026cb9747904b4dc3ef1",
+    "revision": "cc6008290991af7289430a01cbf72b69",
     "url": "index.html"
   },
   {
@@ -16,24 +16,24 @@ self.__precacheManifest = [
     "url": "statics/category-06.jpg"
   },
   {
-    "revision": "28b2ac819fdc080cc5be4f5099fa0b9b",
-    "url": "statics/news2.jpg"
-  },
-  {
     "revision": "a39c73000570a0509f29c60c31135295",
     "url": "statics/splash/ipadpro2_splash.png"
-  },
-  {
-    "revision": "5ca0bb2397976925b63560b620c8fddd",
-    "url": "statics/splash/ipadpro3_splash.png"
   },
   {
     "revision": "e823136824cab8b5cad0a52aee5596ef",
     "url": "statics/splash/ipadpro1_splash.png"
   },
   {
+    "revision": "28b2ac819fdc080cc5be4f5099fa0b9b",
+    "url": "statics/news2.jpg"
+  },
+  {
     "revision": "e0e41797ce02ad7afa59302519f65062",
     "url": "statics/splash/iphonexsmax_splash.png"
+  },
+  {
+    "revision": "5ca0bb2397976925b63560b620c8fddd",
+    "url": "statics/splash/ipadpro3_splash.png"
   },
   {
     "revision": "4f11d96ddf31938e9cdb732d7c15e151",
@@ -60,12 +60,12 @@ self.__precacheManifest = [
     "url": "statics/icons/favicon-16x16.png"
   },
   {
-    "revision": "943b239ce0d615228200f7190de047d8",
-    "url": "statics/icons/favicon-32x32.png"
-  },
-  {
     "revision": "7d658a65f98809eb34686beb06e127d3",
     "url": "statics/icons/icon-128x128.png"
+  },
+  {
+    "revision": "943b239ce0d615228200f7190de047d8",
+    "url": "statics/icons/favicon-32x32.png"
   },
   {
     "revision": "77bce50393376332bc7b948a33f1143f",
@@ -76,12 +76,12 @@ self.__precacheManifest = [
     "url": "statics/icons/ms-icon-144x144.png"
   },
   {
-    "revision": "6af85f4c91ff8304e9448667906a39c4",
-    "url": "statics/icons/tptea-marker-icon.png"
-  },
-  {
     "revision": "262f954ddadfae773a3548b2330ea819",
     "url": "statics/icons/taiwan-flag.png"
+  },
+  {
+    "revision": "6af85f4c91ff8304e9448667906a39c4",
+    "url": "statics/icons/tptea-marker-icon.png"
   },
   {
     "revision": "644d672e528a3a2c937bb8156ee55e73",
@@ -96,16 +96,16 @@ self.__precacheManifest = [
     "url": "statics/icons/hongkong-flag.png"
   },
   {
-    "revision": "3e0190d3fdecfa18bb89",
-    "url": "js/app.b3ec389.js"
+    "revision": "406e237f9e3461709ff8",
+    "url": "js/app.377cbdd.js"
+  },
+  {
+    "revision": "33fa3c71f424a8e2cbc06ddeadce0779",
+    "url": "statics/icons/icon-384x384.png"
   },
   {
     "revision": "c2b35452f36dcfc83a03c07a8ead6104",
     "url": "statics/icons/icon-512x512.png"
-  },
-  {
-    "revision": "28f75e604a5048ee11cf3665ce1ba471",
-    "url": "statics/icons/icon-256x256.png"
   },
   {
     "revision": "c38f90d42db60f76c44a13d9ca345b04",
@@ -192,7 +192,7 @@ self.__precacheManifest = [
     "url": "fonts/KFOkCnqEu92Fr1MmgVxIIzQ.e9dbbe8.woff"
   },
   {
-    "revision": "3e0190d3fdecfa18bb89",
+    "revision": "406e237f9e3461709ff8",
     "url": "css/app.23526fe5.css"
   }
 ];

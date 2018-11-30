@@ -510,45 +510,47 @@ var resolvers = {
           while (1) {
             switch (_context15.prev = _context15.next) {
               case 0:
+                _context15.prev = 0;
+
                 (0, _util._auth)(loggedInUser);
-                _context15.next = 3;
+                _context15.next = 4;
                 return (0, _util.authGiftCard)(input.jwt);
 
-              case 3:
+              case 4:
                 _ref32 = _context15.sent;
                 giftCard = _ref32.giftCard;
                 expired = _ref32.expired;
 
                 if (!expired) {
-                  _context15.next = 8;
+                  _context15.next = 9;
                   break;
                 }
 
                 throw new Error('This gift card has expired!');
 
-              case 8:
+              case 9:
                 if (!giftCard.customerId) {
-                  _context15.next = 10;
+                  _context15.next = 11;
                   break;
                 }
 
                 throw new Error('The gift card is not available anymore!');
 
-              case 10:
-                _context15.next = 12;
+              case 11:
+                _context15.next = 13;
                 return _models.Customer.findById(input.customerId);
 
-              case 12:
+              case 13:
                 user = _context15.sent;
 
                 if (!user) {
-                  _context15.next = 21;
+                  _context15.next = 22;
                   break;
                 }
 
                 amount = giftCard.amount;
                 balance = user.get('balance') + amount;
-                _context15.next = 18;
+                _context15.next = 19;
                 return user.update({ balance: balance }).then(_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
                   return regeneratorRuntime.wrap(function _callee14$(_context14) {
                     while (1) {
@@ -570,18 +572,27 @@ var resolvers = {
                   }, _callee14, _this3);
                 })));
 
-              case 18:
+              case 19:
                 return _context15.abrupt('return', _context15.sent);
 
-              case 21:
-                throw new Error('Not found Customer info!');
-
               case 22:
+                throw new Error('Customer info Not Found!');
+
+              case 23:
+                _context15.next = 28;
+                break;
+
+              case 25:
+                _context15.prev = 25;
+                _context15.t0 = _context15['catch'](0);
+                throw new Error(_context15.t0.message);
+
+              case 28:
               case 'end':
                 return _context15.stop();
             }
           }
-        }, _callee15, this);
+        }, _callee15, this, [[0, 25]]);
       }));
 
       function applyGiftCard(_x29, _x30, _x31) {
