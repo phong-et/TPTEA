@@ -44,20 +44,24 @@ self.__precacheManifest = [
     "url": "statics/news1.jpg"
   },
   {
-    "revision": "cdec18eac0fb4339eba6bdeff36f75c4",
-    "url": "statics/splash/iphonex_splash.png"
+    "revision": "34e14a8932d3d3f4cc568db480b7e503",
+    "url": "statics/category-05.jpg"
   },
   {
     "revision": "94927b05c26b2a1b4d585c7305b9d04d",
     "url": "statics/icons/apple-icon-152x152.png"
   },
   {
-    "revision": "e7d738849c406fb0708b6e212dabf9a2",
-    "url": "statics/icons/favicon-16x16.png"
+    "revision": "943b239ce0d615228200f7190de047d8",
+    "url": "statics/icons/favicon-32x32.png"
   },
   {
     "revision": "c285996d6f7dbef24ebbbfbe630e812a",
     "url": "statics/icons/china-flag.png"
+  },
+  {
+    "revision": "e7d738849c406fb0708b6e212dabf9a2",
+    "url": "statics/icons/favicon-16x16.png"
   },
   {
     "revision": "7d658a65f98809eb34686beb06e127d3",
@@ -66,10 +70,6 @@ self.__precacheManifest = [
   {
     "revision": "77bce50393376332bc7b948a33f1143f",
     "url": "statics/icons/icon-192x192.png"
-  },
-  {
-    "revision": "943b239ce0d615228200f7190de047d8",
-    "url": "statics/icons/favicon-32x32.png"
   },
   {
     "revision": "262f954ddadfae773a3548b2330ea819",
@@ -108,12 +108,12 @@ self.__precacheManifest = [
     "url": "statics/icons/icon-512x512.png"
   },
   {
-    "revision": "c38f90d42db60f76c44a13d9ca345b04",
-    "url": "statics/category-02.jpg"
-  },
-  {
     "revision": "a54d4cff09320803d08dc3c14eb436ad",
     "url": "statics/category-01.jpg"
+  },
+  {
+    "revision": "c38f90d42db60f76c44a13d9ca345b04",
+    "url": "statics/category-02.jpg"
   },
   {
     "revision": "b3b5cd863f68ad9e430a1df56904a8d2",
@@ -152,8 +152,8 @@ self.__precacheManifest = [
     "url": "statics/splash/iphoneplus_splash.png"
   },
   {
-    "revision": "34e14a8932d3d3f4cc568db480b7e503",
-    "url": "statics/category-05.jpg"
+    "revision": "cdec18eac0fb4339eba6bdeff36f75c4",
+    "url": "statics/splash/iphonex_splash.png"
   },
   {
     "revision": "d9c608dcea837a8f2c275b0b874da757",
