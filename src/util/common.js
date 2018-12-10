@@ -95,8 +95,8 @@ export async function getUserFbInfo(appVue) {
     let checkPopupClose = () => {
       if (popup.closed) {
         if (appVue) {
-          appVue.$store.commit('customer/setIsLoadingFB', false)
-          console.log(appVue.$store.getters['customer/getIsLoadingFB'])
+          let isLoadingFB = appVue.$store.getters['customer/getIsLoadingFB']
+          if (isLoadingFB) appVue.$store.commit('customer/setIsLoadingFB', false)
         }
         clearInterval(timer)
       }

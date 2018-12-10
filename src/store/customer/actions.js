@@ -84,9 +84,9 @@ export async function loginFb({commit}, appVue) {
     })
 }
 
-export async function registerFb({commit}) {
+export async function registerFb({commit}, appVue) {
   commit('setIsLoadingFB', true)
-  let user = await getUserFbInfo()
+  let user = await getUserFbInfo(appVue)
   _post(
     {
       username: user.email,
