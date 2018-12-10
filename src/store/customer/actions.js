@@ -50,9 +50,9 @@ export function regCustomer({commit}, payload) {
     })
 }
 
-export async function loginFb({commit}, vueApp) {
+export async function loginFb({commit}, appVue) {
   commit('setIsLoadingFB', true)
-  let user = await getUserFbInfo(vueApp)
+  let user = await getUserFbInfo(appVue)
   _post(
     {
       username: user.email,

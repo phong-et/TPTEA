@@ -76,10 +76,7 @@ export function getUserType() {
 export function getFbToken() {
   return localStorage.getItem('access_token')
 }
-function doStuffOnUnload() {
-  alert('Child Windows Closed!')
-}
-export async function getUserFbInfo(vueApp) {
+export async function getUserFbInfo(appVue) {
   let popup,
     token = getFbToken()
   if (token) {
@@ -92,21 +89,20 @@ export async function getUserFbInfo(vueApp) {
         window.location.origin +
         '/fb-login-receiver.html',
       'Facebook Login',
-      'width=500px,height=500px'
+      'width=1024px,height=500px'
     )
-    popup.onbeforeunload = function() {
-      console.log('window is closed')
-      if (vueApp) {
-        vueApp.$store.commit('customer/setIsLoadingFB', false)
-        console.log(vueApp.$store.getters['customer/getIsLoadingFB'])
+
+    let checkPopupClose = () => {
+      if (popup.closed) {
+        if (appVue) {
+          appVue.$store.commit('customer/setIsLoadingFB', false)
+          console.log(appVue.$store.getters['customer/getIsLoadingFB'])
+        }
+        clearInterval(timer)
       }
     }
+    let timer = setInterval(checkPopupClose, 500)
 
-    if (typeof popup.attachEvent !== 'undefined') {
-      popup.attachEvent('onunload', doStuffOnUnload)
-    } else if (typeof popup.addEventListener !== 'undefined') {
-      popup.addEventListener('unload', doStuffOnUnload, false)
-    }
     return new Promise(resolve => {
       window.addEventListener(
         'message',
