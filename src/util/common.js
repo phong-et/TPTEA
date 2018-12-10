@@ -76,21 +76,37 @@ export function getUserType() {
 export function getFbToken() {
   return localStorage.getItem('access_token')
 }
-
-export async function getUserFbInfo() {
-  let token = getFbToken()
+function doStuffOnUnload() {
+  alert('Child Windows Closed!')
+}
+export async function getUserFbInfo(vueApp) {
+  let popup,
+    token = getFbToken()
   if (token) {
     return new Promise(resolve => {
       getUserFbInfoByToken(token, resolve)
     })
   } else {
-    window.open(
+    popup = window.open(
       'https://www.facebook.com/v3.2/dialog/oauth?client_id=253998778647702&response_type=token&scope=email,public_profile&redirect_uri=' +
         window.location.origin +
         '/fb-login-receiver.html',
       'Facebook Login',
       'width=500px,height=500px'
     )
+    popup.onbeforeunload = function() {
+      console.log('window is closed')
+      if (vueApp) {
+        vueApp.$store.commit('customer/setIsLoadingFB', false)
+        console.log(vueApp.$store.getters['customer/getIsLoadingFB'])
+      }
+    }
+
+    if (typeof popup.attachEvent !== 'undefined') {
+      popup.attachEvent('onunload', doStuffOnUnload)
+    } else if (typeof popup.addEventListener !== 'undefined') {
+      popup.addEventListener('unload', doStuffOnUnload, false)
+    }
     return new Promise(resolve => {
       window.addEventListener(
         'message',

@@ -2,32 +2,36 @@
   <modal-page>
     <q-card square class="et-login center">
       <q-card-media>
-        <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo">
-        </svg>
+        <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo"></svg>
       </q-card-media>
-      <q-card-title class="text-primary">
-        TP@Tea HongKong
+      <q-card-title class="text-primary">TP@Tea HongKong
         <div slot="right" class="row items-center">
-          <q-icon name="card_membership" class="q-mr-sm" />
+          <q-icon name="card_membership" class="q-mr-sm"/>
           <router-link to="/customer/register" tag="a">
             <a class="text-warning">Register</a>
           </router-link>
         </div>
       </q-card-title>
       <q-card-main class="q-mb-md">
-        <q-input clearable v-model="username" float-label="Username" color="secondary" :error="$v.username.$error" />
-        <et-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required" />
-        <q-input v-model="password" float-label="Password" color="secondary" type="password" :error="$v.password.$error" />
-        <et-validator :dirty="$v.password.$dirty" :show="!$v.password.required" msg="Password is required" />
+        <q-input clearable v-model="username" float-label="Username" color="secondary" :error="$v.username.$error"/>
+        <et-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required"/>
+        <q-input v-model="password" float-label="Password" color="secondary" type="password" :error="$v.password.$error"/>
+        <et-validator :dirty="$v.password.$dirty" :show="!$v.password.required" msg="Password is required"/>
       </q-card-main>
       <q-card-actions>
         <div class="row justify-center" style="height:120px;width:100%;">
-          <q-btn :loading="getIsLoading" color="secondary" label="Sign In" class="text-secondary q-ma-sm col-10" @click="login({username,password,type:'password'})">
-            <q-spinner-pie slot="loading" size="25px" />
+          <q-btn
+            :loading="getIsLoading"
+            color="secondary"
+            label="Sign In"
+            class="text-secondary q-ma-sm col-10"
+            @click="login({username,password,type:'password'})"
+          >
+            <q-spinner-pie slot="loading" size="25px"/>
           </q-btn>
-          <q-btn :loading="getIsLoadingFB" color="facebook" label="Sign in Facebook" @click="loginFb()" class="text-white q-ma-sm col-10">
-          <q-spinner-pie slot="loading" size="25px" />
-        </q-btn>
+          <q-btn :loading="getIsLoadingFB" color="facebook" label="Sign in Facebook" @click="loginFacebook()" class="text-white q-ma-sm col-10">
+            <q-spinner-pie slot="loading" size="25px"/>
+          </q-btn>
         </div>
       </q-card-actions>
     </q-card>
@@ -95,6 +99,9 @@ export default {
       this.$v.$touch()
       if (this.$v.$error) return
       this.loginCustomer(payload)
+    },
+    loginFacebook() {
+      this.loginFb(this)
     },
   },
 }
