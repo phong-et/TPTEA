@@ -89,14 +89,13 @@ export async function getUserFbInfo(appVue) {
         window.location.origin +
         '/fb-login-receiver.html',
       'Facebook Login',
-      'width=1024px,height=500px'
+      'width=500px,height=500px'
     )
 
     let checkPopupClose = () => {
       if (popup.closed) {
         if (appVue) {
-          let isLoadingFB = appVue.$store.getters['customer/getIsLoadingFB']
-          if (isLoadingFB) appVue.$store.commit('customer/setIsLoadingFB', false)
+          if (appVue.$store.getters['customer/getIsLoadingFB']) appVue.$store.commit('customer/setIsLoadingFB', false)
         }
         clearInterval(timer)
       }
