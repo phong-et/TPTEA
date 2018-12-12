@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## 0.0.2z - 2018-11-12
+## 0.0.2za - 2018-12-12
 ### Added
 - Menus Listing after clicking a single Catefory
 - Register link at login page
@@ -53,7 +53,7 @@ All notable changes to this project will be documented in this file.
 - Provide scope with email/public_profile for FB Access token grant request
 - Message invaild jwt giftcard code
 - Admin receive payment error handling #97
-
+- Facebook Login & Register button keep spining when directly closing facebook login form
 ## 0.0.1 - 2018-09-17
 ### Fixed
 - Missing images due to improper using of assets images
