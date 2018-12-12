@@ -76,7 +76,7 @@ export function getUserType() {
 export function getFbToken() {
   return localStorage.getItem('access_token')
 }
-export async function getUserFbInfo(appVue) {
+export async function getUserFbInfo(commit) {
   let popup,
     token = getFbToken()
   if (token) {
@@ -94,8 +94,8 @@ export async function getUserFbInfo(appVue) {
 
     let checkPopupClose = () => {
       if (popup.closed) {
-        if (appVue) {
-          if (appVue.$store.getters['customer/getIsLoadingFB']) appVue.$store.commit('customer/setIsLoadingFB', false)
+        if (commit) {
+          commit('setIsLoadingFB', false)
         }
         clearInterval(timer)
       }
@@ -113,7 +113,7 @@ export async function getUserFbInfo(appVue) {
     })
   }
 }
-export async function getUserFbInfoByToken(token, resolve) {
+export function getUserFbInfoByToken(token, resolve) {
   _ax
     .get('https://graph.facebook.com/me', {
       params: {

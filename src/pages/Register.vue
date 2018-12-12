@@ -5,7 +5,7 @@
         <svg class="center" id="logo" viewBox="0 0 483 483" width="128px" height="128px" v-html="getLoginLogo"></svg>
       </q-card-media>
       <div class="row justify-center q-mt-lg">
-        <q-btn :loading="getIsLoadingFB" color="facebook" class="text-white col-10" @click="registerFacebook()" label="REGISTER with FACEBOOK"/>
+        <q-btn :loading="getIsLoadingFB" color="facebook" class="text-white col-10" @click="registerFb" label="REGISTER with FACEBOOK"/>
       </div>
       <div class="row justify-center q-mt-md">
         <div class="col-10 row items-center text-primary">
@@ -131,9 +131,6 @@ export default {
       this.$v.$touch()
       if (this.$v.$error) return
       this.regCustomer(payload)
-    },
-    registerFacebook() {
-      this.registerFb(this)
     },
   },
 }

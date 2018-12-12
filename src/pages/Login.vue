@@ -29,7 +29,7 @@
           >
             <q-spinner-pie slot="loading" size="25px"/>
           </q-btn>
-          <q-btn :loading="getIsLoadingFB" color="facebook" label="Sign in Facebook" @click="loginFacebook()" class="text-white q-ma-sm col-10">
+          <q-btn :loading="getIsLoadingFB" color="facebook" label="Sign in Facebook" @click="loginFb" class="text-white q-ma-sm col-10">
             <q-spinner-pie slot="loading" size="25px"/>
           </q-btn>
         </div>
@@ -99,9 +99,6 @@ export default {
       this.$v.$touch()
       if (this.$v.$error) return
       this.loginCustomer(payload)
-    },
-    loginFacebook() {
-      this.loginFb(this)
     },
   },
 }

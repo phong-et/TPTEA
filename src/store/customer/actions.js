@@ -50,9 +50,9 @@ export function regCustomer({commit}, payload) {
     })
 }
 
-export async function loginFb({commit}, appVue) {
+export async function loginFb({commit}) {
   commit('setIsLoadingFB', true)
-  let user = await getUserFbInfo(appVue)
+  let user = await getUserFbInfo(commit)
   _post(
     {
       username: user.email,
@@ -84,9 +84,9 @@ export async function loginFb({commit}, appVue) {
     })
 }
 
-export async function registerFb({commit}, appVue) {
+export async function registerFb({commit}) {
   commit('setIsLoadingFB', true)
-  let user = await getUserFbInfo(appVue)
+  let user = await getUserFbInfo(commit)
   _post(
     {
       username: user.email,
