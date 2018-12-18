@@ -261,10 +261,8 @@ export const applyGiftCard = ({commit}, payload) => {
     .then(({data}) => {
       let amount = (data.applyGiftCard && data.applyGiftCard.amount) || 0,
         message = _.get(data, 'errors[0].message')
-      if (typeof message === 'string') {
-        if (message.indexOf('jwt malformed') > -1) {
-          data.errors[0].message = 'The Code is invalid! Please try again!'
-        }
+      if (typeof message === 'string' && message.indexOf('jwt malformed') > -1) {
+        data.errors[0].message = 'The Code is invalid! Please try again!'
       }
       _procAlert(data, `$${amount} has just been applied successfully`)
       if (data.applyGiftCard) commit('setCustomerBalance', data.applyGiftCard.balance)
