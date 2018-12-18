@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import customer from './customer'
 import category from './category'
+import mainCategory from './maincategory'
 import menu from './menu'
 import modifier from './modifier'
 import admin from './admin'
@@ -23,6 +24,7 @@ export default function(/* { ssrContext } */) {
       modifier,
       admin,
       giftcard,
+      mainCategory,
     },
   })
 

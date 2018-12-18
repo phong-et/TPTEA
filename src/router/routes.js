@@ -6,7 +6,8 @@ import pgAdminLogin from 'pages/admin/Login'
 import pgHome from 'pages/Home'
 import pgAdminHome from 'pages/admin/Home'
 import pgAdminGiftCards from 'pages/admin/GiftCards'
-import pgCategories from 'pages/Categories'
+// import pgCategories from 'pages/Categories'
+import pgMainCategories from 'pages/MainCategories'
 import pgStores from 'pages/Stores'
 import pgMenus from 'pages/Menus'
 import pgCustomer from 'pages/Customer'
@@ -30,7 +31,7 @@ const routes = [
       },
       {
         path: 'categories',
-        component: pgCategories,
+        component: pgMainCategories,
       },
       {
         path: 'stores',
