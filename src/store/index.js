@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import customer from './customer'
 import category from './category'
-import mainCategory from './maincategory'
+import mainCategory from './categorymain'
 import menu from './menu'
 import modifier from './modifier'
 import admin from './admin'

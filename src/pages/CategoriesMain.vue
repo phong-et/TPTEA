@@ -3,14 +3,14 @@
     <q-card class="col-12">
       <q-card-media class="cold">
         <div class="row justify-center items-center">
-          <q-item to="/maincategories/1" link>COLD</q-item>
+          <q-item to="/maincategories/1" link>cold</q-item>
         </div>
       </q-card-media>
     </q-card>
     <q-card class="col-12">
       <q-card-media class="hot">
         <div class="row justify-center items-center">
-          <q-item to="/maincategories/2" link>HOT</q-item>
+          <q-item to="/maincategories/2" link>hot</q-item>
         </div>
       </q-card-media>
     </q-card>
@@ -43,6 +43,7 @@ export default {
   font-size 70px
   font-weight bold
   color #fff
+  text-transform :uppercase
 
 .q-card-media div
   height 100%
