@@ -30,11 +30,11 @@ const routes = [
         component: pgHome,
       },
       {
-        path: 'maincategories',
+        path: 'main-categories',
         component: pgCategoriesMain,
       },
       {
-        path: 'maincategories/:mainCatId',
+        path: 'main-categories/:mainCatId',
         component: pgCategories,
       },
       {

@@ -16,7 +16,7 @@ export default {
       type: String,
     },
     route: {
-      default: '/maincategories/1' ,
+      default: '/main-categories/1' ,
       type: String,
     },
   },
