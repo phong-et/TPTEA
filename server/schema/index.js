@@ -23,7 +23,7 @@ const SchemaDefinition = `
 const RootQuery = `
   type RootQuery {
     getCustomer(input:Int): Customer
-    listCategories: [Category]
+    listCategories(input:Int): [Category]
     listMenus(input:CategoryInput): [Menu]
     fetchModifiers(input:MenuInput): [Modify]
     fetchAdmin(input:Int): Admin
@@ -55,16 +55,6 @@ const RootMutation = `
 `
 
 export default makeExecutableSchema({
-  typeDefs: [
-    SchemaDefinition,
-    RootQuery,
-    RootMutation,
-    customerDef,
-    categoryDef,
-    menuDef,
-    modifyDef,
-    adminDef,
-    giftCardDef,
-  ],
+  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifyDef, adminDef, giftCardDef],
   resolvers: [customerRes, categoryRes, menuRes, modifyRes, adminRes, giftCardRes],
 })

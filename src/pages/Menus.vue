@@ -1,31 +1,23 @@
 <template>
   <q-page>
-    <q-modal v-model="opened" maximized class="max-width-center-h">
-      <q-modal-layout>
-        <q-toolbar slot="header" class="q-pt-none q-pb-none" color="secondary">
-          <q-btn color="white" flat round dense icon="reply" @click="backToCategories()" />
-          <q-toolbar-title>
-            {{cat.name}}
-          </q-toolbar-title>
-        </q-toolbar>
-        <q-toolbar slot="header" class="q-pt-none" color="secondary">
-          <q-search class="full-width" v-model="search" inverted color="none" />
-        </q-toolbar>
-        <et-menu :menus="filterMenu"></et-menu>
-        <q-toolbar slot="footer" color="secondary" class="row inline items-center">
-          <q-btn label="View Carts" />
-          <q-toolbar-title class="text-right">
-            $0
-          </q-toolbar-title>
-        </q-toolbar>
-      </q-modal-layout>
-    </q-modal>
+    <q-layout-header class="max-width-center-h">
+      <q-toolbar class="q-pt-none q-pb-none" color="secondary">
+        <q-btn color="white" flat round dense icon="reply" @click="backToCategories()"/>
+        <q-toolbar-title>{{cat.name}}</q-toolbar-title>
+      </q-toolbar>
+      <q-toolbar class="q-pt-none" color="secondary">
+        <q-search class="full-width" v-model="search" inverted color="none"/>
+      </q-toolbar>
+    </q-layout-header>
+    <et-menu :menus="filterMenu"></et-menu>
+    <footer-order/>
   </q-page>
 </template>
 
 <script>
 import {mapActions, mapGetters, mapMutations} from 'vuex'
 import etMenu from 'components/Menu'
+import footerOrder from 'components/FooterOrder'
 export default {
   data() {
     return {
@@ -36,6 +28,7 @@ export default {
   },
   components: {
     etMenu,
+    footerOrder,
   },
   computed: {
     ...mapGetters({
@@ -55,7 +48,7 @@ export default {
     ...mapMutations('menu', ['setRecs']),
     backToCategories() {
       this.setRecs([])
-      this.$router.push('/categories')
+      this.$router.go(-1)
     },
   },
   mounted() {

@@ -1,19 +1,16 @@
 <template>
-  <q-list no-border separator>
-    <q-item link class="q-pt-sm q-pb-sm" v-for="(menu,index) in menus" :key="index">
+  <q-list no-border inset-separator multiline>
+    <q-item link class="q-pt-sm q-pb-sm" v-for="(menu,index) in menus" :key="index" @click.native="openMenuDetail(menu.id)">
       <q-item-side>
-        <q-item-tile avatar>
-          <img :src="'statics/'+menu.img">
-        </q-item-tile>
+        <img class="img-menu" :src="'statics/'+menu.img">
       </q-item-side>
       <q-item-main>
-        <q-item-tile label>{{menu.name}}</q-item-tile>
-        <q-item-tile sublabel>{{menu.desc}}</q-item-tile>
+        <q-item-tile label class="text-weight-bold">{{menu.name}}</q-item-tile>
+        <q-item-tile sublabel class="padding-sublabel">{{menu.desc}}</q-item-tile>
+        <q-item-tile label class="text-weight-bold">{{'$'+menu.price}}</q-item-tile>
       </q-item-main>
-      <q-item-side right>
-        <div class="row items-center justify-between no-wrap">
-          <q-btn size="14px" round dense color="secondary" icon="add" class="q-mr-sm" @click="openMenuDetail(menu.id)" />
-        </div>
+      <q-item-side right class="plus-btn">
+        <q-btn size="11px" round dense outline color="secondary" icon="add" class="q-mr-sm" @click="openMenuDetail(menu.id)"/>
       </q-item-side>
     </q-item>
   </q-list>
@@ -26,8 +23,28 @@ export default {
   },
   methods: {
     openMenuDetail(menuId) {
-      this.$router.push('/menudetail/' + menuId)
+      this.$router.push('/order/menu-detail/' + menuId)
     },
   },
 }
 </script>
+<style lang="stylus" scoped>
+.img-menu
+  height 90px
+  width 90px
+
+.padding-sublabel
+  margin 2px 0
+
+.q-item-division + .q-item-division:after, .q-item-division + .q-item-inset-separator:after
+  left 20px
+  right 20px
+
+.q-item
+  padding 8px 12px 4px 20px
+
+.plus-btn
+  display flex
+  height 92px
+  align-items center
+</style>

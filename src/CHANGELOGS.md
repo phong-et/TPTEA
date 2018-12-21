@@ -69,6 +69,7 @@ All notable changes to this project will be documented in this file.
 - Adjust createGiftCard, simplify and shorten jwt by moving Gift Card info DB
 - Adjust authGiftCard
 - Adjust applyGiftCard (update customerId to GiftCard table)
+- Change style of category and menu page like the coffee house
 ### Added
 - Customer Login feature
 - Customer Register feature
@@ -84,3 +85,4 @@ All notable changes to this project will be documented in this file.
 - Receive payment function
 - Grid recive payment
 - Push notification
+- Add migration,seed maincategories

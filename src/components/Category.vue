@@ -2,9 +2,7 @@
   <q-card class="col-6 q-pa-xs no-shadow border-cat" @click.native="openMenusListing()">
     <q-card-media overlay-position="top">
       <img :src="'statics/'+cat.img">
-      <q-card-title slot="overlay" class="text-right">
-        {{cat.name}}
-      </q-card-title>
+      <div class="card-title text-center">{{cat.name}}</div>
     </q-card-media>
   </q-card>
 </template>
@@ -15,12 +13,23 @@ export default {
   },
   methods: {
     openMenusListing() {
-      this.$router.push('/menus/' + this.cat.id)
+      this.$router.push('/order/menus/' + this.cat.id)
     },
   },
 }
 </script>
 <style scoped lang="stylus">
-  .border-cat
-    border-radius 8px
+.border-cat
+  border-radius 8px
+
+.card-title
+  position absolute
+  top 0
+  right 0
+  left 0
+  bottom 0
+  display flex
+  align-items center
+  justify-content center
+  color #fff
 </style>
