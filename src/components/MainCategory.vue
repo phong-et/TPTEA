@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     route() {
-      return '/main-categories/' + this.id
+      return 'order/categories/' + this.id
     },
   },
 }

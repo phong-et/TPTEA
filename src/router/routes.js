@@ -34,7 +34,7 @@ const routes = [
         component: pgMainCategories,
       },
       {
-        path: 'main-categories/:mainCatId',
+        path: 'order/categories/:mainCatId',
         component: pgCategories,
       },
       {

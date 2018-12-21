@@ -14,7 +14,7 @@
   </q-page>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import mainCategory from 'components/MainCategory'
 export default {
   name: 'MainCategories',
@@ -23,10 +23,10 @@ export default {
     ...mapGetters('maincategory', ['getRecs']),
   },
   methods: {
-    // ...mapActions('maincategory', ['fetchRecs']),
+    ...mapActions('maincategory', ['fetchRecs']),
   },
   mounted() {
-    // this.fetchRecs()
+    this.fetchRecs()
   },
 }
 </script>
