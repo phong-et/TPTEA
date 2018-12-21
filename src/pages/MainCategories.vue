@@ -1,6 +1,6 @@
 <template>
   <q-page class="row">
-    <q-card class="col-12" @click.native="openCategory">
+    <!-- <q-card class="col-12" @click.native="openCategory">
       <q-card-media class="cold">
         <div class="row justify-center items-center">COLD</div>
       </q-card-media>
@@ -9,23 +9,24 @@
       <q-card-media class="hot">
         <div class="row justify-center items-center">HOT</div>
       </q-card-media>
-    </q-card>
+    </q-card>-->
+    <main-category v-for="mainCat in getRecs" :key="mainCat.id" :name="mainCat.name" :id="mainCat.id"/>
   </q-page>
 </template>
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
+import mainCategory from 'components/MainCategory'
 export default {
   name: 'MainCategories',
-  components: {},
+  components: {mainCategory},
   computed: {
-    ...mapGetters('category', ['getRecs']),
+    ...mapGetters('maincategory', ['getRecs']),
   },
   methods: {
-    ...mapActions('category', ['fetchRecs']),
-    openCategory() {},
+    // ...mapActions('maincategory', ['fetchRecs']),
   },
   mounted() {
-    this.fetchRecs()
+    // this.fetchRecs()
   },
 }
 </script>

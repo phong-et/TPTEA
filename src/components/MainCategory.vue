@@ -1,23 +1,28 @@
 <template>
-    <q-card class="col-12">
-      <q-card-media :class="name">
-        <div class="row justify-center items-center">
-          <q-item :to="route" link>{{name}}</q-item>
-        </div>
-      </q-card-media>
-    </q-card>
+  <q-card class="col-12">
+    <q-card-media :class="name">
+      <div class="row justify-center items-center">
+        <q-item :to="route" link>{{name}}</q-item>
+      </div>
+    </q-card-media>
+  </q-card>
 </template>
 <script>
 export default {
-  name: 'Category Main',
-   props: {
+  name: 'MainCategory',
+  props: {
     name: {
       default: 'cold',
       type: String,
     },
-    route: {
-      default: '/main-categories/1' ,
-      type: String,
+    id: {
+      default: 1,
+      type: Number,
+    },
+  },
+  computed: {
+    route() {
+      return '/main-categories/' + this.id
     },
   },
 }
@@ -33,7 +38,7 @@ export default {
   font-size 70px
   font-weight bold
   color #fff
-  text-transform :uppercase
+  text-transform uppercase
 
 .q-card-media div
   height 100%

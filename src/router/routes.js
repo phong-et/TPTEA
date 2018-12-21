@@ -7,7 +7,7 @@ import pgHome from 'pages/Home'
 import pgAdminHome from 'pages/admin/Home'
 import pgAdminGiftCards from 'pages/admin/GiftCards'
 import pgCategories from 'pages/Categories'
-import pgCategoriesMain from 'pages/CategoriesMain'
+import pgMainCategories from 'pages/MainCategories'
 import pgStores from 'pages/Stores'
 import pgMenus from 'pages/Menus'
 import pgCustomer from 'pages/Customer'
@@ -19,7 +19,6 @@ import pgTopup from 'pages/Topup'
 import pgMakePayment from 'pages/MakePayment'
 import pgAdminReceivePayment from 'pages/admin/ReceivePayment'
 import pgAdminPushMessage from 'pages/admin/PushMessage'
-
 const routes = [
   {
     path: '/',
@@ -31,7 +30,7 @@ const routes = [
       },
       {
         path: 'main-categories',
-        component: pgCategoriesMain,
+        component: pgMainCategories,
       },
       {
         path: 'main-categories/:mainCatId',
