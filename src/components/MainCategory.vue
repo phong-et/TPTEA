@@ -1,6 +1,6 @@
 <template>
   <q-card class="col-12">
-    <q-card-media :class="className">
+    <q-card-media :style="bgImg">
       <div class="row justify-center items-center">
         <q-item :to="route" link>{{name}}</q-item>
       </div>
@@ -19,13 +19,17 @@ export default {
       default: 1,
       type: Number,
     },
+    img: {
+      default: '',
+      type: String,
+    },
   },
   computed: {
     route() {
       return 'order/categories/' + this.id
     },
-    className() {
-      return this.name.toLowerCase()
+    bgImg() {
+      return "background-image:url('/statics/" + this.img + "')"
     },
   },
 }
@@ -45,11 +49,4 @@ export default {
 
 .q-card-media div
   height 100%
-
-/* will be extend type main categories in the future */
-.cold
-  background-image url('/statics/main-category-cold.jpg')
-
-.hot
-  background-image url('/statics/main-category-hot.jpg')
 </style>
