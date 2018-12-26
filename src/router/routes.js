@@ -34,10 +34,6 @@ const routes = [
         component: pgMainCategories,
       },
       {
-        path: 'order/categories/:mainCatId',
-        component: pgCategories,
-      },
-      {
         path: 'stores',
         component: pgStores,
       },
