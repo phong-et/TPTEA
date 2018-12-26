@@ -1,9 +1,11 @@
 <template>
   <q-card class="col-12">
     <q-card-media :style="bgImg">
-      <div class="row justify-center items-center">
-        <q-item :to="route" link>{{name}}</q-item>
-      </div>
+      <router-link tag="div" :to="route">
+        <div class="row justify-center items-center">
+          <span>{{name}}</span>
+        </div>
+      </router-link>
     </q-card-media>
   </q-card>
 </template>
@@ -41,7 +43,7 @@ export default {
   background-size cover
   background-position center
 
-.q-card-media a
+.q-card-media span
   font-size 70px
   font-weight bold
   color #fff
