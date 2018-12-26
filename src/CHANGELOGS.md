@@ -30,7 +30,7 @@ All notable changes to this project will be documented in this file.
 - Auto redirect from http to https protocol
 - Sign-Out confirmation
 - Add app version in Member details and admin Home page
-- Main Categories page
+- Main Categories page [@phillip](https://github.com/hemvanh/TPTEA/pull/108)
 ### Removed 
 - Join now button
 - Remove parameter "expiry" and change parameter "amount" to "giftCardid" in genGiftCard function
