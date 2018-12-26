@@ -12,7 +12,8 @@ import adminDef from './admin/def'
 import adminRes from './admin/res'
 import giftCardDef from './giftcard/def'
 import giftCardRes from './giftcard/res'
-
+import mainCategoryDef from './maincategory/def'
+import mainCategoryRes from './maincategory/res'
 const SchemaDefinition = `
   schema {
     query: RootQuery,
@@ -32,6 +33,7 @@ const RootQuery = `
     genCustomerPaymentId(input:Int): String
     verifyCustomerPaymentId(input:String): Customer
     registerPushSubscription(input:PushSubscriptionInput): String
+    fetchMainCategories:[MainCategory]
   }
 `
 
@@ -55,6 +57,6 @@ const RootMutation = `
 `
 
 export default makeExecutableSchema({
-  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifyDef, adminDef, giftCardDef],
-  resolvers: [customerRes, categoryRes, menuRes, modifyRes, adminRes, giftCardRes],
+  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifyDef, adminDef, giftCardDef, mainCategoryDef],
+  resolvers: [customerRes, categoryRes, menuRes, modifyRes, adminRes, giftCardRes, mainCategoryRes],
 })

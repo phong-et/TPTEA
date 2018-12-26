@@ -2,7 +2,7 @@ import {_get, _procError} from '../../util/common'
 
 export const fetchRecs = ({commit}) => {
   _get(`{
-    listMainCategories {
+    fetchMainCategories {
       id
       name
       desc
@@ -10,7 +10,7 @@ export const fetchRecs = ({commit}) => {
     }
   }`)
     .then(({data}) => {
-      commit('setRecs', data.listMainCategories)
+      commit('setRecs', data.fetchMainCategories)
     })
     .catch(err => {
       _procError(err)

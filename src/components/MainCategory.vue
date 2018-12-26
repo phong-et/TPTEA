@@ -1,6 +1,6 @@
 <template>
   <q-card class="col-12">
-    <q-card-media :class="name">
+    <q-card-media :class="className">
       <div class="row justify-center items-center">
         <q-item :to="route" link>{{name}}</q-item>
       </div>
@@ -23,6 +23,9 @@ export default {
   computed: {
     route() {
       return 'order/categories/' + this.id
+    },
+    className() {
+      return this.name.toLowerCase()
     },
   },
 }
