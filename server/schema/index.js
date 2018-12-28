@@ -14,6 +14,8 @@ import giftCardDef from './giftcard/def'
 import giftCardRes from './giftcard/res'
 import mainCategoryDef from './maincategory/def'
 import mainCategoryRes from './maincategory/res'
+import orderDef from './order/def'
+import orderRes from './order/res'
 const SchemaDefinition = `
   schema {
     query: RootQuery,
@@ -53,10 +55,11 @@ const RootMutation = `
     applyGiftCard(input:ApplyGiftCardInput): ApplyGiftCardOutput
     receivePayment(input:ReceivePaymentInput): ReceivePayment
     pushMessage(input:String): String
+    placeOrder(input:OrderInput): Int
   }
 `
 
 export default makeExecutableSchema({
-  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifierDef, adminDef, giftCardDef, mainCategoryDef],
-  resolvers: [customerRes, categoryRes, menuRes, modifierRes, adminRes, giftCardRes, mainCategoryRes],
+  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifierDef, adminDef, giftCardDef, mainCategoryDef, orderDef],
+  resolvers: [customerRes, categoryRes, menuRes, modifierRes, adminRes, giftCardRes, mainCategoryRes, orderRes],
 })
