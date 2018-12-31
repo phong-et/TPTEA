@@ -13,12 +13,16 @@ import {_auth} from '../../util'
 async function calcOrderDetailPrice(orderDetail) {
   let menuPrice = 0,
     modifiersPrice = 0
-  menuPrice = await getMenuPrice(orderDetail.menuId)
-  modifiersPrice = await calcModifersPrice(orderDetail.modifierIds)
-  return (menuPrice + modifiersPrice) * orderDetail.quantity
+  try {
+    menuPrice = await fetchMenuPrice(orderDetail.menuId)
+    modifiersPrice = await fetchModifersPrice(orderDetail.modifierIds)
+    return (menuPrice + modifiersPrice) * orderDetail.quantity
+  } catch (error) {
+    throw new Error(error.message)
+  }
 }
 
-async function getMenuPrice(menuId) {
+async function fetchMenuPrice(menuId) {
   try {
     let menu = await Menu.findOne({where: {menuId}})
     return menu.price
@@ -26,10 +30,10 @@ async function getMenuPrice(menuId) {
     throw new Error(error.message)
   }
 }
-async function calcModifersPrice(modifierIds) {
+async function fetchModifersPrice(modifierIds) {
   var sumPrice = 0
   try {
-    modifierIds.forEach(async (modifierId) => {
+    modifierIds.forEach(async modifierId => {
       var modifier = await Modifier.findOne({where: {modifierId}})
       sumPrice += modifier.price
     })
@@ -44,11 +48,11 @@ const resolvers = {
       try {
         _auth(loggedInUser)
         return await Order.create(input).then(async orderId => {
-          input.orderDetail.forEach((od, index) => {
-            input.orderDetail[index].orderId = orderId
-            input.orderDetail[index].price = calcOrderDetailPrice(od)
+          input.orderDetails.forEach((e, index) => {
+            input.orderDetails[index].orderId = orderId
+            input.orderDetails[index].price = calcOrderDetailPrice(e)
           })
-          return await OrderDetail.create(input.orderDetail).then(orderId => orderId)
+          return await OrderDetail.create(input.orderDetails).then(orderId => orderId)
         })
       } catch (error) {
         throw new Error(error.message)

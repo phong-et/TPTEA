@@ -11,7 +11,7 @@ const Order = `
     storeId: Int
     deliveryAddress: String    
     createdAt: Date
-    OrderDetail: [OrderDetail]
+    OrderDetails: [OrderDetail]
   }
 
   input OrderDetailInput {
@@ -23,7 +23,7 @@ const Order = `
     customerId: Int!
     storeId: Int!
     deliveryAddress: String!
-    OrderDetail: [OrderDetail]
+    OrderDetails: [OrderDetail]
   }
 `
 export default Order
