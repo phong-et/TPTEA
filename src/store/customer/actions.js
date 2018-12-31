@@ -297,3 +297,48 @@ export function genCustomerPaymentId({commit, getters}) {
       commit('setIsLoading', false)
     })
 }
+export function placeOrder({commit}) {
+  commit('setIsLoading', true)
+  _post(
+    {
+      customerId: 1,
+      storeId: 1,
+      deliveryAddress: 'HCM',
+      orderDetails: [
+        {
+          menuId: 1,
+          modifierIds: [1, 2, 3, 4],
+          quantity: 2,
+        },
+        {
+          menuId: 2,
+          modifierIds: [2, 3, 4],
+          quantity: 1,
+        },
+        {
+          menuId: 3,
+          modifierIds: [2, 3],
+          quantity: 5,
+        },
+      ],
+    },
+    `mutation ($input: OrderInput) {
+      placeOrder(input: $input)
+    }`
+  )
+    .then(({data}) => {
+      commit('setIsLoading', false)
+      _procAlert(data, 'Regitered Successfully!')
+      if (!data.errors) {
+        // register successfully
+        localStorage.setItem('auth-token', data.register)
+        commit('setToken', data.register)
+        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.register
+        this.$router.push('/customer')
+      }
+    })
+    .catch(err => {
+      _procError(err)
+      commit('setIsLoading', false)
+    })
+}

@@ -5,13 +5,13 @@ const Order = `
     storeId: Int
     deliveryAddress: String    
     createdAt: Date
-    OrderDetails: [OrderDetail]
+    orderDetails: [OrderDetail]
   }
   input OrderInput {
     customerId: Int!
     storeId: Int!
     deliveryAddress: String!
-    OrderDetails: [OrderDetail]
+    orderDetails: [OrderDetailInput]
   }
 `
 export default Order

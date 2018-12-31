@@ -43,22 +43,24 @@ async function fetchModifersPrice(modifierIds) {
   }
 }
 const resolvers = {
-  RootQuery: {
+  RootQuery: {},
+  RootMutation: {
     async placeOrder(_, {input}, {loggedInUser}) {
       try {
         _auth(loggedInUser)
-        return await Order.create(input).then(async orderId => {
-          input.orderDetails.forEach((e, index) => {
-            input.orderDetails[index].orderId = orderId
-            input.orderDetails[index].price = calcOrderDetailPrice(e)
-          })
-          return await OrderDetail.create(input.orderDetails).then(orderId => orderId)
+        return await Order.create(input).then(async ({orderId}) => {
+          console.log(input)
+          console.log(orderId)
+          // input.orderDetails.forEach((e, index) => {
+          //   input.orderDetails[index].orderId = orderId
+          //   input.orderDetails[index].price = calcOrderDetailPrice(e)
+          // })
+          // return await OrderDetail.bulkCreate(input.orderDetails).then(orderId => orderId)
         })
       } catch (error) {
         throw new Error(error.message)
       }
     },
   },
-  RootMutation: {},
 }
 export default resolvers
