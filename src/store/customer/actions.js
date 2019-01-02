@@ -307,7 +307,7 @@ export function placeOrder({commit}) {
       orderDetails: [
         {
           menuId: 1,
-          modifierIds: [1, 2, 3, 4],
+          modifierIds: [1],
           quantity: 2,
         },
         {
@@ -328,13 +328,9 @@ export function placeOrder({commit}) {
   )
     .then(({data}) => {
       commit('setIsLoading', false)
-      _procAlert(data, 'Regitered Successfully!')
+      _procAlert(data, 'Place Order Successfully!')
       if (!data.errors) {
-        // register successfully
-        localStorage.setItem('auth-token', data.register)
-        commit('setToken', data.register)
-        _ax.defaults.headers.common['Authorization'] = 'Bearer ' + data.register
-        this.$router.push('/customer')
+        console.log(data)
       }
     })
     .catch(err => {
