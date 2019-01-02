@@ -14,8 +14,14 @@ module.exports = {
       price: {
         type: Sequelize.STRING,
       },
-      type: {
+      groupTitle: {
         type: Sequelize.STRING,
+      },
+      groupType: {
+        type: Sequelize.STRING,
+      },
+      isDefault: {
+        type: Sequelize.BOOLEAN,
       },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE,

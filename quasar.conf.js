@@ -103,12 +103,13 @@ module.exports = function(ctx) {
         'QToggle',
         'QTree',
         'QDialog',
+        'QOptionGroup',
       ],
       directives: ['Ripple', 'CloseOverlay'],
       // Quasar plugins
       plugins: ['Notify', 'AddressbarColor'],
       iconSet: 'material-icons',
-      // i18n: 'de' // Quasar language
+      // i18n: 'de', // Quasar language
     },
     // animations: 'all' --- includes all animations
     animations: [],

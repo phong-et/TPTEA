@@ -72,6 +72,8 @@ All notable changes to this project will be documented in this file.
 - Adjust authGiftCard
 - Adjust applyGiftCard (update customerId to GiftCard table)
 - Change style of category and menu page like the coffee house
+- Change style of menu detail page like the coffee house
+- Sort order migrate in folder server
 ### Added
 - Customer Login feature
 - Customer Register feature

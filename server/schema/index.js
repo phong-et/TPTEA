@@ -30,7 +30,7 @@ const RootQuery = `
     getCustomer(input:Int): Customer
     listCategories(input:Int): [Category]
     listMenus(input:CategoryInput): [Menu]
-    fetchModifiers(input:MenuInput): [Modifier]
+    fetchModifiers(input:MenuInput): [ModifierGroup]
     fetchAdmin(input:Int): Admin
     fetchCustomers: [Customer]
     fetchGiftCards: [GiftCard]

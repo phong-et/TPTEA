@@ -6,26 +6,24 @@
     <q-card>
       <q-card-media>
         <img :src="'statics/'+menu.img">
-        <q-card-title slot="overlay">
-          <span style="font-size:22px">{{menu.name}}</span>
-          <span style="font-size:19px" slot="subtitle">{{menu.desc}}</span>
-        </q-card-title>
       </q-card-media>
     </q-card>
-    <q-list separator class="q-pa-none">
-      <q-item v-for="(modifier,index) in getRecsModifier" :key="index">
-        <q-item-main class="text-secondary">
-          <q-radio v-if="modifier.type==='size'" v-model="sizes" :val="modifier" :label="modifier.name" color="primary" @input="onChangeModifier()"/>
-          <q-checkbox v-else v-model="modifiers" :label="modifier.name" :val="modifier" color="primary" @input="onChangeModifier()"/>
-        </q-item-main>
-        <q-item-side right class="text-secondary">{{modifier.price|price}}</q-item-side>
-      </q-item>
-    </q-list>
-    <et-counter></et-counter>
+    <q-collapsible :label="menu.name" class="text-bold" header-style="font-size:18px">
+      <div class="desc">{{menu.desc}}</div>
+    </q-collapsible>
+    <modifiers-group
+      v-for="(group,index) in getRecsModifier"
+      :data="group.data"
+      :groupTitle="group.groupTitle"
+      :groupType="group.groupType"
+      :key="index"
+    />
     <q-layout-footer class="max-width-center-h">
-      <q-toolbar color="secondary row">
-        <q-btn icon="add_shopping_cart" flat label="Add To Cart"/>
-        <q-toolbar-title class="text-right">{{'$'+addToCartPrice.toFixed(2)}}</q-toolbar-title>
+      <q-toolbar color="white">
+        <q-btn round outline size="11px" color="secondary" icon="remove"/>
+        <div class="text-black q-mr-md q-ml-md">2</div>
+        <q-btn round size="11px" color="secondary" icon="add" class="q-mr-sm"/>
+        <q-btn color="secondary absolute-right q-mt-sm q-mb-sm q-pl-lg q-pr-lg add-to-cart">{{'+ $9.00'}}</q-btn>
       </q-toolbar>
     </q-layout-footer>
   </q-page>
@@ -34,51 +32,30 @@
 import _ from 'lodash'
 import {mapGetters, mapActions, mapMutations} from 'vuex'
 import etCounter from 'components/Counter'
+import modifiersGroup from 'components/ModifiersGroup'
 export default {
   data() {
     return {
       opened: true,
-      sizes: {},
-      addToCartPrice: 0,
-      modifiers: [],
       menu: {},
     }
   },
   components: {
     etCounter,
+    modifiersGroup,
   },
   computed: {
     ...mapGetters('menu', ['getRecs', 'getCounter']),
     ...mapGetters('modifier', {getRecsModifier: 'getRecs'}),
   },
-  filters: {
-    price(val) {
-      var price = ''
-      if (val.includes('-')) {
-        price = '-$' + val.replace('-', '')
-      } else if (val === '0') {
-        price = ''
-      } else {
-        price = '+$' + val
-      }
-      return price
-    },
-  },
   methods: {
     ...mapActions('modifier', ['fetchModifiers']),
     ...mapMutations('menu', ['setCounter']),
+    ...mapMutations('modifier', ['setRecs']),
     backToMenu() {
+      this.setRecs([])
       this.$router.go(-1)
       this.setCounter(1)
-    },
-    calculatePrice() {
-      var modifierPrice = _.sumBy(this.modifiers, ({price}) => {
-        return parseFloat(price)
-      })
-      return (modifierPrice + parseFloat(this.menu.price) + parseFloat(this.sizes.price || 0)) * this.getCounter
-    },
-    onChangeModifier() {
-      this.addToCartPrice = this.calculatePrice()
     },
   },
   watch: {
@@ -94,7 +71,6 @@ export default {
   },
   mounted() {
     this.menu = this.getRecs.find(item => item.id === parseFloat(this.$route.params.menuId))
-    this.addToCartPrice = this.calculatePrice()
     this.fetchModifiers(this.menu)
   },
 }
@@ -102,4 +78,17 @@ export default {
 <style scoped lang="stylus">
 .menu-details
   min-height calc(100vh - 70px) !important
+
+.add-to-cart
+  margin-right 14px
+
+.desc
+  font-weight normal
+  font-size 14px
+  color #757575
+  padding-left 10px
+  margin-top -5px
+
+.q-card-media > img
+  max-height 350px
 </style>
