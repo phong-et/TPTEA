@@ -15,7 +15,9 @@ async function calcOrderDetailPrice(orderDetail) {
     modifiersPrice = 0
   try {
     menuPrice = await fetchMenuPrice(orderDetail.menuId)
+    console.log('menuPrice:%s', menuPrice)
     modifiersPrice = await fetchModifersPrice(orderDetail.modifierIds)
+    console.log('modifiersPrice:%s', modifiersPrice)
     return (menuPrice + modifiersPrice) * orderDetail.quantity
   } catch (error) {
     throw new Error(error.message)
@@ -50,22 +52,26 @@ const resolvers = {
     async placeOrder(_, {input}, {loggedInUser}) {
       try {
         _auth(loggedInUser)
-        // return await Order.create(input).then(async ({orderId}) => {
-        //   console.log(input)
-        //   console.log(orderId)
-        //   input.orderDetails.forEach((e, index) => {
-        //     input.orderDetails[index].orderId = orderId
-        //     let price = calcOrderDetailPrice(e)
-        //     console.log(price)
-        //     input.orderDetails[index].price = price
-        //   })
-        //   return await OrderDetail.bulkCreate(input.orderDetails).then(orderId => orderId)
-        // })
-
-        var menuPrice = await fetchMenuPrice(input.orderDetails[0].menuId)
-        console.log('menuPrice:%s',menuPrice)
-        var modifiersPrice = await fetchModifersPrice(input.orderDetails[0].modifierIds)
-        console.log('modifiersPrice:%s', modifiersPrice)
+        return await Order.create(input).then(async ({id}) => {
+          console.log(input)
+          console.log(id)
+          let orderDetailPrice
+          // input.orderDetails.forEach((e, index) => {
+          //   input.orderDetails[index].orderId = id
+          //   let price =  calcOrderDetailPrice(e)
+          //   console.log(price)
+          //   input.orderDetails[index].price = price
+          // })
+          await Promise.all(
+            input.orderDetails.map(async (orderDetail, index) => {
+              orderDetailPrice = await calcOrderDetailPrice(orderDetail)
+              console.log(orderDetailPrice)
+              input.orderDetails[index].price = orderDetailPrice
+            })
+          )
+          console.log(input.orderDetails)
+          // return await OrderDetail.bulkCreate(input.orderDetails).then(orderId => orderId)
+        })
       } catch (error) {
         throw new Error(error.message)
       }
