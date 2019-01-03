@@ -15,9 +15,7 @@ async function calcOrderDetailPrice(orderDetail) {
     modifiersPrice = 0
   try {
     menuPrice = await fetchMenuPrice(orderDetail.menuId)
-    console.log('menuPrice:%s', menuPrice)
     modifiersPrice = await fetchModifersPrice(orderDetail.modifierIds)
-    console.log('modifiersPrice:%s', modifiersPrice)
     return (menuPrice + modifiersPrice) * orderDetail.quantity
   } catch (error) {
     throw new Error(error.message)
@@ -26,8 +24,8 @@ async function calcOrderDetailPrice(orderDetail) {
 
 async function fetchMenuPrice(menuId) {
   try {
-    let menu = await Menu.findOne({where: {id: menuId}})
-    return menu.get('price')
+    let price = await Menu.findOne({where: {id: menuId}}).get('price')
+    return parseFloat(price)
   } catch (error) {
     throw new Error(error.message)
   }
@@ -52,28 +50,23 @@ const resolvers = {
     async placeOrder(_, {input}, {loggedInUser}) {
       try {
         _auth(loggedInUser)
+        console.log(input)
         return await Order.create(input).then(async ({id}) => {
-          console.log(input)
-          console.log(id)
-          let orderDetailPrice
-          // input.orderDetails.forEach((e, index) => {
-          //   input.orderDetails[index].orderId = id
-          //   let price =  calcOrderDetailPrice(e)
-          //   console.log(price)
-          //   input.orderDetails[index].price = price
-          // })
           await Promise.all(
             input.orderDetails.map(async (orderDetail, index) => {
-              orderDetailPrice = await calcOrderDetailPrice(orderDetail)
-              console.log(orderDetailPrice)
-              input.orderDetails[index].price = orderDetailPrice
+              input.orderDetails[index].orderId = id
+              input.orderDetails[index].price = await calcOrderDetailPrice(orderDetail)
+              input.orderDetails[index].modifierIds = input.orderDetails[index].modifierIds.toString()
             })
           )
           console.log(input.orderDetails)
-          // return await OrderDetail.bulkCreate(input.orderDetails).then(orderId => orderId)
+          await OrderDetail.bulkCreate(input.orderDetails)
+          return 1
         })
       } catch (error) {
-        throw new Error(error.message)
+        // console.log(error)
+
+        throw new Error(error)
       }
     },
   },

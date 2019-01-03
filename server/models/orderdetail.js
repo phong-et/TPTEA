@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       orderId: DataTypes.INTEGER,
       menuId: DataTypes.INTEGER,
+      modifierIds: DataTypes.STRING,
       quantity: DataTypes.INTEGER,
       price: DataTypes.FLOAT,
     },
