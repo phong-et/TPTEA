@@ -307,7 +307,7 @@ export function placeOrder({commit}) {
       orderDetails: [
         {
           menuId: 1,
-          modifierIds: [1],
+          modifierIds: [1, 2, 3, 4],
           quantity: 2,
         },
         {

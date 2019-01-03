@@ -24,20 +24,22 @@ async function calcOrderDetailPrice(orderDetail) {
 
 async function fetchMenuPrice(menuId) {
   try {
-    let menu = await Menu.findOne({where: {id:menuId}})
+    let menu = await Menu.findOne({where: {id: menuId}})
     return menu.get('price')
   } catch (error) {
     throw new Error(error.message)
   }
 }
 async function fetchModifersPrice(modifierIds) {
-  var sumPrice = 0
   try {
-    modifierIds.forEach(async modifierId => {
-      var modifier = await Modifier.findOne({where: {id:modifierId}})
-      sumPrice += modifier.get('price')
-    })
-    return sumPrice
+    var prices = 0
+    await Promise.all(
+      modifierIds.map(async modifierId => {
+        let price = await Modifier.findOne({where: {id: modifierId}}).get('price')
+        prices += parseFloat(price)
+      })
+    )
+    return prices
   } catch (error) {
     throw new Error(error.message)
   }
@@ -50,7 +52,7 @@ const resolvers = {
         _auth(loggedInUser)
         // return await Order.create(input).then(async ({orderId}) => {
         //   console.log(input)
-        //   console.log(orderId)          
+        //   console.log(orderId)
         //   input.orderDetails.forEach((e, index) => {
         //     input.orderDetails[index].orderId = orderId
         //     let price = calcOrderDetailPrice(e)
@@ -59,14 +61,11 @@ const resolvers = {
         //   })
         //   return await OrderDetail.bulkCreate(input.orderDetails).then(orderId => orderId)
         // })
-        fetchMenuPrice(input.orderDetails[0].menuId).then((price) => {
-          console.log('menuPrice:%s',price)
-        })    
-        fetchModifersPrice(input.orderDetails[0].modifierIds).then((price) => {
-          console.log('modifiers.price:%s',price)
-        })     
-        // let modifiersPrice = fetchModifersPrice(input.orderDetails[0].modifierIds)
-        // console.log('modifiersPrice:%s',modifiersPrice)
+
+        var menuPrice = await fetchMenuPrice(input.orderDetails[0].menuId)
+        console.log('menuPrice:%s',menuPrice)
+        var modifiersPrice = await fetchModifersPrice(input.orderDetails[0].modifierIds)
+        console.log('modifiersPrice:%s', modifiersPrice)
       } catch (error) {
         throw new Error(error.message)
       }
