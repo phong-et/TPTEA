@@ -2,37 +2,24 @@ import {Order, OrderDetail, Menu, Modifier, sequelize} from '../../models'
 import {_auth} from '../../util'
 import _ from 'lodash'
 
-async function calcOrderDetailPrice(orderDetail) {
+async function calcOrderDetailPrice(orderDetail, menus) {
   let menuPrice = 0,
     modifiersPrice = 0
   try {
-    menuPrice = await fetchMenuPrice(orderDetail.menuId)
+    menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
     modifiersPrice = await fetchModifersPrice(orderDetail.modifierIds)
-    return (menuPrice + modifiersPrice) * orderDetail.quantity
+    return (parseFloat(menuPrice) + modifiersPrice) * orderDetail.quantity
   } catch (error) {
     throw new Error(error.message)
   }
 }
 
-async function fetchMenuPrice(menuId) {
-  try {
-    let price = await Menu.findOne({where: {id: menuId}}).get('price')
-    return parseFloat(price)
-  } catch (error) {
-    throw new Error(error.message)
-  }
-}
 async function fetchModifersPrice(modifierIds) {
   try {
-    // await Promise.all(
-    //   modifierIds.map(async modifierId => {
-    //     let price = await Modifier.findOne({where: {id: modifierId}}).get('price')
-    //     prices += parseFloat(price)
-    //   })
-    // )
     let modifiers = await Modifier.findAll({where: {id: modifierIds}})
-    let prices = _.sumBy(modifiers, m => { return m.price })
-    return parseFloat(prices)
+    return _.sumBy(modifiers, m => {
+      return parseFloat(m.price)
+    })
   } catch (error) {
     throw new Error(error.message)
   }
@@ -48,10 +35,14 @@ const resolvers = {
           .transaction(async t => {
             await Order.create(input, {transaction: t}).then(async ({id}) => {
               orderId = id
+              let menuIds = input.orderDetails.map( orderDetail =>{
+                return orderDetail.menuId
+              })
+              let menus = await Menu.findAll({where: {id: menuIds}})
               await Promise.all(
                 input.orderDetails.map(async orderDetail => {
                   orderDetail.orderId = id
-                  orderDetail.price = await calcOrderDetailPrice(orderDetail)
+                  orderDetail.price = await calcOrderDetailPrice(orderDetail, menus)
                   orderDetail.modifierIds = orderDetail.modifierIds.toString()
                 })
               )
