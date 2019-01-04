@@ -1,16 +1,7 @@
 import {Order, OrderDetail, Menu, Modifier, sequelize} from '../../models'
 import {_auth} from '../../util'
+import _ from 'lodash'
 
-/**
- * @param {*} orderDetail
- * {
-    orderId: Int
-    menuId: Int
-    modifierIds: [Int]
-    quantity: Int
-    price: Float
- * }
- */
 async function calcOrderDetailPrice(orderDetail) {
   let menuPrice = 0,
     modifiersPrice = 0
@@ -33,14 +24,15 @@ async function fetchMenuPrice(menuId) {
 }
 async function fetchModifersPrice(modifierIds) {
   try {
-    let prices = 0
-    await Promise.all(
-      modifierIds.map(async modifierId => {
-        let price = await Modifier.findOne({where: {id: modifierId}}).get('price')
-        prices += parseFloat(price)
-      })
-    )
-    return prices
+    // await Promise.all(
+    //   modifierIds.map(async modifierId => {
+    //     let price = await Modifier.findOne({where: {id: modifierId}}).get('price')
+    //     prices += parseFloat(price)
+    //   })
+    // )
+    let modifiers = await Modifier.findAll({where: {id: modifierIds}})
+    let prices = _.sumBy(modifiers, m => { return m.price })
+    return parseFloat(prices)
   } catch (error) {
     throw new Error(error.message)
   }
@@ -49,9 +41,9 @@ const resolvers = {
   RootQuery: {},
   RootMutation: {
     async placeOrder(_, {input}, {loggedInUser}) {
+      _auth(loggedInUser)
       try {
-        let orderId = 0
-        _auth(loggedInUser)
+        let orderId
         return sequelize
           .transaction(async t => {
             await Order.create(input, {transaction: t}).then(async ({id}) => {
