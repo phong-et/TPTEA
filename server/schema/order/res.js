@@ -2,12 +2,13 @@ import {Order, OrderDetail, Menu, Modifier, sequelize} from '../../models'
 import {_auth} from '../../util'
 
 /**
- * 
- * @param {*} orderDetails
+ * @param {*} orderDetail
  * {
- *    menuId: Int
-      modifierIds: [Int]
-      quantity: Int
+    orderId: Int
+    menuId: Int
+    modifierIds: [Int]
+    quantity: Int
+    price: Float
  * }
  */
 async function calcOrderDetailPrice(orderDetail) {
@@ -32,7 +33,7 @@ async function fetchMenuPrice(menuId) {
 }
 async function fetchModifersPrice(modifierIds) {
   try {
-    var prices = 0
+    let prices = 0
     await Promise.all(
       modifierIds.map(async modifierId => {
         let price = await Modifier.findOne({where: {id: modifierId}}).get('price')
@@ -49,43 +50,30 @@ const resolvers = {
   RootMutation: {
     async placeOrder(_, {input}, {loggedInUser}) {
       try {
+        let orderId = 0
         _auth(loggedInUser)
-        // console.log(input)
-
-        // ======== Have Transaction ======== //
-        sequelize.transaction(async (t) => {
-          // chain all your queries here. make sure you return them.
-          await Order.create(input,{transaction: t}).then(async ({id}) => {
-            await Promise.all(
-              input.orderDetails.map(async (orderDetail, index) => {
-                input.orderDetails[index].orderId = id
-                input.orderDetails[index].price = await calcOrderDetailPrice(orderDetail)
-                input.orderDetails[index].modifierIds = input.orderDetails[index].modifierIds.toString()
-              })
-            )
-            await OrderDetail.bulkCreate(input.orderDetails,{transaction: t})
+        return sequelize
+          .transaction(async t => {
+            await Order.create(input, {transaction: t}).then(async ({id}) => {
+              orderId = id
+              await Promise.all(
+                input.orderDetails.map(async orderDetail => {
+                  orderDetail.orderId = id
+                  orderDetail.price = await calcOrderDetailPrice(orderDetail)
+                  orderDetail.modifierIds = orderDetail.modifierIds.toString()
+                })
+              )
+              await OrderDetail.bulkCreate(input.orderDetails, {transaction: t})
+            })
           })
-        }).then(function (result) {
-          console.log(result)
-        }).catch(function (err) {
-          console.log(err)
-        })
-
-        // // =========== Non - Transaction ========== //
-        // await Order.create(input).then(async ({id}) => {
-        //   await Promise.all(
-        //     input.orderDetails.map(async (orderDetail, index) => {
-        //       input.orderDetails[index].orderId = id
-        //       input.orderDetails[index].price = await calcOrderDetailPrice(orderDetail)
-        //       input.orderDetails[index].modifierIds = input.orderDetails[index].modifierIds.toString()
-        //     })
-        //   )
-        //   // console.log(input.orderDetails)
-        //   await OrderDetail.bulkCreate(input.orderDetails)
-        //   return 1
-        // })
+          .then(() => {
+            return orderId
+          })
+          .catch(err => {
+            throw new Error(err)
+          })
       } catch (error) {
-        throw new Error(error)
+        throw new Error(error.message)
       }
     },
   },

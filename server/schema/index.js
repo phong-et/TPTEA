@@ -17,7 +17,6 @@ import mainCategoryRes from './maincategory/res'
 import orderDef from './order/def'
 import orderRes from './order/res'
 import orderDetailDef from './orderdetail/def'
-//import orderDetailRes from './orderdetail/res'
 const SchemaDefinition = `
   schema {
     query: RootQuery,
@@ -62,6 +61,6 @@ const RootMutation = `
 `
 
 export default makeExecutableSchema({
-  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifierDef, adminDef, giftCardDef, mainCategoryDef, orderDef,orderDetailDef],
+  typeDefs: [SchemaDefinition, RootQuery, RootMutation, customerDef, categoryDef, menuDef, modifierDef, adminDef, giftCardDef, mainCategoryDef, orderDef, orderDetailDef],
   resolvers: [customerRes, categoryRes, menuRes, modifierRes, adminRes, giftCardRes, mainCategoryRes, orderRes],
 })
