@@ -1,4 +1,4 @@
-import {Order, OrderDetail, Menu, Modifier} from '../../models'
+import {Order, OrderDetail, Menu, Modifier, sequelize} from '../../models'
 import {_auth} from '../../util'
 
 /**
@@ -50,22 +50,41 @@ const resolvers = {
     async placeOrder(_, {input}, {loggedInUser}) {
       try {
         _auth(loggedInUser)
-        console.log(input)
-        return await Order.create(input).then(async ({id}) => {
-          await Promise.all(
-            input.orderDetails.map(async (orderDetail, index) => {
-              input.orderDetails[index].orderId = id
-              input.orderDetails[index].price = await calcOrderDetailPrice(orderDetail)
-              input.orderDetails[index].modifierIds = input.orderDetails[index].modifierIds.toString()
-            })
-          )
-          console.log(input.orderDetails)
-          await OrderDetail.bulkCreate(input.orderDetails)
-          return 1
-        })
-      } catch (error) {
-        // console.log(error)
+        // console.log(input)
 
+        // ======== Have Transaction ======== //
+        sequelize.transaction(async (t) => {
+          // chain all your queries here. make sure you return them.
+          await Order.create(input,{transaction: t}).then(async ({id}) => {
+            await Promise.all(
+              input.orderDetails.map(async (orderDetail, index) => {
+                input.orderDetails[index].orderId = id
+                input.orderDetails[index].price = await calcOrderDetailPrice(orderDetail)
+                input.orderDetails[index].modifierIds = input.orderDetails[index].modifierIds.toString()
+              })
+            )
+            await OrderDetail.bulkCreate(input.orderDetails,{transaction: t})
+          })
+        }).then(function (result) {
+          console.log(result)
+        }).catch(function (err) {
+          console.log(err)
+        })
+
+        // // =========== Non - Transaction ========== //
+        // await Order.create(input).then(async ({id}) => {
+        //   await Promise.all(
+        //     input.orderDetails.map(async (orderDetail, index) => {
+        //       input.orderDetails[index].orderId = id
+        //       input.orderDetails[index].price = await calcOrderDetailPrice(orderDetail)
+        //       input.orderDetails[index].modifierIds = input.orderDetails[index].modifierIds.toString()
+        //     })
+        //   )
+        //   // console.log(input.orderDetails)
+        //   await OrderDetail.bulkCreate(input.orderDetails)
+        //   return 1
+        // })
+      } catch (error) {
         throw new Error(error)
       }
     },
