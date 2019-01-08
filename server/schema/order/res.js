@@ -2,11 +2,10 @@ import {Order, OrderDetail, Menu, Modifier, sequelize} from '../../models'
 import {_auth} from '../../util'
 import _ from 'lodash'
 
-async function calcOrderDetailPrice(orderDetail, menus) {
-  let menuPrice = 0,
-    modifiersPrice = 0
+async function calcOrderDetailPrice(orderDetail, menuPrice) {
+  let modifiersPrice = 0
   try {
-    menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
+    // menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
     modifiersPrice = await fetchModifersPrice(orderDetail.modifierIds)
     return (parseFloat(menuPrice) + modifiersPrice) * orderDetail.quantity
   } catch (error) {
@@ -35,14 +34,16 @@ const resolvers = {
           .transaction(async t => {
             await Order.create(input, {transaction: t}).then(async ({id}) => {
               orderId = id
-              let menuIds = input.orderDetails.map( orderDetail =>{
-                return orderDetail.menuId
-              })
+              let menuIds = input.orderDetails.map(orderDetail => orderDetail.menuId)
               let menus = await Menu.findAll({where: {id: menuIds}})
+              // let arrModifierIds = input.orderDetails.map(orderDetail => orderDetail.modifierIds)
+              // let modifierIds = [].concat.apply([], arrModifierIds)
+              // let modifiers = await Modifier.findAll({where: {id: modifierIds}})
               await Promise.all(
                 input.orderDetails.map(async orderDetail => {
                   orderDetail.orderId = id
-                  orderDetail.price = await calcOrderDetailPrice(orderDetail, menus)
+                  let menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
+                  orderDetail.price = await calcOrderDetailPrice(orderDetail, menuPrice)
                   orderDetail.modifierIds = orderDetail.modifierIds.toString()
                 })
               )
