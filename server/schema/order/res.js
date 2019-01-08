@@ -2,23 +2,21 @@ import {Order, OrderDetail, Menu, Modifier, sequelize} from '../../models'
 import {_auth} from '../../util'
 import _ from 'lodash'
 
-async function calcOrderDetailPrice(orderDetail, menuPrice) {
-  let modifiersPrice = 0
+function getOrderDetailPrice(modifiersPrice, menuPrice, quantity) {
   try {
-    // menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
-    modifiersPrice = await fetchModifersPrice(orderDetail.modifierIds)
-    return (parseFloat(menuPrice) + modifiersPrice) * orderDetail.quantity
+    return (parseFloat(menuPrice) + modifiersPrice) * quantity
   } catch (error) {
     throw new Error(error.message)
   }
 }
-
-async function fetchModifersPrice(modifierIds) {
+function getModifersPrice(modifiers, modifierIds) {
   try {
-    let modifiers = await Modifier.findAll({where: {id: modifierIds}})
-    return _.sumBy(modifiers, m => {
-      return parseFloat(m.price)
+    let modifiersPrice = 0
+    modifierIds.forEach(modiferId => {
+      let modifierPrice = modifiers.find(modifier => modifier.get('id') === modiferId).get('price')
+      modifiersPrice += parseFloat(modifierPrice)
     })
+    return modifiersPrice
   } catch (error) {
     throw new Error(error.message)
   }
@@ -30,23 +28,24 @@ const resolvers = {
       _auth(loggedInUser)
       try {
         let orderId
+        console.log(input.orderDetails)
         return sequelize
           .transaction(async t => {
             await Order.create(input, {transaction: t}).then(async ({id}) => {
               orderId = id
               let menuIds = input.orderDetails.map(orderDetail => orderDetail.menuId)
               let menus = await Menu.findAll({where: {id: menuIds}})
-              // let arrModifierIds = input.orderDetails.map(orderDetail => orderDetail.modifierIds)
-              // let modifierIds = [].concat.apply([], arrModifierIds)
-              // let modifiers = await Modifier.findAll({where: {id: modifierIds}})
-              await Promise.all(
-                input.orderDetails.map(async orderDetail => {
-                  orderDetail.orderId = id
-                  let menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
-                  orderDetail.price = await calcOrderDetailPrice(orderDetail, menuPrice)
-                  orderDetail.modifierIds = orderDetail.modifierIds.toString()
-                })
-              )
+              let arrModifierIds = input.orderDetails.map(orderDetail => orderDetail.modifierIds)
+              let modifierIds = [...new Set([].concat.apply([], arrModifierIds))]
+              let modifiers = await Modifier.findAll({where: {id: modifierIds}})
+              
+              input.orderDetails.map(orderDetail => {
+                orderDetail.orderId = id
+                let menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
+                let modifiersPrice = getModifersPrice(modifiers, orderDetail.modifierIds)
+                orderDetail.price = getOrderDetailPrice(modifiersPrice, menuPrice, orderDetail.quantity)
+                orderDetail.modifierIds = orderDetail.modifierIds.toString()
+              })
               await OrderDetail.bulkCreate(input.orderDetails, {transaction: t})
             })
           })
