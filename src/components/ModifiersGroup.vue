@@ -14,6 +14,7 @@
 </template>
 <script>
 import _d from 'lodash'
+import {mapGetters, mapMutations} from 'vuex'
 export default {
   props: {
     groupTitle: String,
@@ -28,6 +29,9 @@ export default {
       defaultModifiers: [],
     }
   },
+  computed: {
+    ...mapGetters('modifier', ['getCurrentMenuModifiers']),
+  },
   filters: {
     formatPrice(val) {
       var formatedPrice = ''
@@ -41,11 +45,32 @@ export default {
       return formatedPrice
     },
   },
+  methods: {
+    ...mapMutations('modifier', ['setCurrentMenuModifiers']),
+    updateModifiers(newModifiers, oldModifiers) {
+      let currentModifiers = this.getCurrentMenuModifiers
+      if (oldModifiers) {
+        let oldModifierIds = []
+        if (_d.isArray(oldModifiers)) oldModifierIds = _d.map(oldModifiers, 'id')
+        else oldModifierIds = [oldModifiers.id]
+        _d.remove(currentModifiers, ({id}) => {
+          return oldModifierIds.includes(id)
+        })
+      }
+      this.setCurrentMenuModifiers(_d.concat(currentModifiers, newModifiers))
+    },
+  },
   mounted() {
-    let modifierDedault = _d.find(this.data, modifier => {
-      return modifier.isDefault
-    })
-    if (modifierDedault) this.defaultModifiers = modifierDedault
+    this.defaultModifiers =
+      _d.find(this.data, modifier => {
+        return modifier.isDefault
+      }) || []
+  },
+  watch: {
+    defaultModifiers: {
+      immediate: true,
+      handler: 'updateModifiers',
+    },
   },
 }
 </script>

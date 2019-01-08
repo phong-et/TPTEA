@@ -32,6 +32,7 @@ All notable changes to this project will be documented in this file.
 - Add app version in Member details and admin Home page
 - Main Categories page [@phillip](https://github.com/hemvanh/TPTEA/pull/108)
 - API Place Order
+- Button add to card
 ### Removed 
 - Join now button
 - Remove parameter "expiry" and change parameter "amount" to "giftCardid" in genGiftCard function

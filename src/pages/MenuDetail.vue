@@ -20,10 +20,12 @@
     />
     <q-layout-footer class="max-width-center-h">
       <q-toolbar color="white">
-        <q-btn round outline size="11px" color="secondary" icon="remove"/>
-        <div class="text-black q-mr-md q-ml-md">2</div>
-        <q-btn round size="11px" color="secondary" icon="add" class="q-mr-sm"/>
-        <q-btn color="secondary absolute-right q-mt-sm q-mb-sm q-pl-lg q-pr-lg add-to-cart">{{'+ $9.00'}}</q-btn>
+        <q-btn round outline size="11px" color="secondary" icon="remove" :disable="counter===1" @click="counter--"/>
+        <div class="text-black q-mr-md q-ml-md">{{counter}}</div>
+        <q-btn round size="11px" color="secondary" icon="add" @click="counter++" class="q-mr-sm"/>
+        <q-btn color="secondary" class="absolute-right q-mt-sm q-mb-sm q-pl-lg q-pr-lg add-to-cart" @click="addToCart()">
+          <label class="price">{{'+ $'+totalMenuPrice}}</label>
+        </q-btn>
       </q-toolbar>
     </q-layout-footer>
   </q-page>
@@ -36,8 +38,10 @@ import modifiersGroup from 'components/ModifiersGroup'
 export default {
   data() {
     return {
-      opened: true,
       menu: {},
+      counter: 1,
+      modifierIds: [],
+      totalMenuPrice: 0,
     }
   },
   components: {
@@ -47,26 +51,44 @@ export default {
   computed: {
     ...mapGetters('menu', ['getRecs', 'getCounter']),
     ...mapGetters('modifier', {getRecsModifier: 'getRecs'}),
+    ...mapGetters('modifier', ['getCurrentMenuModifiers']),
   },
   methods: {
     ...mapActions('modifier', ['fetchModifiers']),
     ...mapMutations('menu', ['setCounter']),
-    ...mapMutations('modifier', ['setRecs']),
+    ...mapMutations('modifier', ['setRecs', 'setCurrentMenuModifiers']),
+    ...mapMutations('customerorder', {addMenuToOrder: 'setRecs'}),
     backToMenu() {
       this.setRecs([])
+      this.setCurrentMenuModifiers([])
       this.$router.go(-1)
       this.setCounter(1)
     },
+    calculateMenuPrice() {
+      this.modifierIds = _.map(this.getCurrentMenuModifiers, 'id').sort()
+      let menuPrice =
+        parseFloat(this.menu.price) +
+        _.sumBy(this.getCurrentMenuModifiers, ({price}) => {
+          return parseFloat(price)
+        })
+      this.totalMenuPrice = this.counter * menuPrice
+    },
+    addToCart() {
+      this.addMenuToOrder({
+        menuId: this.menu.id,
+        modifierIds: this.modifierIds,
+        quantity: this.counter,
+        price: this.totalMenuPrice,
+      })
+      this.backToMenu()
+    },
   },
   watch: {
-    getRecsModifier(data) {
-      var modifier = _.find(data, menu => {
-        return menu.type === 'size' && menu.price === '0'
-      })
-      this.sizes = modifier !== undefined ? modifier : {}
+    getCurrentMenuModifiers() {
+      this.calculateMenuPrice()
     },
-    getCounter(val) {
-      this.addToCartPrice = this.calculatePrice()
+    counter() {
+      this.calculateMenuPrice()
     },
   },
   mounted() {
@@ -91,4 +113,7 @@ export default {
 
 .q-card-media > img
   max-height 350px
+
+.price
+  font-size 18px
 </style>
