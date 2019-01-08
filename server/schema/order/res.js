@@ -1,9 +1,23 @@
 import {Order, OrderDetail, Menu, Modifier, sequelize} from '../../models'
 import {_auth} from '../../util'
 
-function calcOrderDetailPrice(modifiersPrice, menuPrice, quantity) {
+async function updateOrderDetail(orderDetails, orderId) {
   try {
-    return (parseFloat(menuPrice) + modifiersPrice) * quantity
+    let menuIds = orderDetails.map(orderDetail => orderDetail.menuId)
+    let menus = await Menu.findAll({where: {id: menuIds}})
+    let arrModifierIds = orderDetails.map(orderDetail => orderDetail.modifierIds)
+    let modifierIds = [...new Set([].concat.apply([], arrModifierIds))]
+    let modifiers = await Modifier.findAll({where: {id: modifierIds}})
+
+    orderDetails.map(orderDetail => {
+      orderDetail.orderId = orderId
+      let menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
+      let modifiersPrice = getModifiersPrice(modifiers, orderDetail.modifierIds)
+      orderDetail.price = (parseFloat(menuPrice) + modifiersPrice) * orderDetail.quantity
+      orderDetail.modifierIds = orderDetail.modifierIds.toString()
+    })
+
+    return orderDetails
   } catch (error) {
     throw new Error(error.message)
   }
@@ -30,21 +44,8 @@ const resolvers = {
         return sequelize
           .transaction(async t => {
             await Order.create(input, {transaction: t}).then(async ({id}) => {
-              orderId = id
-              let menuIds = input.orderDetails.map(orderDetail => orderDetail.menuId)
-              let menus = await Menu.findAll({where: {id: menuIds}})
-              let arrModifierIds = input.orderDetails.map(orderDetail => orderDetail.modifierIds)
-              let modifierIds = [...new Set([].concat.apply([], arrModifierIds))]
-              let modifiers = await Modifier.findAll({where: {id: modifierIds}})
-              
-              input.orderDetails.map(orderDetail => {
-                orderDetail.orderId = id
-                let menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
-                let modifiersPrice = getModifiersPrice(modifiers, orderDetail.modifierIds)
-                orderDetail.price = calcOrderDetailPrice(modifiersPrice, menuPrice, orderDetail.quantity)
-                orderDetail.modifierIds = orderDetail.modifierIds.toString()
-              })
-              await OrderDetail.bulkCreate(input.orderDetails, {transaction: t})
+              orderId = id              
+              await OrderDetail.bulkCreate(await updateOrderDetail(input.orderDetails, id), {transaction: t})
             })
           })
           .then(() => {
