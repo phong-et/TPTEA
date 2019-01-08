@@ -1,15 +1,14 @@
 import {Order, OrderDetail, Menu, Modifier, sequelize} from '../../models'
 import {_auth} from '../../util'
-import _ from 'lodash'
 
-function getOrderDetailPrice(modifiersPrice, menuPrice, quantity) {
+function calcOrderDetailPrice(modifiersPrice, menuPrice, quantity) {
   try {
     return (parseFloat(menuPrice) + modifiersPrice) * quantity
   } catch (error) {
     throw new Error(error.message)
   }
 }
-function getModifersPrice(modifiers, modifierIds) {
+function getModifiersPrice(modifiers, modifierIds) {
   try {
     let modifiersPrice = 0
     modifierIds.forEach(modiferId => {
@@ -28,7 +27,6 @@ const resolvers = {
       _auth(loggedInUser)
       try {
         let orderId
-        console.log(input.orderDetails)
         return sequelize
           .transaction(async t => {
             await Order.create(input, {transaction: t}).then(async ({id}) => {
@@ -42,8 +40,8 @@ const resolvers = {
               input.orderDetails.map(orderDetail => {
                 orderDetail.orderId = id
                 let menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
-                let modifiersPrice = getModifersPrice(modifiers, orderDetail.modifierIds)
-                orderDetail.price = getOrderDetailPrice(modifiersPrice, menuPrice, orderDetail.quantity)
+                let modifiersPrice = getModifiersPrice(modifiers, orderDetail.modifierIds)
+                orderDetail.price = calcOrderDetailPrice(modifiersPrice, menuPrice, orderDetail.quantity)
                 orderDetail.modifierIds = orderDetail.modifierIds.toString()
               })
               await OrderDetail.bulkCreate(input.orderDetails, {transaction: t})
