@@ -31,7 +31,7 @@ All notable changes to this project will be documented in this file.
 - Sign-Out confirmation
 - Add app version in Member details and admin Home page
 - Main Categories page [@phillip](https://github.com/hemvanh/TPTEA/pull/108)
-- API Place Order
+- API Place Order [@phillip](https://github.com/hemvanh/TPTEA/pull/111)
 - Button add to card
 ### Removed 
 - Join now button
