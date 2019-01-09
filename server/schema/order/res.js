@@ -25,8 +25,8 @@ async function updateOrderDetail(orderDetails, orderId) {
 function getModifiersPrice(modifiers, modifierIds) {
   try {
     let modifiersPrice = 0
-    modifierIds.forEach(modiferId => {
-      let modifierPrice = modifiers.find(modifier => modifier.get('id') === modiferId).get('price')
+    modifierIds.forEach(modifierId => {
+      let modifierPrice = modifiers.find(modifier => modifier.get('id') === modifierId).get('price')
       modifiersPrice += parseFloat(modifierPrice)
     })
     return modifiersPrice
