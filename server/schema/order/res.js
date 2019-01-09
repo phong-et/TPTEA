@@ -1,7 +1,7 @@
 import {Order, OrderDetail, Menu, Modifier, sequelize} from '../../models'
 import {_auth} from '../../util'
 
-async function updateOrderDetail(orderDetails, orderId) {
+async function createOrderDetail(orderDetails, orderId) {
   try {
     let menuIds = orderDetails.map(orderDetail => orderDetail.menuId)
     let menus = await Menu.findAll({where: {id: menuIds}})
@@ -45,7 +45,7 @@ const resolvers = {
           .transaction(async t => {
             await Order.create(input, {transaction: t}).then(async ({id}) => {
               orderId = id              
-              await OrderDetail.bulkCreate(await updateOrderDetail(input.orderDetails, id), {transaction: t})
+              await OrderDetail.bulkCreate(await createOrderDetail(input.orderDetails, id), {transaction: t})
             })
           })
           .then(() => {
