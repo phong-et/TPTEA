@@ -132,8 +132,6 @@ export const fetchCustomer = ({commit}) => {
       name
       balance
       points
-      phone
-      address
     }
   }`)
     .then(({data}) => {
@@ -296,6 +294,54 @@ export function genCustomerPaymentId({commit, getters}) {
       _procError(err)
     })
     .finally(() => {
+      commit('setIsLoading', false)
+    })
+}
+export function placeOrder({commit}) {
+  commit('setIsLoading', true)
+  _post(
+    {
+      customerId: 1,
+      placeOrderMethod: {
+        deliveryStoreId: 1,
+        deliveryAddress: 'Chi Fu Rd, Pok Fu Lam, Hong Kong',
+        deliveryContact: 'Phillip - 0902661705',
+        deliveryTime: new Date(),
+        pickUpStoreId: 1,
+        pickUpTime: new Date(),
+        isStorePickUp: true,
+      },
+      orderDetails: [
+        {
+          menuId: 1,
+          modifierIds: [1, 2, 3, 4],
+          quantity: 2,
+        },
+        {
+          menuId: 2,
+          modifierIds: [2, 3, 4],
+          quantity: 1,
+        },
+        {
+          menuId: 3,
+          modifierIds: [2, 3],
+          quantity: 5,
+        },
+      ],
+    },
+    `mutation ($input: OrderInput) {
+      placeOrder(input: $input)
+    }`
+  )
+    .then(({data}) => {
+      commit('setIsLoading', false)
+      _procAlert(data, 'Place Order Successfully!')
+      if (!data.errors) {
+        console.log(data)
+      }
+    })
+    .catch(err => {
+      _procError(err)
       commit('setIsLoading', false)
     })
 }

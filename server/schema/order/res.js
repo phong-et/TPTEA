@@ -4,32 +4,47 @@ import _d from 'lodash'
 const fetch = require('node-fetch')
 const apiKey = 'AIzaSyCEUChDraEFCd3f79AK2xSh1FFDDJUpnWw'
 const MAX_STORE_DISTANCE = 20000
+const DEFAULT_ORDER_STATUS = 1
+
 async function formatOrderInput(input) {
   let formatedInput = {...input, ...input.placeOrderMethod}
   delete formatedInput.placeOrderMethod
-  formatedInput.deliveryStoreId = await findNearestStoreId(formatedInput.deliveryAddress)
+  formatedInput.deliveryStoreId = formatedInput.pickUpStoreId ? null : await findNearestStoreId(formatedInput.deliveryAddress)
+  formatedInput.orderStatusId = DEFAULT_ORDER_STATUS
   return formatedInput
 }
-async function createOrderDetail(orderDetails, orderId) {
+async function createOrder(input) {
   try {
+    let order = formatOrderInput(input),
+      orderDetails = order.orderDetails
+
     let menuIds = orderDetails.map(orderDetail => orderDetail.menuId)
     let menus = await Menu.findAll({where: {id: menuIds}})
+
     let arrModifierIds = orderDetails.map(orderDetail => orderDetail.modifierIds)
     let modifierIds = [...new Set([].concat.apply([], arrModifierIds))]
     let modifiers = await Modifier.findAll({where: {id: modifierIds}})
 
+    let totalAmount = 0
     orderDetails.map(orderDetail => {
-      orderDetail.orderId = orderId
       let menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
       let modifiersPrice = getModifiersPrice(modifiers, orderDetail.modifierIds)
-      orderDetail.price = (parseFloat(menuPrice) + modifiersPrice) * orderDetail.quantity
+      orderDetail.price = (parseFloat(menuPrice) + modifiersPrice) * orderDetail.quantity      
       orderDetail.modifierIds = orderDetail.modifierIds.toString()
+      totalAmount += orderDetail.price
     })
+    order.totalAmount = totalAmount
 
-    return orderDetails
+    return order
   } catch (error) {
     throw new Error(error.message)
   }
+}
+function updateOrderDetails(orderDetails, orderId) {
+  orderDetails.map(orderDetail => {
+    orderDetail.orderId = orderId
+  })
+  return orderDetails
 }
 function getModifiersPrice(modifiers, modifierIds) {
   try {
@@ -85,8 +100,9 @@ const resolvers = {
       try {
         return sequelize
           .transaction(async t => {
-            return await Order.create(await formatOrderInput(input), {transaction: t}).then(async createdOrder => {
-              await OrderDetail.bulkCreate(await createOrderDetail(input.orderDetails, createdOrder.get('id')), {transaction: t})
+            let order = await createOrder(input)
+            return await Order.create(order, {transaction: t}).then(async createdOrder => {
+              await OrderDetail.bulkCreate(updateOrderDetails(order.orderDetails, createdOrder.get('id')), {transaction: t})
               return createdOrder
             })
           })

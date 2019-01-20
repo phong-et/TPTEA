@@ -52,6 +52,10 @@
         <q-item-side icon="power_settings_new"/>
         <q-item-main label="Sign Out"/>
       </q-item>
+      <q-item class="q-pt-md q-pb-md" @click.native="placeOrder()" link>
+        <q-item-side icon="power_settings_new"/>
+        <q-item-main label="Place Order"/>
+      </q-item>
     </q-list>
     <q-dialog v-model="signOutDialogModel" message="Do you really want to sign out?" cancel="Cancel" @ok="signOut" no-backdrop-dismiss>
       <span slot="title">Confirm</span>
@@ -62,7 +66,7 @@
   </q-page>
 </template>
 <script>
-import {mapGetters, mapActions, mapMutations} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import appVersion from 'components/AppVersion'
 export default {
   name: 'PageCustomer',
@@ -81,11 +85,9 @@ export default {
     ...mapGetters('customer', ['getCustomer']),
   },
   methods: {
-    ...mapActions('customer', ['fetchCustomer']),
-    ...mapMutations('customer', ['setCustomer']),
+    ...mapActions('customer', ['fetchCustomer', 'placeOrder']),
     signOut() {
       localStorage.removeItem('auth-token')
-      this.setCustomer({})
       this.$router.push('/')
     },
     showSignOutModal() {
