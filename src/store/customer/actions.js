@@ -309,7 +309,7 @@ export function placeOrder({commit}) {
         deliveryTime: new Date(),
         pickUpStoreId: 1,
         pickUpTime: new Date(),
-        isStorePickUp: true,
+        isStorePickUp: false,
       },
       orderDetails: [
         {

@@ -6,18 +6,26 @@ const apiKey = 'AIzaSyCEUChDraEFCd3f79AK2xSh1FFDDJUpnWw'
 const MAX_STORE_DISTANCE = 20000
 const DEFAULT_ORDER_STATUS = 1
 
-async function formatOrderInput(input) {
+function formatOrderInput(input) {
   let formatedInput = {...input, ...input.placeOrderMethod}
   delete formatedInput.placeOrderMethod
-  formatedInput.deliveryStoreId = formatedInput.pickUpStoreId ? null : await findNearestStoreId(formatedInput.deliveryAddress)
-  formatedInput.orderStatusId = DEFAULT_ORDER_STATUS
   return formatedInput
 }
 async function createOrder(input) {
   try {
-    let order = formatOrderInput(input),
-      orderDetails = order.orderDetails
+    let order = formatOrderInput(input)
+    if (order.isPickUpStore) {
+      order.pickUpStoreId = order.pickUpStoreId
+      order.deliveryStoreId = null
+      order.deliveryTime = null
+    } else {
+      order.deliveryStoreId = await findNearestStoreId(order.deliveryAddress)
+      order.pickUpStoreId = null
+      order.pickUpTime = null
+    }
+    order.orderStatusId = DEFAULT_ORDER_STATUS
 
+    let orderDetails = order.orderDetails
     let menuIds = orderDetails.map(orderDetail => orderDetail.menuId)
     let menus = await Menu.findAll({where: {id: menuIds}})
 
@@ -29,7 +37,7 @@ async function createOrder(input) {
     orderDetails.map(orderDetail => {
       let menuPrice = menus.find(menu => menu.get('id') === orderDetail.menuId).get('price')
       let modifiersPrice = getModifiersPrice(modifiers, orderDetail.modifierIds)
-      orderDetail.price = (parseFloat(menuPrice) + modifiersPrice) * orderDetail.quantity      
+      orderDetail.price = (parseFloat(menuPrice) + modifiersPrice) * orderDetail.quantity
       orderDetail.modifierIds = orderDetail.modifierIds.toString()
       totalAmount += orderDetail.price
     })
