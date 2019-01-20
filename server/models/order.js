@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       pickUpStoreId: DataTypes.INTEGER,
       pickUpTime: DataTypes.DATE,
       isStorePickUp: DataTypes.BOOLEAN,
+      totalAmount: DataTypes.FLOAT,
+      orderStatusId: DataTypes.INTEGER,
     },
     {}
   )
@@ -24,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     })
     Order.belongsTo(models.Store, {
       foreignKey: 'pickupStoreId',
+    })
+    Order.belongsTo(models.OrderStatus, {
+      foreignKey: 'orderStatusId',
     })
     Order.hasMany(models.OrderDetail, {
       foreignKey: 'orderId',
