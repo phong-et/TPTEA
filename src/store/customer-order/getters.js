@@ -7,3 +7,6 @@ export const getIsLoading = state => {
 export const getPlaceOrderMethod = state => {
   return state.placeOrderMethod
 }
+export const getCustomerOrders = state => {
+  return state.customerOrders
+}

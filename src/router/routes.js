@@ -21,6 +21,7 @@ import pgMakePayment from 'pages/MakePayment'
 import pgAdminReceivePayment from 'pages/admin/ReceivePayment'
 import pgAdminPushMessage from 'pages/admin/PushMessage'
 import pgOrderDetails from 'pages/OrderDetails'
+import pgOrderHistory from 'pages/OrderHistory'
 const routes = [
   {
     path: '/',
@@ -115,6 +116,10 @@ const routes = [
       {
         path: 'order-details',
         component: pgOrderDetails,
+      },
+      {
+        path: 'order-history',
+        component: pgOrderHistory,
       },
     ],
   },

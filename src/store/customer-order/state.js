@@ -10,4 +10,5 @@ export default {
     pickUpTime: new Date().setMinutes(new Date().getMinutes() + 30),
     isStorePickUp: false,
   },
+  customerOrders: [],
 }
