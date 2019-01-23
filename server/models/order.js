@@ -4,13 +4,13 @@ module.exports = (sequelize, DataTypes) => {
     'Order',
     {
       customerId: DataTypes.INTEGER,
-      deliveryStoreId: DataTypes.INTEGER,
+      storeId: DataTypes.INTEGER,
+      isStorePickUp: DataTypes.BOOLEAN,
+      receivingTime: DataTypes.DATE,
       deliveryAddress: DataTypes.STRING(500),
       deliveryContact: DataTypes.STRING(50),
-      deliveryTime: DataTypes.DATE,
-      pickUpStoreId: DataTypes.INTEGER,
-      pickUpTime: DataTypes.DATE,
-      isStorePickUp: DataTypes.BOOLEAN,
+      totalAmount: DataTypes.FLOAT,
+      orderStatusId: DataTypes.INTEGER,
     },
     {}
   )
@@ -20,10 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'customerId',
     })
     Order.belongsTo(models.Store, {
-      foreignKey: 'deliveryStoreId',
+      foreignKey: 'storeId',
     })
-    Order.belongsTo(models.Store, {
-      foreignKey: 'pickupStoreId',
+    Order.belongsTo(models.OrderStatus, {
+      foreignKey: 'orderStatusId',
     })
     Order.hasMany(models.OrderDetail, {
       foreignKey: 'orderId',

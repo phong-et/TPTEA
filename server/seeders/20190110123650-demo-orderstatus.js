@@ -1,9 +1,9 @@
 'use strict'
-
 var GoogleSpreadsheet = require('google-spreadsheet')
 var _d = require('lodash')
 var creds = require('../TP-TEA-HK-4be78b7ad5f8.json')
-var doc = new GoogleSpreadsheet('1jjROzUPDDOz5MgRLlG6uyA3SJz7ps5fmw-L6SI81gD8')
+var doc = new GoogleSpreadsheet('1l-z14dx93syqESH6yunAsXMRafCz-nNqV4_7vuoMORQ')
+
 function getData() {
   return new Promise((resolve, reject) => {
     doc.useServiceAccountAuth(creds, function (err) {
@@ -14,17 +14,18 @@ function getData() {
     })
   })
 }
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     var data = await getData().catch(err => console.log(err))
     return queryInterface.bulkInsert(
-      'orders',
-      _d.map(data, row => _d.pick(row, 'id', 'customerid','storeid','isstorepickup','receivingtime','deliveryaddress','deliverycontact','totalamount','orderstatusid')),
+      'orderstatuses',
+      _d.map(data, row => _d.pick(row, 'id', 'name', 'notes')),
       {}
     )
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('orders', null, {})
+    return queryInterface.bulkInsert('orderstatuses', null, {})
   },
 }

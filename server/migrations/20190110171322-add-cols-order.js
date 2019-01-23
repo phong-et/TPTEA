@@ -5,7 +5,7 @@ module.exports = {
       return Promise.all([
         queryInterface.addColumn(
           'orders',
-          'deliveryStoreId',
+          'storeId',
           {
             type: Sequelize.INTEGER,
             references: {
@@ -13,6 +13,16 @@ module.exports = {
               key: 'id',
             },
             allowNull: true,
+          },
+          {transaction: t}
+        ),
+        queryInterface.addColumn(
+          'orders',
+          'isStorePickUp',
+          {
+            type: Sequelize.BOOLEAN,
+            allowNull: true,
+            defaultValue: false,
           },
           {transaction: t}
         ),
@@ -36,40 +46,30 @@ module.exports = {
         ),
         queryInterface.addColumn(
           'orders',
-          'deliveryTime',
+          'receivingTime',
           {
             type: Sequelize.DATE,
             allowNull: true,
             defaultValue: new Date(),
           },
           {transaction: t}
+        ),        
+        queryInterface.addColumn(
+          'orders',
+          'totalAmount',
+          {
+            type: Sequelize.FLOAT,
+            allowNull: true,
+            defaultValue: 0,
+          },
+          {transaction: t}
         ),
         queryInterface.addColumn(
           'orders',
-          'pickUpStoreId',
+          'orderStatusId',
           {
             type: Sequelize.INTEGER,
             allowNull: true,
-          },
-          {transaction: t}
-        ),
-        queryInterface.addColumn(
-          'orders',
-          'pickUpTime',
-          {
-            type: Sequelize.DATE,
-            allowNull: true,
-            defaultValue: new Date(),
-          },
-          {transaction: t}
-        ),
-        queryInterface.addColumn(
-          'orders',
-          'isStorePickUp',
-          {
-            type: Sequelize.BOOLEAN,
-            allowNull: true,
-            defaultValue: false,
           },
           {transaction: t}
         ),
@@ -79,13 +79,13 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction(t => {
       return Promise.all([
-        queryInterface.removeColumn('orders', 'deliveryStoreId', {transaction: t}),
+        queryInterface.removeColumn('orders', 'storeId', {transaction: t}),
+        queryInterface.removeColumn('orders', 'isStorePickUp', {transaction: t}),
+        queryInterface.removeColumn('orders', 'receivingTime', {transaction: t}),
         queryInterface.removeColumn('orders', 'deliveryAddress', {transaction: t}),
         queryInterface.removeColumn('orders', 'deliveryContact', {transaction: t}),
-        queryInterface.removeColumn('orders', 'deliveryTime', {transaction: t}),
-        queryInterface.removeColumn('orders', 'pickUpStoreId', {transaction: t}),
-        queryInterface.removeColumn('orders', 'pickUpTime', {transaction: t}),
-        queryInterface.removeColumn('orders', 'isStorePickUp', {transaction: t}),
+        queryInterface.removeColumn('orders', 'totalAmount', {transaction: t}),
+        queryInterface.removeColumn('orders', 'orderStatusId', {transaction: t}),
       ])
     })
   },
