@@ -14,14 +14,8 @@ function formatOrderInput(input) {
 async function createOrder(input) {
   try {
     let order = formatOrderInput(input)
-    if (order.isPickUpStore) {
-      order.pickUpStoreId = order.pickUpStoreId
-      order.deliveryStoreId = null
-      order.deliveryTime = null
-    } else {
-      order.deliveryStoreId = await findNearestStoreId(order.deliveryAddress)
-      order.pickUpStoreId = null
-      order.pickUpTime = null
+    if (!order.isPickUpStore) {
+      order.storeId = await findNearestStoreId(order.deliveryAddress)
     }
     order.orderStatusId = DEFAULT_ORDER_STATUS
 
