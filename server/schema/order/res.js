@@ -42,7 +42,7 @@ async function createOrder(input) {
     throw new Error(error.message)
   }
 }
-function updateOrderDetails(orderDetails, orderId) {
+function updateOrderDetailsWithOrderId(orderDetails, orderId) {
   orderDetails.map(orderDetail => {
     orderDetail.orderId = orderId
   })
@@ -104,7 +104,7 @@ const resolvers = {
           .transaction(async t => {
             let order = await createOrder(input)
             return await Order.create(order, {transaction: t}).then(async createdOrder => {
-              await OrderDetail.bulkCreate(updateOrderDetails(order.orderDetails, createdOrder.get('id')), {transaction: t})
+              await OrderDetail.bulkCreate(updateOrderDetailsWithOrderId(order.orderDetails, createdOrder.get('id')), {transaction: t})
               return createdOrder
             })
           })

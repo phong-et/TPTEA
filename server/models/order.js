@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     Order.belongsTo(models.Store, {
       foreignKey: 'storeId',
     })
-    Order.belongsTo(models.OrderStatus, {
+    Order.hasOne(models.OrderStatus, {
       foreignKey: 'orderStatusId',
     })
     Order.hasMany(models.OrderDetail, {
