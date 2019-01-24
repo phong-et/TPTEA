@@ -26,6 +26,10 @@
 
     <q-layout-drawer v-model="leftDrawerOpen" :content-class="$q.theme === 'mat' ? 'neutral' : null">
       <q-list no-border link inset-delimiter>
+        <q-item to="/admin/orders">
+          <q-item-side icon="shopping_cart"/>
+          <q-item-main label="Orders"/>
+        </q-item>
         <q-item to="/admin/giftcards">
           <q-item-side icon="store"/>
           <q-item-main label="Gift Cards"/>
@@ -39,12 +43,11 @@
           <q-item-main label="Receive Payment"/>
         </q-item>
         <q-item to="/admin/pushmessage">
-          <q-item-side icon="payment"/>
+          <q-item-side icon="notification_important"/>
           <q-item-main label="Push Message"/>
         </q-item>
       </q-list>
     </q-layout-drawer>
-
     <q-page-container>
       <router-view/>
     </q-page-container>

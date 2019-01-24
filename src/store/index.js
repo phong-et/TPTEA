@@ -10,6 +10,7 @@ import admin from './admin'
 import giftcard from './giftcard'
 import customerorder from './customer-order'
 import store from './store'
+import order from './order'
 Vue.use(Vuex)
 
 /*
@@ -29,6 +30,7 @@ export default function(/* { ssrContext } */) {
       maincategory,
       customerorder,
       store,
+      order,
     },
   })
 
