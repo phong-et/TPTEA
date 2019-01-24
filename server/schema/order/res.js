@@ -1,11 +1,12 @@
-import {Order, OrderDetail, Menu, Modifier, sequelize, Store} from '../../models'
-import {_auth} from '../../util'
+import {Order, OrderDetail, Menu, Modifier, sequelize, Store, Customer} from '../../models'
+import {_auth, _authAdmin} from '../../util'
 import _d from 'lodash'
 const fetch = require('node-fetch')
 const apiKey = 'AIzaSyCEUChDraEFCd3f79AK2xSh1FFDDJUpnWw'
 const MAX_STORE_DISTANCE = 20000
 const DEFAULT_ORDER_STATUS = 1
 
+//#region function support for "placeOrder" resolver
 function formatOrderInput(input) {
   let formatedInput = {...input, ...input.placeOrderMethod}
   delete formatedInput.placeOrderMethod
@@ -93,9 +94,15 @@ function findNearestStoreName(distances) {
 function getStoreAddresses(stores) {
   return _d.map(stores, 'dataValues.gmapAddress').join('|')
 }
+//#endregion function support for "placeOrder" resolver
 
 const resolvers = {
-  RootQuery: {},
+  RootQuery: {
+    async fetchOrders(_, __, {loggedInUser}) {
+      _authAdmin(loggedInUser)
+      return await Order.findAll()
+    },
+  },
   RootMutation: {
     async placeOrder(_, {input}, {loggedInUser}) {
       _auth(loggedInUser)
@@ -120,4 +127,5 @@ const resolvers = {
     },
   },
 }
+
 export default resolvers
