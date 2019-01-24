@@ -16,7 +16,13 @@ const Order = `
   type Order {
     id: Int
     customerId: Int
-    placeOrderMethod: PlaceOrderMethod 
+    storeId: Int
+    isStorePickUp: Boolean
+    receivingTime: Date
+    deliveryAddress: String
+    deliveryContact: String
+    totalAmount: Float
+    orderStatusId: Int
     orderDetails: [OrderDetail]
   }
   input OrderInput {

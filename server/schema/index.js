@@ -43,6 +43,7 @@ const RootQuery = `
     fetchAllMenus:[Menu]
     fetchAllModifiers:[Modifier]
     fetchAllStores:[Store]
+    fetchOrders:[Order]
   }
 `
 

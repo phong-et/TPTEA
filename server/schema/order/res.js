@@ -1,4 +1,4 @@
-import {Order, OrderDetail, Menu, Modifier, sequelize, Store, Customer} from '../../models'
+import {Order, OrderDetail, Menu, Modifier, sequelize, Store} from '../../models'
 import {_auth, _authAdmin} from '../../util'
 import _d from 'lodash'
 const fetch = require('node-fetch')
