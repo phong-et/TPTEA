@@ -5,7 +5,7 @@ export default {
   role: '',
   order: {},
   recs: [],
-  title: 'Orders Infomation',
+  title: 'Processing Orders Infomation',
   icon: 'shopping_cart',
   selected: [],
   isModalOpened: false,
@@ -30,7 +30,7 @@ export default {
       name: 'CustomerName',
       label: 'Customer Name',
       align: 'left',
-      field: 'customerName',
+      field: {Customer: 'name'},
       sortable: true,
     },
     {
@@ -103,7 +103,7 @@ export default {
     },
     {
       name: 'storeName',
-      label: 'Store Nam',
+      label: 'Store Name',
       type: 'text',
       readonly: true,
       icon: 'store',

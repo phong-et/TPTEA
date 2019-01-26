@@ -1,4 +1,4 @@
-import {Order, OrderDetail, Menu, Modifier, sequelize, Store} from '../../models'
+import {Order, OrderDetail, Menu, Modifier, sequelize, Store, Customer, OrderStatus} from '../../models'
 import {_auth, _authAdmin} from '../../util'
 import _d from 'lodash'
 const fetch = require('node-fetch')
@@ -100,7 +100,57 @@ const resolvers = {
   RootQuery: {
     async fetchOrders(_, __, {loggedInUser}) {
       _authAdmin(loggedInUser)
-      return await Order.findAll()
+      let orders = await Order.findAll({
+        // attributes: [
+        //   'id',
+        //   'customerId',
+        //   // 'customerName',
+        //   'storeId',
+        //   // 'storeName',
+        //   'isStorePickUp',
+        //   'receivingTime',
+        //   'deliveryAddress',
+        //   'deliveryContact',
+        //   'totalAmount',
+        //   'orderStatusId',
+        //   'createdAt',
+        // ],
+        include: [
+          Store,
+          Customer,
+          OrderDetail,
+          OrderStatus,
+          // {
+          //   model: Store,
+          //   required: true,
+          //   //attributes: [['name', 'storeName']],
+          // },
+          // {
+          //   model: Customer,
+          //   required: true,
+          //   //attributes: [['name', 'customerName']],
+          // },
+          // {
+          //   model: OrderDetail,
+          //   required: true,
+          // },
+        ],
+      })
+      // let store = orders[0].get()
+      // console.log(JSON.stringify(orders))
+      return orders
+      // let a = orders.map(order => {
+      //   const customerName = order.get('Customer').get('customerName')
+      //   //console.log(order.get('Customer'))
+      //   console.log(customerName)
+      //   const storeName = order.get('Store').get('storeName')
+      //   return Object.assign(order.get(), {
+      //     customerName: customerName,
+      //     storeName: storeName,
+      //   })
+      // })
+      // console.log(a)
+      // return a
     },
   },
   RootMutation: {

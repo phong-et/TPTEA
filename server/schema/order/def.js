@@ -15,15 +15,16 @@ const Order = `
   }
   type Order {
     id: Int
-    customerId: Int
-    storeId: Int
     isStorePickUp: Boolean
     receivingTime: Date
     deliveryAddress: String
     deliveryContact: String
     totalAmount: Float
     orderStatusId: Int
-    orderDetails: [OrderDetail]
+    Store : Store
+    Customer: Customer
+    OrderStatus: OrderStatus
+    OrderDetails: [OrderDetail]
   }
   input OrderInput {
     customerId: Int!
