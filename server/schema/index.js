@@ -18,6 +18,8 @@ import orderDef from './order/def'
 import orderRes from './order/res'
 import orderDetailDef from './orderdetail/def'
 import orderDetailRes from './orderdetail/res'
+import orderStatusDef from './orderstatus/def'
+import orderStatusRes from './orderstatus/res'
 import storeDef from './store/def'
 import storeRes from './store/res'
 const SchemaDefinition = `
@@ -81,7 +83,8 @@ export default makeExecutableSchema({
     mainCategoryDef,
     orderDef,
     orderDetailDef,
+    orderStatusDef,
     storeDef,
   ],
-  resolvers: [customerRes, categoryRes, menuRes, modifierRes, adminRes, giftCardRes, mainCategoryRes, orderRes, orderDetailRes, storeRes],
+  resolvers: [customerRes, categoryRes, menuRes, modifierRes, adminRes, giftCardRes, mainCategoryRes, orderRes, orderDetailRes, orderStatusRes, storeRes],
 })
