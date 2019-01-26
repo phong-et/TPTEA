@@ -9,7 +9,8 @@ export const fetchOrders = ({commit}) => {
       deliveryAddress
       deliveryContact
       totalAmount
-      orderStatusId      
+      orderStatusId
+      createdAt    
       Store {
         id
         name
@@ -29,12 +30,15 @@ export const fetchOrders = ({commit}) => {
   }`)
     .then(({data}) => {
       _procAlert(data, true)
-      console.log(data.fetchOrders)
-      data.fetchOrders = data.fetchOrders.map(order => {
+      data.fetchOrders.forEach(order => {
         order.customerName = order.Customer.name
         order.storeName = order.Store.name
         order.status = order.OrderStatus.name
+        order.isStorePickUp = order.isStorePickUp ? 'Pickup' : 'Delivery '
+        order.createdAt = new Date(order.createdAt).toLocaleString()
+        order.receivingTime = new Date(order.receivingTime).toLocaleString()
       })
+      console.log(data.fetchOrders)
       commit('setRecs', data.fetchOrders)
       commit('setIsLoading', false)
     })

@@ -25,6 +25,7 @@ const Order = `
     Customer: Customer
     OrderStatus: OrderStatus
     OrderDetails: [OrderDetail]
+    createdAt: Date
   }
   input OrderInput {
     customerId: Int!
