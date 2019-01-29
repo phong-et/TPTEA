@@ -46,6 +46,7 @@ const RootQuery = `
     fetchAllModifiers:[Modifier]
     fetchAllStores:[Store]
     fetchOrders:[Order]
+    fetchOrdersByStoreId:[Order]
   }
 `
 

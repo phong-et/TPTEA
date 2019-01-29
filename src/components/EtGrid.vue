@@ -192,6 +192,9 @@ export default {
       delRecs(dispatch, payload) {
         return dispatch(`${this.type}/del${upperFirst(this.type)}s`, payload)
       },
+      fetchRecsByComboFilter(dispatch, payload) {
+        return dispatch(`${this.type}/fetch${upperFirst(this.type)}s`, payload)
+      },
     }),
     ...mapMutations({
       setEditingRec(dispatch, payload) {
