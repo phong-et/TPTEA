@@ -37,7 +37,7 @@
         color="secondary"
         v-model="comboFilter.selectedFilterValue"
         :options="comboFilter.options"
-        @input="fetchRecsByComboFilter(comboFilter.getFetchRecsByComboFilterInput(comboFilter.nameFieldFilter, comboFilter.selectedFilterValue))"
+        @input="fetchRecsByComboFilter(comboFilter.selectedFilterValue)"
       />
       <q-search v-model="filter" :clearable="true" placeholder="Search ..." color="secondary" inverted class="q-mr-sm input-search"/>
       <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'" @click="props.toggleFullscreen"/>
@@ -126,11 +126,11 @@ export default {
           options: [
             {
               label: 'Filter 1',
-              value: 1,
+              value: 8,
             },
             {
               label: 'Filter 2',
-              value: 2,
+              value: 6,
             },
           ],
           fetchRecsNameSuffix: 'ByStoreId',

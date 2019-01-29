@@ -30,14 +30,17 @@ export const fetchOrders = ({commit}) => {
   }`)
     .then(({data}) => {
       _procAlert(data, true)
-      data.fetchOrders.forEach(order => {
-        order.customerName = order.Customer.name
-        order.storeName = order.Store.name
-        order.status = order.OrderStatus.name
-        order.isStorePickUp = order.isStorePickUp ? 'Pickup' : 'Delivery '
-        order.createdAt = new Date(order.createdAt).toLocaleString()
-        order.receivingTime = new Date(order.receivingTime).toLocaleString()
-      })
+      let orders = data.fetchOrders
+      if (orders.length > 0) {
+        orders.forEach(order => {
+          order.customerName = order.Customer.name
+          order.storeName = order.Store.name
+          order.status = order.OrderStatus.name
+          order.isStorePickUp = order.isStorePickUp ? 'Pickup' : 'Delivery '
+          order.createdAt = new Date(order.createdAt).toLocaleString()
+          order.receivingTime = new Date(order.receivingTime).toLocaleString()
+        })
+      }
       console.log(data.fetchOrders)
       commit('setRecs', data.fetchOrders)
       commit('setIsLoading', false)
@@ -51,8 +54,8 @@ export const fetchOrders = ({commit}) => {
 export const fetchOrdersByStoreId = ({commit}, storeId) => {
   _post(
     storeId,
-    `mutation ($input: Int) {
-      fetchOrdersByStoreId {
+    `query ($input: Int) {
+      fetchOrdersByStoreId(input: $input) {
         id
         isStorePickUp
         receivingTime
@@ -77,18 +80,22 @@ export const fetchOrdersByStoreId = ({commit}, storeId) => {
           id
         }
       }
-    }`)
+    }`
+  )
     .then(({data}) => {
       _procAlert(data, true)
-      data.fetchOrders.forEach(order => {
-        order.customerName = order.Customer.name
-        order.storeName = order.Store.name
-        order.status = order.OrderStatus.name
-        order.isStorePickUp = order.isStorePickUp ? 'Pickup' : 'Delivery '
-        order.createdAt = new Date(order.createdAt).toLocaleString()
-        order.receivingTime = new Date(order.receivingTime).toLocaleString()
-      })
-      console.log(data.fetchOrders)
+      let orders = data.fetchOrdersByStoreId
+      if (orders.length > 0) {
+        orders.forEach(order => {
+          order.customerName = order.Customer.name
+          order.storeName = order.Store.name
+          order.status = order.OrderStatus.name
+          order.isStorePickUp = order.isStorePickUp ? 'Pickup' : 'Delivery '
+          order.createdAt = new Date(order.createdAt).toLocaleString()
+          order.receivingTime = new Date(order.receivingTime).toLocaleString()
+        })
+      }
+      console.log(data.fetchOrdersByStoreId)
       commit('setRecs', data.fetchOrdersByStoreId)
       commit('setIsLoading', false)
     })
