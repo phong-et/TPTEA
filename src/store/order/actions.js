@@ -89,7 +89,7 @@ export const fetchOrdersByStoreId = ({commit}, storeId) => {
         order.receivingTime = new Date(order.receivingTime).toLocaleString()
       })
       console.log(data.fetchOrders)
-      commit('setRecs', data.fetchOrders)
+      commit('setRecs', data.fetchOrdersByStoreId)
       commit('setIsLoading', false)
     })
     .catch(err => {

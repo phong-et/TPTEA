@@ -49,7 +49,7 @@ const RootQuery = `
     fetchAllStores:[Store]
     fetchCustomerOrders(input:Int):[CustomerOrder]
     fetchOrders:[Order]
-    fetchOrdersByStoreId:[Order]
+    fetchOrdersByStoreId(input:Int):[Order]
   }
 `
 

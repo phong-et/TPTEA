@@ -35,9 +35,9 @@
         filter
         inverted
         color="secondary"
-        v-model="comboFilter.selectedFilter"
+        v-model="comboFilter.selectedFilterValue"
         :options="comboFilter.options"
-        @input="setSeletedFilter(comboFilter.selectedFilter)"
+        @input="fetchRecsByComboFilter(comboFilter.getFetchRecsByComboFilterInput(comboFilter.nameFieldFilter, comboFilter.selectedFilterValue))"
       />
       <q-search v-model="filter" :clearable="true" placeholder="Search ..." color="secondary" inverted class="q-mr-sm input-search"/>
       <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'" @click="props.toggleFullscreen"/>
@@ -122,7 +122,7 @@ export default {
       default: () => {
         return {
           hidden: true,
-          selectedFilter: 1,
+          selectedFilterValue: 1,
           options: [
             {
               label: 'Filter 1',
@@ -133,10 +133,14 @@ export default {
               value: 2,
             },
           ],
-          me: this,
-          change: selectedFilter => {
-            // this.$parent.$data.filter = selectedFilter
-            console.log(selectedFilter)
+          fetchRecsNameSuffix: 'ByStoreId',
+          nameFieldFilter: 'storeId',
+          getFetchRecsByComboFilterInput: (nameFieldFilter, value) => {
+            let input = {}
+            input['' + nameFieldFilter] = value
+            console.log(JSON.stringify(input))
+            console.log(JSON.stringify(input['' + nameFieldFilter]))
+            return input
           },
         }
       },
@@ -193,7 +197,7 @@ export default {
         return dispatch(`${this.type}/del${upperFirst(this.type)}s`, payload)
       },
       fetchRecsByComboFilter(dispatch, payload) {
-        return dispatch(`${this.type}/fetch${upperFirst(this.type)}s`, payload)
+        return dispatch(`${this.type}/fetch${upperFirst(this.type)}s${this.comboFilter.fetchRecsNameSuffix}`, payload)
       },
     }),
     ...mapMutations({
@@ -210,8 +214,8 @@ export default {
     excuteExpanedColAction(payload, action) {
       action(payload)
     },
-    setSeletedFilter(selectedFilter) {
-      this.filter = selectedFilter
+    setSeletedFilter(selectedFilterValue) {
+      this.filter = selectedFilterValue
     },
   },
 }

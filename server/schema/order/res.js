@@ -152,6 +152,15 @@ const resolvers = {
       // console.log(a)
       // return a
     },
+    async fetchOrdersByStoreId(_, {input}, {loggedInUser}) {
+      _authAdmin(loggedInUser)
+      console.log(input)
+      let orders = await Order.findAll({
+        include: [Store, Customer, OrderDetail, OrderStatus],
+        where: {storeId: input},
+      })
+      return orders
+    },
   },
   RootMutation: {
     async placeOrder(_, {input}, {loggedInUser}) {
