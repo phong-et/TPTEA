@@ -22,6 +22,8 @@ import orderStatusDef from './orderstatus/def'
 import orderStatusRes from './orderstatus/res'
 import storeDef from './store/def'
 import storeRes from './store/res'
+import customerOrderDef from './customer-order/def'
+import customerOrderRes from './customer-order/res'
 const SchemaDefinition = `
   schema {
     query: RootQuery,
@@ -45,6 +47,7 @@ const RootQuery = `
     fetchAllMenus:[Menu]
     fetchAllModifiers:[Modifier]
     fetchAllStores:[Store]
+    fetchCustomerOrders(input:Int):[CustomerOrder]
     fetchOrders:[Order]
     fetchOrdersByStoreId:[Order]
   }
@@ -86,6 +89,19 @@ export default makeExecutableSchema({
     orderDetailDef,
     orderStatusDef,
     storeDef,
+    customerOrderDef,
   ],
-  resolvers: [customerRes, categoryRes, menuRes, modifierRes, adminRes, giftCardRes, mainCategoryRes, orderRes, orderDetailRes, orderStatusRes, storeRes],
+  resolvers: [
+    customerRes,
+    categoryRes,
+    menuRes,
+    modifierRes,
+    adminRes,
+    giftCardRes,
+    mainCategoryRes,
+    orderRes,
+    orderDetailRes,
+    storeRes,
+    customerOrderRes,
+  ],
 })

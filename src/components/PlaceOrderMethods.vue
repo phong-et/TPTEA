@@ -25,7 +25,7 @@
           />
         </q-field>
         <q-field icon="access_time">
-          <q-datetime :disable="placeOrderMethod.isStorePickUp" v-model="placeOrderMethod.deliveryTime" type="time" hide-underline/>
+          <q-datetime :disable="placeOrderMethod.isStorePickUp" v-model="placeOrderMethod.receivingTime" type="time" hide-underline/>
         </q-field>
       </div>
     </div>
@@ -34,7 +34,7 @@
       <div class="q-ml-lg text-weight-regular">
         <q-field icon="store">
           <q-select
-            v-model="placeOrderMethod.pickUpStoreId"
+            v-model="placeOrderMethod.storeId"
             :disable="!placeOrderMethod.isStorePickUp"
             placeholder="Please select store"
             :options="getRecs.map(opt=>({label:opt.name,value:opt.id}))"
@@ -43,7 +43,7 @@
           />
         </q-field>
         <q-field icon="access_time">
-          <q-datetime :disable="!placeOrderMethod.isStorePickUp" v-model="placeOrderMethod.pickUpTime" type="time" hide-underline/>
+          <q-datetime :disable="!placeOrderMethod.isStorePickUp" v-model="placeOrderMethod.receivingTime" type="time" hide-underline/>
         </q-field>
       </div>
     </div>

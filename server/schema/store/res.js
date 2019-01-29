@@ -1,8 +1,8 @@
-import {Stores} from '../../models'
+import {Store} from '../../models'
 const resolvers = {
   RootQuery: {
     async fetchAllStores() {
-      return await Stores.findAll()
+      return await Store.findAll()
     },
   },
   RootMutation: {},

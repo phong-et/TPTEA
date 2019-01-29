@@ -29,8 +29,9 @@ export const placeOrder = ({commit, getters}) => {
 export const fetchCustomerOrders = ({commit}) => {
   _post(
     store().getters['customer/getCustomer'].id,
-    `mutation ($input: Int) {
+    `query ($input: Int) {
       fetchCustomerOrders(input: $input){
+        id
         address
         orderDate
         orderStatus
@@ -41,7 +42,7 @@ export const fetchCustomerOrders = ({commit}) => {
   )
     .then(({data}) => {
       _procAlert(data, true)
-      commit('setCustomerOrders', data.fetchCustomerOrder)
+      commit('setCustomerOrders', data.fetchCustomerOrders)
     })
     .catch(err => {
       _procError(err)
