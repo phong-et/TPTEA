@@ -154,7 +154,6 @@ const resolvers = {
     },
     async fetchOrdersByStoreId(_, {input}, {loggedInUser}) {
       _authAdmin(loggedInUser)
-      console.log(input)
       let orders = await Order.findAll({
         include: [Store, Customer, OrderDetail, OrderStatus],
         where: {storeId: input},

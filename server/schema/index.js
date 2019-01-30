@@ -101,6 +101,7 @@ export default makeExecutableSchema({
     mainCategoryRes,
     orderRes,
     orderDetailRes,
+    orderStatusRes,
     storeRes,
     customerOrderRes,
   ],

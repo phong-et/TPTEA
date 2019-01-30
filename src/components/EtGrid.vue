@@ -30,14 +30,14 @@
     </template>
     <template slot="top-right" slot-scope="props">
       <q-select
-        v-show="comboFilter.hidden"
+        v-show="!comboFilter.hidden"
         class="combo-filter"
         filter
         inverted
         color="secondary"
-        v-model="comboFilter.selectedFilterValue"
+        v-model="comboFilter.selectedValue"
         :options="comboFilter.options"
-        @input="fetchRecsByComboFilter(comboFilter.selectedFilterValue)"
+        @input="fetchRecsByComboFilter(comboFilter.selectedValue)"
       />
       <q-search v-model="filter" :clearable="true" placeholder="Search ..." color="secondary" inverted class="q-mr-sm input-search"/>
       <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'" @click="props.toggleFullscreen"/>
@@ -122,26 +122,14 @@ export default {
       default: () => {
         return {
           hidden: true,
-          selectedFilterValue: 1,
+          selectedValue: 1,
           options: [
             {
               label: 'Filter 1',
-              value: 8,
-            },
-            {
-              label: 'Filter 2',
-              value: 6,
+              value: 1,
             },
           ],
           fetchRecsNameSuffix: 'ByStoreId',
-          nameFieldFilter: 'storeId',
-          getFetchRecsByComboFilterInput: (nameFieldFilter, value) => {
-            let input = {}
-            input['' + nameFieldFilter] = value
-            console.log(JSON.stringify(input))
-            console.log(JSON.stringify(input['' + nameFieldFilter]))
-            return input
-          },
         }
       },
       type: Object,
@@ -197,7 +185,7 @@ export default {
         return dispatch(`${this.type}/del${upperFirst(this.type)}s`, payload)
       },
       fetchRecsByComboFilter(dispatch, payload) {
-        return dispatch(`${this.type}/fetch${upperFirst(this.type)}s${this.comboFilter.fetchRecsNameSuffix}`, payload)
+        return dispatch(`${this.type}/${this.comboFilter.fetchRecsName}`, payload)
       },
     }),
     ...mapMutations({
@@ -213,9 +201,6 @@ export default {
     },
     excuteExpanedColAction(payload, action) {
       action(payload)
-    },
-    setSeletedFilter(selectedFilterValue) {
-      this.filter = selectedFilterValue
     },
   },
 }
@@ -236,4 +221,8 @@ export default {
 .combo-filter
   width 200px
   margin-right 10px
+
+@media screen and (max-device-width: 480px) and (orientation: portrait)
+  .combo-filter
+    margin-bottom 5px
 </style>

@@ -1,7 +1,7 @@
 import {_get, _procError} from '../../util/common'
 export const fetchRecs = ({commit, getters}) => {
   if (getters.getRecs.length === 0) {
-    _get(`{
+    return _get(`{
     fetchAllStores {
       id
       name
