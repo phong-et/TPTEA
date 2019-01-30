@@ -10,3 +10,6 @@ export const getPlaceOrderMethod = state => {
 export const getCustomerOrders = state => {
   return state.customerOrders
 }
+export const getCustomerOrderDetail = state => {
+  return state.CustomerOrderDetail
+}

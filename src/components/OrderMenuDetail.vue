@@ -1,8 +1,15 @@
 <template>
   <div>
     <q-toolbar color="primary" class="q-pr-md q-pt-none q-pb-none q-pl-none">
-      <q-btn icon="remove_circle_outline" size="15px" flat round @click="removeOrderMenu({menuId:rawData.menuId,modifierIds:rawData.modifierIds})"/>
-      <div class="quantity">{{rawData.quantity}}</div>
+      <q-btn
+        :class="{'hidden':remove}"
+        icon="remove_circle_outline"
+        size="15px"
+        flat
+        round
+        @click="removeOrderMenu({menuId:rawData.menuId,modifierIds:rawData.modifierIds})"
+      />
+      <div class="quantity" :class="{'q-ml-md':remove}">{{rawData.quantity}}</div>
       <q-toolbar-title class="text-weight-regular q-subheading">{{menu.name}}</q-toolbar-title>
       <label class="text-weight-bold">{{'$'+menu.price}}</label>
     </q-toolbar>
@@ -27,6 +34,7 @@ export default {
       type: Object,
       default: () => {},
     },
+    remove: Boolean,
   },
   data() {
     return {

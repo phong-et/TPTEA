@@ -48,3 +48,33 @@ export const fetchCustomerOrders = ({commit}) => {
       _procError(err)
     })
 }
+export const fetchCustomerOrderDetail = ({commit}, payload) => {
+  _post(
+    payload,
+    `query ($input: Int) {
+      fetchCustomerOrderDetail(input: $input){
+        placeOrderMethod {
+          storeId
+          isStorePickUp
+          receivingTime
+          address
+          deliveryContact
+        }
+        customerOrder {
+          id
+          menuId
+          modifierIds
+          quantity
+          price
+        }
+      }
+    }`
+  )
+    .then(({data}) => {
+      _procAlert(data, true)
+      commit('setCustomerOrderDetail', data.fetchCustomerOrderDetail)
+    })
+    .catch(err => {
+      _procError(err)
+    })
+}

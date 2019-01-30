@@ -32,5 +32,12 @@ const Order = `
     placeOrderMethod: PlaceOrderMethodInput
     orderDetails: [OrderDetailInput]
   }
+  type HistoryPlaceOrderMethod {
+    storeId: Int
+    isStorePickUp: Boolean
+    receivingTime: Date
+    address: String
+    deliveryContact: String
+  }
 `
 export default Order

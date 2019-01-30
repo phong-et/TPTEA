@@ -23,6 +23,7 @@ import pgAdminReceivePayment from 'pages/admin/ReceivePayment'
 import pgAdminPushMessage from 'pages/admin/PushMessage'
 import pgOrderDetails from 'pages/OrderDetails'
 import pgOrderHistory from 'pages/OrderHistory'
+import pgHistoryOrderDetail from 'pages/HistoryOrderDetail'
 const routes = [
   {
     path: '/',
@@ -125,6 +126,10 @@ const routes = [
       {
         path: 'order-history',
         component: pgOrderHistory,
+      },
+      {
+        path: 'history-order-detail/:orderId',
+        component: pgHistoryOrderDetail,
       },
     ],
   },

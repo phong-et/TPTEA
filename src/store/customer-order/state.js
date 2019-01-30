@@ -9,4 +9,5 @@ export default {
     storeId: null,
   },
   customerOrders: [],
+  CustomerOrderDetail: [],
 }

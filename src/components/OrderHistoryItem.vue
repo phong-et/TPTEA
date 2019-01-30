@@ -1,6 +1,6 @@
 <template>
   <div class="order-item">
-    <q-item>
+    <q-item link :to="`/order/history-order-detail/${rawData.id}`">
       <q-item-side :icon="rawData.isStorePickUp?'store':'local_shipping'"/>
       <q-item-main>
         <q-item-tile label class="text-weight-bold" text-color="primary">{{rawData.address}}</q-item-tile>
@@ -18,6 +18,7 @@ export default {
     rawData: {
       type: Object,
       default: () => ({
+        id: null,
         address: '',
         orderDate: '',
         orderStatus: '',

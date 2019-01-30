@@ -7,5 +7,9 @@ const CustomerOrder = `
     totalAmount: String
     isStorePickUp: Boolean
   }
+  type HistoryCustomerOrder {
+    placeOrderMethod: HistoryPlaceOrderMethod
+    customerOrder:[OrderDetail]
+  }
 `
 export default CustomerOrder

@@ -50,3 +50,6 @@ export const setPlaceOrderMethod = (state, payload) => {
 export const setCustomerOrders = (state, payload) => {
   state.customerOrders = payload
 }
+export const setCustomerOrderDetail = (state, payload) => {
+  state.CustomerOrderDetail = payload
+}
