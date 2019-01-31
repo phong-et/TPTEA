@@ -1,15 +1,17 @@
 <template>
   <div>
     <et-grid type="order" :comboFilter="store"/>
+    <modal-order-customer />
   </div>
 </template>
 <script>
 import etGrid from '../../components/EtGrid'
-// import etModal from '../../components/EtModal'
+import modalOrderCustomer from '../../components/OrderCustomerModal'
 import {mapActions, mapGetters} from 'vuex'
 export default {
   components: {
     etGrid,
+    modalOrderCustomer,
   },
   data() {
     return {
