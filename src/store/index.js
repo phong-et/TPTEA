@@ -11,6 +11,7 @@ import giftcard from './giftcard'
 import customerorder from './customer-order'
 import store from './store'
 import order from './order'
+import orderstatus from './orderstatus'
 Vue.use(Vuex)
 
 /*
@@ -31,6 +32,7 @@ export default function(/* { ssrContext } */) {
       customerorder,
       store,
       order,
+      orderstatus,
     },
   })
 

@@ -51,6 +51,7 @@ const RootQuery = `
     fetchOrders:[Order]
     fetchOrdersByStoreId(input:Int):[Order]
     fetchCustomerOrderDetail(input:Int):HistoryCustomerOrder
+    fetchOrderStatuses:[OrderStatus]
   }
 `
 
