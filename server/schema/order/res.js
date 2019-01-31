@@ -101,56 +101,14 @@ const resolvers = {
     async fetchOrders(_, __, {loggedInUser}) {
       _authAdmin(loggedInUser)
       let orders = await Order.findAll({
-        // attributes: [
-        //   'id',
-        //   'customerId',
-        //   // 'customerName',
-        //   'storeId',
-        //   // 'storeName',
-        //   'isStorePickUp',
-        //   'receivingTime',
-        //   'deliveryAddress',
-        //   'deliveryContact',
-        //   'totalAmount',
-        //   'orderStatusId',
-        //   'createdAt',
-        // ],
         include: [
           Store,
           Customer,
           OrderDetail,
           OrderStatus,
-          // {
-          //   model: Store,
-          //   required: true,
-          //   //attributes: [['name', 'storeName']],
-          // },
-          // {
-          //   model: Customer,
-          //   required: true,
-          //   //attributes: [['name', 'customerName']],
-          // },
-          // {
-          //   model: OrderDetail,
-          //   required: true,
-          // },
         ],
       })
-      // let store = orders[0].get()
-      // console.log(JSON.stringify(orders))
       return orders
-      // let a = orders.map(order => {
-      //   const customerName = order.get('Customer').get('customerName')
-      //   //console.log(order.get('Customer'))
-      //   console.log(customerName)
-      //   const storeName = order.get('Store').get('storeName')
-      //   return Object.assign(order.get(), {
-      //     customerName: customerName,
-      //     storeName: storeName,
-      //   })
-      // })
-      // console.log(a)
-      // return a
     },
     async fetchOrdersByStoreId(_, {input}, {loggedInUser}) {
       _authAdmin(loggedInUser)
