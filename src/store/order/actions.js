@@ -78,3 +78,20 @@ export const fetchOrdersByStoreId = ({commit}, storeId) => {
       commit('setIsLoading', false)
     })
 }
+export const updateOrderStatus = ({commit, getters}) => {
+  commit('setIsLoading', true)
+  _post(
+    {orderId: getters.getEditingRec.id, orderStatusId: getters.getEditingRec.OrderStatus.id},
+    `mutation ($input: UpdateOrderStatusInput) {
+        updateOrderStatus(input: $input)
+      }`
+  )
+    .then(({data}) => {
+      _procAlert(data, true)
+      commit('setIsLoading', false)
+    })
+    .catch(err => {
+      _procError(err)
+      commit('setIsLoading', false)
+    })
+}

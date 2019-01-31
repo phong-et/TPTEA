@@ -129,7 +129,7 @@ export default {
               value: 1,
             },
           ],
-          fetchRecsNameSuffix: 'ByStoreId',
+          fetchRecsName: 'fetchOrdersByStoreId',
         }
       },
       type: Object,

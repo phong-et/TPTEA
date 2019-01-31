@@ -32,6 +32,10 @@ const Order = `
     placeOrderMethod: PlaceOrderMethodInput
     orderDetails: [OrderDetailInput]
   }
+  input UpdateOrderStatusInput {
+    orderId: Int!
+    orderStatusId: Int!
+  }
   type HistoryPlaceOrderMethod {
     storeId: Int
     isStorePickUp: Boolean

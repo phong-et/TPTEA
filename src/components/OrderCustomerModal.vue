@@ -4,14 +4,14 @@
       <q-toolbar color="tertiary">
         <q-btn flat icon="close" @click="isModalOpened = false"></q-btn>
         <span>
-          Customer :
-          <b>{{getEditingRec.Customer.name}}</b> --☆-- Order Time :
-          <b>{{getEditingRec.createdAt}}</b>
+          <b>Customer :</b>
+          {{getEditingRec.Customer.name}} --☆--
+          <b>Order Time :</b>
+          {{getEditingRec.createdAt}}
         </span>
       </q-toolbar>
       <history-place-order-method :rawData="getEditingRec.placeOrderMethod"/>
       <order-menu-detail remove v-for="menu in getEditingRec.OrderDetails" :rawData="menu" :key="menu.menuId"/>
-
       <q-toolbar class="row inline items-center">
         <q-select
           stack-label="Status"
@@ -20,14 +20,13 @@
           v-model="getEditingRec.OrderStatus.id"
           :options="this.getRecs.map(opt => ({label: opt.name, value: opt.id}))"
         />
-        <q-btn class="btn-update-status" color="secondary" icon="save" label="Update Status"/>
+        <q-btn :disabled="getIsLoading" :loading="getIsLoading" class="btn-update-status" color="secondary" icon="save" label="Update Status" @click="updateOrderStatus()"/>
         <q-toolbar-title class="text-right">{{'Total $'+getEditingRec.totalAmount}}</q-toolbar-title>
       </q-toolbar>
     </q-modal-layout>
   </q-modal>
 </template>
 <script>
-import {upperFirst} from 'lodash'
 import {mapActions, mapGetters} from 'vuex'
 import historyPlaceOrderMethod from './HistoryPlaceOrderMethod'
 import orderMenuDetail from './OrderMenuDetail'
@@ -52,12 +51,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions({
-      updateRec(dispatch, payload) {
-        return dispatch(`${this.type}/update${upperFirst(this.type)}`, payload)
-      },
-    }),
     ...mapActions('orderstatus', ['fetchRecs']),
+    ...mapActions('order', ['updateOrderStatus']),
   },
   mounted() {
     this.fetchRecs()

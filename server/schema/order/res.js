@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 const apiKey = 'AIzaSyCEUChDraEFCd3f79AK2xSh1FFDDJUpnWw'
 const MAX_STORE_DISTANCE = 20000
 const DEFAULT_ORDER_STATUS = 1
-
+const ORDER_STATUS_DONE = 5
 //#region function support for "placeOrder" resolver
 function formatOrderInput(input) {
   let formatedInput = {...input, ...input.placeOrderMethod}
@@ -101,12 +101,7 @@ const resolvers = {
     async fetchOrders(_, __, {loggedInUser}) {
       _authAdmin(loggedInUser)
       let orders = await Order.findAll({
-        include: [
-          Store,
-          Customer,
-          OrderDetail,
-          OrderStatus,
-        ],
+        include: [Store, Customer, OrderDetail, OrderStatus],
       })
       return orders
     },
@@ -133,6 +128,26 @@ const resolvers = {
           })
           .then(createdOrder => {
             return createdOrder.get('id')
+          })
+          .catch(err => {
+            throw new Error(err)
+          })
+      } catch (error) {
+        throw new Error(error.message)
+      }
+    },
+    async updateOrderStatus(_, {input}, {loggedInUser}) {
+      _authAdmin(loggedInUser)
+      try {
+        return sequelize
+          .transaction(async t => {
+            return await Order.update({orderStatusId: input.orderStatusId}, {where: {id: input.orderId}}, {transaction: t}).then(async rowUpdated => {
+              return rowUpdated
+            })
+          })
+          .then(rowUpdated => {
+            console.log(rowUpdated)
+            return rowUpdated
           })
           .catch(err => {
             throw new Error(err)

@@ -72,6 +72,7 @@ const RootMutation = `
     receivePayment(input:ReceivePaymentInput): ReceivePayment
     pushMessage(input:String): String
     placeOrder(input:OrderInput): Int
+    updateOrderStatus(input: UpdateOrderStatusInput) : Int
   }
 `
 
