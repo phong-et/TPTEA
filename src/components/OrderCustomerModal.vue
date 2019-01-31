@@ -1,35 +1,36 @@
 <template>
-  <q-modal v-model="isModalOpened">
+  <q-modal v-model="isModalOpened" maximized>
     <q-modal-layout>
-      <q-toolbar color="primary">
+      <q-toolbar color="tertiary">
         <q-btn flat icon="close" @click="isModalOpened = false"></q-btn>
+        <span>
+          Customer :
+          <b>{{getEditingRec.Customer.name}}</b> --☆-- Order Time :
+          <b>{{getEditingRec.createdAt}}</b>
+        </span>
       </q-toolbar>
-      <div class="q-pa-lg">
-        <label class="col-12 q-mb-sm text-weight-bold">Order Infomation</label>
-        <q-field icon="person" class="col-12 q-ml-md">
-          <span>{{rawData.customerName}}</span>
-        </q-field>
-        <q-field icon="access_time" class="col-12 q-ml-md">
-          <span>{{rawData.createAt|formatOrderDate}}</span>
-        </q-field>
-        <!-- <q-select
+      <history-place-order-method :rawData="getEditingRec.placeOrderMethod"/>
+      <order-menu-detail remove v-for="menu in getEditingRec.OrderDetails" :rawData="menu" :key="menu.menuId"/>
+
+      <q-toolbar class="row inline items-center">
+        <q-select
+          stack-label="Status"
           inverted
           color="secondary"
-          v-model="comboFilter.selectedValue"
-          :options="comboFilter.options"
-          @input="fetchRecsByComboFilter(comboFilter.selectedValue)"
-        /> -->
-        <history-place-order-method/>
-      </div>
+          v-model="getEditingRec.OrderStatus.id"
+          :options="this.getRecs.map(opt => ({label: opt.name, value: opt.id}))"
+        />
+        <q-btn class="btn-update-status" color="secondary" icon="save" label="Update Status"/>
+        <q-toolbar-title class="text-right">{{'Total $'+getEditingRec.totalAmount}}</q-toolbar-title>
+      </q-toolbar>
     </q-modal-layout>
   </q-modal>
 </template>
 <script>
 import {upperFirst} from 'lodash'
-import {mapState, mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import historyPlaceOrderMethod from './HistoryPlaceOrderMethod'
 import orderMenuDetail from './OrderMenuDetail'
-import {date} from 'quasar'
 export default {
   components: {
     historyPlaceOrderMethod,
@@ -38,33 +39,9 @@ export default {
   data() {
     return {}
   },
-  props: {
-    rawData: {
-      type: Object,
-      default: () => ({
-        customerName: 'Phillip Nguyen',
-        createAt: new Date(),
-      }),
-    },
-  },
-  filters: {
-    formatOrderDate(val) {
-      return date.formatDate(val, 'HH:mm D/MM/YYYY')
-    },
-  },
   computed: {
-    ...mapState({
-      getIsLoading(state, getters) {
-        return getters[this.type + '/getIsLoading']
-      },
-      getFields(state, getters) {
-        return getters[this.type + '/getFields']
-      },
-      getEditingRec(state, getters) {
-        return getters[this.type + '/getEditingRec']
-      },
-    }),
-    ...mapGetters('store', ['getRecs']),
+    ...mapGetters('order', ['getEditingRec', 'getIsLoading']),
+    ...mapGetters('orderstatus', ['getRecs']),
     isModalOpened: {
       get() {
         return this.$store.getters['order/getIsModalOpened']
@@ -80,6 +57,10 @@ export default {
         return dispatch(`${this.type}/update${upperFirst(this.type)}`, payload)
       },
     }),
+    ...mapActions('orderstatus', ['fetchRecs']),
+  },
+  mounted() {
+    this.fetchRecs()
   },
 }
 </script>
@@ -87,4 +68,8 @@ export default {
 .style-modal
   min-width 60vw !important
   min-height 70vh !important
+
+.btn-update-status
+  margin-left 5px
+  padding 18px
 </style>

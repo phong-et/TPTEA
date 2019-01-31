@@ -8,7 +8,7 @@ export const fetchRecs = ({commit, getters}) => {
     }
   }`)
       .then(({data}) => {
-        commit('setRecs', data.fetchAllStores)
+        commit('setRecs', data.fetchOrderStatuses)
       })
       .catch(err => {
         _procError(err)

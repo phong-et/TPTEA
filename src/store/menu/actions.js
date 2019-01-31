@@ -6,7 +6,7 @@ export function someAction (context) {
 import {_post, _get, _procError} from '../../util/common'
 
 export const fetchRecs = ({commit}, payload) => {
-  _post(
+  return _post(
     payload,
     `query ($input: CategoryInput) {
       listMenus(input: $input) {
@@ -27,7 +27,7 @@ export const fetchRecs = ({commit}, payload) => {
 }
 
 export const fetchAllMenus = ({commit}) => {
-  _get(`{
+  return _get(`{
     fetchAllMenus {
       id
       name

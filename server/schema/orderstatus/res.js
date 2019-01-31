@@ -1,8 +1,8 @@
-import {Status} from '../../models'
+import {OrderStatus} from '../../models'
 const resolvers = {
   RootQuery: {
     async fetchOrderStatuses() {
-      return await Status.findAll()
+      return await OrderStatus.findAll()
     },
   },
   RootMutation: {},

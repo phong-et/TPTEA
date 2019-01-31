@@ -25,6 +25,10 @@ export const fetchOrders = ({commit}) => {
       }
       OrderDetails {
         id
+        menuId
+        modifierIds
+        quantity
+        price
       }
     }
   }`)
@@ -78,6 +82,10 @@ export const fetchOrdersByStoreId = ({commit}, storeId) => {
         }
         OrderDetails {
           id
+          menuId
+          modifierIds
+          quantity
+          price
         }
       }
     }`

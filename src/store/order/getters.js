@@ -33,5 +33,12 @@ export const getIsModalOpened = state => {
 }
 
 export const getEditingRec = state => {
+  let placeOrderMethod = {
+    address: state.editingRec.deliveryAddress,
+    deliveryContact: state.editingRec.deliveryContact,
+    receivingTime: state.editingRec.receivingTime,
+    isStorePickUp: state.editingRec.isStorePickUp,
+  }
+  state.editingRec.placeOrderMethod = placeOrderMethod
   return state.editingRec
 }
