@@ -5,7 +5,7 @@ export default {
   role: '',
   order: {},
   recs: [],
-  title: 'Processing Orders Infomation',
+  title: 'Orders Infomation',
   icon: 'shopping_cart',
   selected: [],
   isModalOpened: false,

@@ -1,7 +1,6 @@
 <template>
   <div>
     <et-grid type="order" :comboFilter="store" hideAdd/>
-    <!-- <modal-order-customer/> -->
     <component v-bind:is="modal"></component>
   </div>
 </template>
@@ -18,7 +17,7 @@ export default {
     return {
       store: {
         hidden: false,
-        selectedValue: 1,
+        selectedValue: 0,
         fetchRecsName: 'fetchOrdersByStoreId',
         options: [],
       },
@@ -37,13 +36,14 @@ export default {
   mounted() {
     this.fetchRecs().then(() => {
       this.store.options = this.getRecs.length > 0 ? this.getRecs.map(store => ({label: store.name, value: store.id})) : []
+      this.store.options.unshift({label: 'Select Store...', value: 0})
     })
     this.fetchAllMenus()
     this.fetchAllModifiers()
   },
   watch: {
     getIsModalOpened(newVal, oldVal) {
-      this.modal = newVal ? modalOrderCustomer : null
+      if (this.modal == null) this.modal = modalOrderCustomer
     },
   },
 }

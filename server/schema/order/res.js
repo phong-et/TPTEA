@@ -5,7 +5,6 @@ const fetch = require('node-fetch')
 const apiKey = 'AIzaSyCEUChDraEFCd3f79AK2xSh1FFDDJUpnWw'
 const MAX_STORE_DISTANCE = 20000
 const DEFAULT_ORDER_STATUS = 1
-const ORDER_STATUS_DONE = 5
 //#region function support for "placeOrder" resolver
 function formatOrderInput(input) {
   let formatedInput = {...input, ...input.placeOrderMethod}
