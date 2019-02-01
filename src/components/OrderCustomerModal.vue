@@ -11,7 +11,7 @@
         </span>
       </q-toolbar>
       <history-place-order-method :rawData="getEditingRec.placeOrderMethod"/>
-      <order-menu-detail remove v-for="menu in getEditingRec.OrderDetails" :rawData="menu" :key="menu.menuId"/>
+      <order-menu-detail remove v-for="orderDetail in getEditingRec.OrderDetails" :rawData="orderDetail" :key="orderDetail.id"/>
       <q-toolbar class="row inline items-center">
         <q-select
           stack-label="Status"

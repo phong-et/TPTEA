@@ -10,7 +10,7 @@
       </q-toolbar>
     </q-layout-header>
     <history-place-ordder-method :rawData="getCustomerOrderDetail.placeOrderMethod"/>
-    <order-menu-detail remove v-for="menu in getCustomerOrderDetail.customerOrder" :rawData="menu" :key="menu.menuId"/>
+    <order-menu-detail remove v-for="orderDetail in getCustomerOrderDetail.customerOrder" :rawData="orderDetail" :key="orderDetail.id"/>
     <q-layout-footer class="max-width-center-h">
       <q-toolbar color="secondary" class="row inline items-center">
         <span class="text-weight-bold q-pl-md">
