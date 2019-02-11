@@ -2,9 +2,9 @@
   <q-modal v-model="isModalOpened" maximized>
     <q-modal-layout>
       <q-toolbar color="tertiary">
-        <q-btn flat icon="close" @click="isModalOpened = false"></q-btn>
-        <span>
-          <b>Customer :</b>
+        <q-btn flat icon="keyboard_backspace" @click="isModalOpened = false"></q-btn>
+        <span class="modal-title">
+          <b> Customer :</b>
           {{getEditingRec.Customer.name}} --☆--
           <b>Order Time :</b>
           {{getEditingRec.createdAt}}
@@ -67,4 +67,6 @@ export default {
 .btn-update-status
   margin-left 5px
   padding 18px
+.modal-title
+  padding-left 5px
 </style>
