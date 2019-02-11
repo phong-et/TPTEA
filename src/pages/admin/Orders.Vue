@@ -19,6 +19,7 @@ export default {
         hidden: false,
         selectedValue: 0,
         fetchRecsName: 'fetchOrdersByStoreId',
+        filterPlaceHolder: 'Type store name...',
         options: [],
       },
       modal: null,

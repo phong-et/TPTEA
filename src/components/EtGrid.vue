@@ -33,6 +33,7 @@
         v-show="!comboFilter.hidden"
         class="combo-filter"
         filter
+        :filter-placeholder="comboFilter.filterPlaceHolder"
         inverted
         color="secondary"
         v-model="comboFilter.selectedValue"
@@ -129,6 +130,7 @@ export default {
               value: 1,
             },
           ],
+          filterPlaceHolder: 'Type text',
           fetchRecsName: 'fetchOrdersByStoreId',
         }
       },
