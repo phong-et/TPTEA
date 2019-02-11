@@ -4,7 +4,7 @@
       <q-toolbar color="tertiary">
         <q-btn flat icon="keyboard_backspace" @click="isModalOpened = false"></q-btn>
         <span class="modal-title">
-          <b> Customer :</b>
+          <b>Customer :</b>
           {{getEditingRec.Customer.name}} --☆--
           <b>Order Time :</b>
           {{getEditingRec.createdAt}}
@@ -14,13 +14,16 @@
       <order-menu-detail remove v-for="orderDetail in getEditingRec.OrderDetails" :rawData="orderDetail" :key="orderDetail.id"/>
       <q-toolbar class="row inline items-center">
         <q-select
+          class="ddl-order-status"
           stack-label="Status"
           inverted
           color="secondary"
           v-model="getEditingRec.OrderStatus.id"
           :options="this.getRecs.map(opt => ({label: opt.name, value: opt.id}))"
         />
-        <q-btn :disabled="getIsLoading" :loading="getIsLoading" class="btn-update-status" color="secondary" icon="save" label="Update Status" @click="updateOrderStatus()"/>
+        <q-btn :disable="getIsLoading" :loading="getIsLoading" icon="save" color="secondary" label="Update Status" class="btn-update-status" @click="updateOrderStatus()">
+          <q-spinner-pie slot="loading" size="20px"/>
+        </q-btn>
         <q-toolbar-title class="text-right">{{'Total $'+getEditingRec.totalAmount}}</q-toolbar-title>
       </q-toolbar>
     </q-modal-layout>
@@ -67,6 +70,10 @@ export default {
 .btn-update-status
   margin-left 5px
   padding 18px
+  width 200px
+
 .modal-title
   padding-left 5px
+.ddl-order-status
+  width 150px
 </style>
