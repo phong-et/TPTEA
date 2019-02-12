@@ -34,6 +34,7 @@ All notable changes to this project will be documented in this file.
 - API Place Order [@phillip](https://github.com/hemvanh/TPTEA/pull/111)
 - Button add to card
 - Finding nearest store [@phillip](https://github.com/hemvanh/TPTEA/pull/118)
+- Orders Management for Admin [@phillip](https://github.com/hemvanh/TPTEA/pull/124) [@phillip](https://github.com/hemvanh/TPTEA/pull/126)
 ### Removed 
 - Join now button
 - Remove parameter "expiry" and change parameter "amount" to "giftCardid" in genGiftCard function
