@@ -33,7 +33,7 @@ let renderOrder = orders => {
     orders.forEach(order => {
       order.customerName = order.Customer.name
       order.storeName = order.Store.name
-      order.status = order.OrderStatus.name
+      order.orderStatusName = order.OrderStatus.name
       order.isStorePickUp = order.isStorePickUp ? 'Pickup' : 'Delivery '
       order.createdAt = new Date(order.createdAt).toLocaleString()
       order.receivingTime = new Date(order.receivingTime).toLocaleString()

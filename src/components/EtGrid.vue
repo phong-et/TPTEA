@@ -188,7 +188,7 @@ export default {
         return dispatch(`${this.type}/del${upperFirst(this.type)}s`, payload)
       },
       fetchRecsByComboFilter(dispatch, payload) {
-        if (this.comboFilter.selectedValue === 0) return this.fetchRecs()
+        if (this.comboFilter && this.comboFilter.selectedValue === 0) return this.fetchRecs()
         return dispatch(`${this.type}/${this.comboFilter.fetchRecsByFilterName}`, payload)
       },
     }),

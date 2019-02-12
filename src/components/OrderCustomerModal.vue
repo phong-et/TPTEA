@@ -71,7 +71,7 @@ export default {
     changeOrderStatus(newStatusId) {
       let statusName = this.statuses.find(status => status.value === newStatusId).label
       this.getEditingRec.orderStatusId = newStatusId
-      this.getEditingRec.status = statusName
+      this.getEditingRec.orderStatusName = statusName
       this.getEditingRec.OrderStatus.id = newStatusId
       this.getEditingRec.OrderStatus.name = statusName
     },

@@ -68,10 +68,10 @@ export default {
       sortable: true,
     },
     {
-      name: 'OrderStatusId',
+      name: 'OrderStatusName',
       label: 'Status',
       align: 'left',
-      field: 'status',
+      field: 'orderStatusName',
       sortable: true,
     },
     {
