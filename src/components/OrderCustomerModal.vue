@@ -19,7 +19,7 @@
           inverted
           color="secondary"
           v-model="getEditingRec.orderStatusId"
-          :options="this.getRecs.map(opt => ({label: opt.name, value: opt.id}))"
+          :options="statuses"
           @input="changeOrderStatus"
         />
         <q-btn
@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      options:[]
+      statuses: [],
     }
   },
   computed: {
@@ -69,13 +69,17 @@ export default {
     ...mapActions('order', ['updateOrderStatus']),
     ...mapMutations('order', ['discardEditingRec']),
     changeOrderStatus(newStatusId) {
-      this.getEditingRec.OrderStatus.id = newStatusId
+      let statusName = this.statuses.find(status => status.value === newStatusId).label
       this.getEditingRec.orderStatusId = newStatusId
+      this.getEditingRec.status = statusName
+      this.getEditingRec.OrderStatus.id = newStatusId
+      this.getEditingRec.OrderStatus.name = statusName
     },
-
   },
   mounted() {
-    this.fetchRecs()
+    this.fetchRecs().then(() => {
+      this.statuses = this.getRecs.length > 0 ? this.getRecs.map(status => ({label: status.name, value: status.id})) : []
+    })
   },
 }
 </script>

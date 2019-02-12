@@ -88,7 +88,6 @@ export const updateOrderStatus = ({commit, getters}) => {
   )
     .then(({data}) => {
       _procAlert(data, true)
-      getters.getEditingRec.status = 'abc'
       commit('setEditingRec', getters.getEditingRec)
       commit('setIsLoading', false)
       commit('setIsModalOpened', false)
