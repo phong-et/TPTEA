@@ -136,13 +136,22 @@ export default {
       },
       type: Object,
     },
+    pagingOptions: {
+      default: () => {
+        return {
+          sortBy: null,
+          descending: true,
+        }
+      },
+      type: Object,
+    },
   },
   data() {
     return {
       filter: '',
       pagination: {
-        sortBy: null, // String, column "name" property value
-        descending: false,
+        sortBy: this.pagingOptions.sortBy, // String, column "name" property value
+        descending: this.pagingOptions.descending,
         page: 1,
         rowsPerPage: 25, // current rows per page being displayed
       },

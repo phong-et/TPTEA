@@ -1,6 +1,6 @@
 <template>
   <div>
-    <et-grid type="order" :comboFilter="store" hideAdd/>
+    <et-grid type="order" :comboFilter="store" :pagingOptions="pagingOptions" hideAdd/>
     <component v-bind:is="modal"></component>
   </div>
 </template>
@@ -23,6 +23,10 @@ export default {
         options: [],
       },
       modal: null,
+      pagingOptions: {
+        sortBy: 'CreatedAt',
+        descending: true,
+      },
     }
   },
   computed: {
