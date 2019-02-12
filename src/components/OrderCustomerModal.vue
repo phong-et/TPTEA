@@ -2,7 +2,7 @@
   <q-modal v-model="isModalOpened" maximized>
     <q-modal-layout>
       <q-toolbar color="tertiary">
-        <q-btn flat icon="keyboard_backspace" @click="isModalOpened = false"></q-btn>
+        <q-btn flat icon="keyboard_backspace" @click="discardEditingRec"></q-btn>
         <span class="modal-title">
           <b>Customer :</b>
           {{getEditingRec.Customer.name}} --☆--
@@ -18,10 +18,19 @@
           stack-label="Status"
           inverted
           color="secondary"
-          v-model="getEditingRec.OrderStatus.id"
+          v-model="getEditingRec.orderStatusId"
           :options="this.getRecs.map(opt => ({label: opt.name, value: opt.id}))"
+          @input="changeOrderStatus"
         />
-        <q-btn :disable="getIsLoading" :loading="getIsLoading" icon="save" color="secondary" label="Update Status" class="btn-update-status" @click="updateOrderStatus()">
+        <q-btn
+          :disable="getIsLoading"
+          :loading="getIsLoading"
+          icon="save"
+          color="secondary"
+          label="Update Status"
+          class="btn-update-status"
+          @click="updateOrderStatus()"
+        >
           <q-spinner-pie slot="loading" size="20px"/>
         </q-btn>
         <q-toolbar-title class="text-right">{{'Total $'+getEditingRec.totalAmount}}</q-toolbar-title>
@@ -30,7 +39,7 @@
   </q-modal>
 </template>
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions, mapGetters, mapMutations} from 'vuex'
 import historyPlaceOrderMethod from './HistoryPlaceOrderMethod'
 import orderMenuDetail from './OrderMenuDetail'
 export default {
@@ -39,7 +48,9 @@ export default {
     orderMenuDetail,
   },
   data() {
-    return {}
+    return {
+      options:[]
+    }
   },
   computed: {
     ...mapGetters('order', ['getEditingRec', 'getIsLoading']),
@@ -56,6 +67,12 @@ export default {
   methods: {
     ...mapActions('orderstatus', ['fetchRecs']),
     ...mapActions('order', ['updateOrderStatus']),
+    ...mapMutations('order', ['discardEditingRec']),
+    changeOrderStatus(newStatusId) {
+      this.getEditingRec.OrderStatus.id = newStatusId
+      this.getEditingRec.orderStatusId = newStatusId
+    },
+
   },
   mounted() {
     this.fetchRecs()
@@ -73,7 +90,8 @@ export default {
   width 200px
 
 .modal-title
-  padding-left 5px
+  padding-left 8px
+
 .ddl-order-status
-  width 150px
+  width 165px
 </style>
