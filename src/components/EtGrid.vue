@@ -131,7 +131,7 @@ export default {
             },
           ],
           filterPlaceHolder: 'Type text',
-          fetchRecsName: 'fetchOrdersByStoreId',
+          fetchRecsByFilterName: 'fetchOrdersByStoreId',
         }
       },
       type: Object,
@@ -181,13 +181,15 @@ export default {
   methods: {
     ...mapActions({
       fetchRecs(dispatch, payload) {
+        if (this.comboFilter && this.comboFilter.selectedValue) this.comboFilter.selectedValue = 0
         return dispatch(`${this.type}/fetch${upperFirst(this.type)}s`, payload)
       },
       delRecs(dispatch, payload) {
         return dispatch(`${this.type}/del${upperFirst(this.type)}s`, payload)
       },
       fetchRecsByComboFilter(dispatch, payload) {
-        return dispatch(`${this.type}/${this.comboFilter.fetchRecsName}`, payload)
+        if (this.comboFilter.selectedValue === 0) return this.fetchRecs()
+        return dispatch(`${this.type}/${this.comboFilter.fetchRecsByFilterName}`, payload)
       },
     }),
     ...mapMutations({
