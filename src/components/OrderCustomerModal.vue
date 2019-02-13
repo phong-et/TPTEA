@@ -14,7 +14,7 @@
       <order-menu-detail remove v-for="orderDetail in getEditingRec.OrderDetails" :rawData="orderDetail" :key="orderDetail.id"/>
       <q-toolbar class="row inline items-center">
         <q-select
-          class="ddl-order-status"
+          class="cmb-order-status"
           stack-label="Status"
           inverted
           color="secondary"
@@ -96,6 +96,6 @@ export default {
 .modal-title
   padding-left 8px
 
-.ddl-order-status
+.cmb-order-status
   width 165px
 </style>
