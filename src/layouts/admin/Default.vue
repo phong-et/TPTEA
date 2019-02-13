@@ -30,6 +30,10 @@
           <q-item-side icon="shopping_cart"/>
           <q-item-main label="Processing Orders"/>
         </q-item>
+        <q-item to="/admin/modifiers">
+          <q-item-side icon="toc"/>
+          <q-item-main label="Modifiers"/>
+        </q-item>
         <q-item to="/admin/giftcards">
           <q-item-side icon="store"/>
           <q-item-main label="Gift Cards"/>

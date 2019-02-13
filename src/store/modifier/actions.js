@@ -1,5 +1,7 @@
 import {_post, _get, _procError} from '../../util/common'
 import _ from 'lodash'
+
+// #region functions used for customer
 export const fetchModifiers = ({commit}, payload) => {
   _post(
     payload,
@@ -39,6 +41,27 @@ export const fetchAllModifiers = ({commit}) => {
   }`)
     .then(({data}) => {
       commit('setAllModifiers', data.fetchAllModifiers)
+    })
+    .catch(err => {
+      _procError(err)
+    })
+}
+// #endregion functions used for customer
+
+// #region functions used for admin
+export const fetchAllModifiersAdmin = ({commit}) => {
+  _get(`{
+    fetchAllModifiersAdmin {
+      id
+      name
+      price
+      isDefault
+      groupType
+      groupTitle
+    }
+  }`)
+    .then(({data}) => {
+      commit('setRecs', data.fetchAllModifiersAdmin)
     })
     .catch(err => {
       _procError(err)

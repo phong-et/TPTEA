@@ -8,6 +8,7 @@ import pgHome from 'pages/Home'
 import pgAdminHome from 'pages/admin/Home'
 import pgAdminGiftCards from 'pages/admin/GiftCards'
 import pgAdminOrders from 'pages/admin/Orders'
+import pgAdminModifiers from 'pages/admin/Modifiers'
 import pgCategories from 'pages/Categories'
 import pgMainCategories from 'pages/MainCategories'
 import pgStores from 'pages/Stores'
@@ -80,6 +81,10 @@ const routes = [
       {
         path: 'orders',
         component: pgAdminOrders,
+      },
+      {
+        path: 'modifiers',
+        component: pgAdminModifiers,
       },
       {
         path: 'giftcards',
