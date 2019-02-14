@@ -18,6 +18,9 @@ const resolvers = {
     async fetchAllModifiers() {
       return await Modifier.findAll()
     },
+    async fetchAdminModifiers() {
+      return await Modifier.findAll()
+    },
   },
   RootMutation: {},
 }

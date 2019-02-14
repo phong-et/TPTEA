@@ -96,6 +96,10 @@ export default {
       default: 'xxx',
       type: String,
     },
+    aliasType: {
+      default: 'xxx',
+      type: String,
+    },
     disableEditting: {
       default: false,
       type: Boolean,
@@ -191,9 +195,12 @@ export default {
     ...mapActions({
       fetchRecs(dispatch, payload) {
         if (this.comboFilter && this.comboFilter.selectedValue) this.comboFilter.selectedValue = 0
+        console.log(this.aliasType)
+        if (this.aliasType !== 'xxx') return dispatch(`${this.type}/fetch${this.aliasType}s`, payload)
         return dispatch(`${this.type}/fetch${upperFirst(this.type)}s`, payload)
       },
       delRecs(dispatch, payload) {
+        if (this.aliasType !== 'xxx') return dispatch(`${this.type}/del${this.aliasType}s`, payload)
         return dispatch(`${this.type}/del${upperFirst(this.type)}s`, payload)
       },
       fetchRecsByComboFilter(dispatch, payload) {

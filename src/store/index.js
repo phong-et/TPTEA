@@ -6,6 +6,7 @@ import category from './category'
 import maincategory from './maincategory'
 import menu from './menu'
 import modifier from './modifier'
+import adminmodifier from './admin-modifier'
 import admin from './admin'
 import giftcard from './giftcard'
 import customerorder from './customer-order'
@@ -27,6 +28,7 @@ export default function(/* { ssrContext } */) {
       category,
       menu,
       modifier,
+      adminmodifier,
       admin,
       giftcard,
       maincategory,

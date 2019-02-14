@@ -1,7 +1,7 @@
 <template>
   <div>
-    <et-grid type="modifier" />
-    <et-modal type="modifier" />
+    <et-grid type="adminmodifier" aliasType="AdminModifier" />
+    <et-modal type="adminmodifier" aliasType="AdminModifier" />
   </div>
 </template>
 <script>

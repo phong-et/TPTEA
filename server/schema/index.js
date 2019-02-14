@@ -46,6 +46,7 @@ const RootQuery = `
     fetchMainCategories:[MainCategory]
     fetchAllMenus:[Menu]
     fetchAllModifiers:[Modifier]
+    fetchAdminModifiers:[AdminModifier]
     fetchAllStores:[Store]
     fetchCustomerOrders(input:Int):[CustomerOrder]
     fetchOrders:[Order]

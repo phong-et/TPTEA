@@ -10,13 +10,13 @@ const Modifier = `
     price: String
     isDefault: Boolean
   }
-  type ModifierAdmin {
+  type AdminModifier {
     id: Int
     name: String
     price: String
     isDefault: Boolean
-    groupType
-    groupTitle
+    groupType: String
+    groupTitle: String
   }
 `
 export default Modifier
