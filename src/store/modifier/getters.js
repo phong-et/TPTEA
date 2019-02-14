@@ -14,15 +14,3 @@ export const getModifiers = state => modifierIds => {
     return modifierIds.includes(modifier.id)
   })
 }
-export const getCols = state => {
-  return state.cols
-}
-export const getIsLoading = state => {
-  return state.isLoading
-}
-export const getTitle = state => {
-  return state.title
-}
-export const getIcon = state => {
-  return state.icon
-}

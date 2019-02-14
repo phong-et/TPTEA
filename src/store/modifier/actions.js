@@ -47,23 +47,3 @@ export const fetchAllModifiers = ({commit}) => {
     })
 }
 // #endregion functions used for customer
-
-// #region functions used for admin
-export const fetchAllModifiersAdmin = ({commit}) => {
-  _get(`{
-    fetchAllModifiersAdmin {
-      id
-      name
-      price
-      isDefault
-      groupType
-      groupTitle
-    }
-  }`)
-    .then(({data}) => {
-      commit('setRecs', data.fetchAllModifiersAdmin)
-    })
-    .catch(err => {
-      _procError(err)
-    })
-}
