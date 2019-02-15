@@ -1,4 +1,5 @@
-import {_get, _procError} from '../../util/common'
+import {_get, _post, _procError, _procAlert} from '../../util/common'
+import _ from 'lodash'
 export const fetchAdminModifiers = ({commit}) => {
   _get(`{
     fetchAdminModifiers {
@@ -16,4 +17,76 @@ export const fetchAdminModifiers = ({commit}) => {
     .catch(err => {
       _procError(err)
     })
+}
+export const updateAdminModifier = ({commit, getters}) => {
+  commit('setIsLoading', true)
+  _post(
+    _.omit(getters.getEditingRec, ['__index']),
+    `mutation ($input: AdminModifierInput) {
+      updateAdminModifier(input: $input) {
+        id
+        name
+        price
+        isDefault
+        groupType
+        groupTitle
+      }
+    }`
+  )
+    .then(({data}) => {
+      _procAlert(data, true)
+      commit('setIsLoading', false)
+      commit('setIsModalOpened', false)
+    })
+    .catch(err => {
+      _procError(err)
+      commit('setIsLoading', false)
+    })
+}
+export function createAdminModifier({commit, getters}) {
+  commit('setIsLoading', true)
+  _post(
+    getters.getEditingRec,
+    `mutation ($input: AdminModifierInput) {
+      createAdminModifier(input: $input) {
+        id
+        name
+        price
+        isDefault
+        groupType
+        groupTitle
+      }
+    }`
+  )
+    .then(({data}) => {
+      commit('setIsLoading', false)
+      _procAlert(data, true)
+      commit('setIsModalOpened', false)
+      getters.getRecs.push(data.createAdminModifier)
+      commit('setRecs', _.clone(getters.getRecs))
+    })
+    .catch(err => {
+      _procError(err)
+      commit('setIsLoading', false)
+    })
+}
+export const delAdminModifiers = ({commit, getters}) => {
+  commit('setIsLoading', true)
+  let ids = Array.from(getters.getSelected, modifier => modifier.id)
+  _post(
+    ids,
+    `mutation ($input: [Int]) {
+      deleteAdminModifiers(input: $input)
+    }`
+  ).then(({data}) => {
+    _procAlert(data, true)
+    commit('setIsLoading', false)
+    _.remove(getters.getRecs, rec => {
+      return ids.includes(rec.id)
+    })
+    // clear selection
+    commit('setSelected', [])
+    // reactive the grid with new recs
+    commit('setRecs', _.clone(getters.getRecs))
+  })
 }

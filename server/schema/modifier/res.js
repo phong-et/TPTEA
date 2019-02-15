@@ -1,5 +1,6 @@
 import {Menu, Modifier} from '../../models'
 import _d from 'lodash'
+import {_authAdmin} from '../../util'
 const resolvers = {
   RootQuery: {
     async fetchModifiers(_, {input}) {
@@ -22,6 +23,31 @@ const resolvers = {
       return await Modifier.findAll()
     },
   },
-  RootMutation: {},
+  RootMutation: {
+    async createAdminModifier(_, {input}, {loggedInUser}) {
+      _authAdmin(loggedInUser)
+      return await Modifier.create(input).then(modifier => modifier)
+    },
+    async updateAdminModifier(_, {input}, {loggedInUser}) {
+      _authAdmin(loggedInUser)
+      return await Modifier.update(input, {
+        where: {
+          id: input.id,
+        },
+      }).then(() => {
+        return input
+      })
+    },
+    async deleteAdminModifiers(_, {input}, {loggedInUser}) {
+      _authAdmin(loggedInUser)
+      return await Modifier.destroy({
+        where: {
+          id: {
+            $in: input,
+          },
+        },
+      })
+    },
+  },
 }
 export default resolvers

@@ -64,7 +64,7 @@ export default {
     {
       name: 'price',
       label: 'Price',
-      type: 'text',
+      type: 'number',
       icon: 'attach_money',
     },
     {

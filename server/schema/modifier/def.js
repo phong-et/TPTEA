@@ -18,5 +18,13 @@ const Modifier = `
     groupType: String
     groupTitle: String
   }
+  input AdminModifierInput {
+    id: Int
+    name: String
+    price: String
+    isDefault: Boolean
+    groupType: String
+    groupTitle: String
+  }
 `
 export default Modifier
