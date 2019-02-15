@@ -90,9 +90,6 @@ export default {
         this.createRec()
       }
     },
-    genValidatorMsg(fieldName) {
-      return fieldName + ' is required'
-    },
   },
 }
 </script>
