@@ -14,12 +14,11 @@ export const fetchAdminModifiers = ({commit}) => {
   }`)
     .then(({data}) => {
       commit('setRecs', data.fetchAdminModifiers)
-      commit('setIsLoading', false)
     })
     .catch(err => {
       _procError(err)
-      commit('setIsLoading', false)
     })
+    .finally(() => commit('setIsLoading', false))
 }
 export const updateAdminModifier = ({commit, getters}) => {
   commit('setIsLoading', true)
@@ -38,13 +37,12 @@ export const updateAdminModifier = ({commit, getters}) => {
   )
     .then(({data}) => {
       _procAlert(data, true)
-      commit('setIsLoading', false)
       commit('setIsModalOpened', false)
     })
     .catch(err => {
       _procError(err)
-      commit('setIsLoading', false)
     })
+    .finally(() => commit('setIsLoading', false))
 }
 export function createAdminModifier({commit, getters}) {
   commit('setIsLoading', true)
@@ -62,7 +60,6 @@ export function createAdminModifier({commit, getters}) {
     }`
   )
     .then(({data}) => {
-      commit('setIsLoading', false)
       _procAlert(data, true)
       commit('setIsModalOpened', false)
       getters.getRecs.push(data.createAdminModifier)
@@ -70,8 +67,8 @@ export function createAdminModifier({commit, getters}) {
     })
     .catch(err => {
       _procError(err)
-      commit('setIsLoading', false)
     })
+    .finally(() => commit('setIsLoading', false))
 }
 export const delAdminModifiers = ({commit, getters}) => {
   commit('setIsLoading', true)
@@ -81,15 +78,19 @@ export const delAdminModifiers = ({commit, getters}) => {
     `mutation ($input: [Int]) {
       deleteAdminModifiers(input: $input)
     }`
-  ).then(({data}) => {
-    _procAlert(data, true)
-    commit('setIsLoading', false)
-    _.remove(getters.getRecs, rec => {
-      return ids.includes(rec.id)
+  )
+    .then(({data}) => {
+      _procAlert(data, true)
+      _.remove(getters.getRecs, rec => {
+        return ids.includes(rec.id)
+      })
+      // clear selection
+      commit('setSelected', [])
+      // reactive the grid with new recs
+      commit('setRecs', _.clone(getters.getRecs))
     })
-    // clear selection
-    commit('setSelected', [])
-    // reactive the grid with new recs
-    commit('setRecs', _.clone(getters.getRecs))
-  })
+    .catch(err => {
+      _procError(err)
+    })
+    .finally(() => commit('setIsLoading', false))
 }
