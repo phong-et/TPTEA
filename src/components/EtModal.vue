@@ -10,24 +10,20 @@
         <q-toolbar-title>{{getEditingRec.name}}</q-toolbar-title>
       </q-toolbar>
       <div class="layout-padding">
-        <q-field
-          class="q-mb-md"
-          :key="field.name"
-          v-for="field in getFields"
-          v-if="!field.hidden"
-          :label-width="3"
-          :icon="field.icon"
-          :label="field.label"
-          :helper="field.desc"
-          error-label="Some error"
-        >
-          <q-input v-if="!field.isCombobox" v-model="getEditingRec[field.name]" :type="field.type" color="secondary"/>
-          <q-select
-            v-if="field.isCombobox"
-            v-model="getEditingRec[field.name]"
-            :options="field.options"
-          />
-        </q-field>
+        <div v-for="field in getFields" :key="field.name">
+          <q-field
+            class="q-mb-md"
+            v-if="!field.hidden"
+            :label-width="3"
+            :icon="field.icon"
+            :label="field.label"
+            :helper="field.desc"
+            error-label="Some error"
+          >
+            <q-input v-if="!field.isCombobox" v-model="getEditingRec[field.name]" :type="field.type" color="secondary"/>
+            <q-select v-if="field.isCombobox" v-model="getEditingRec[field.name]" :options="field.options"/>
+          </q-field>
+        </div>
       </div>
     </q-modal-layout>
   </q-modal>
@@ -93,6 +89,9 @@ export default {
       } else {
         this.createRec()
       }
+    },
+    genValidatorMsg(fieldName) {
+      return fieldName + ' is required'
     },
   },
 }

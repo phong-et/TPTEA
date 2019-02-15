@@ -195,7 +195,6 @@ export default {
     ...mapActions({
       fetchRecs(dispatch, payload) {
         if (this.comboFilter && this.comboFilter.selectedValue) this.comboFilter.selectedValue = 0
-        console.log(this.aliasType)
         if (this.aliasType !== 'xxx') return dispatch(`${this.type}/fetch${this.aliasType}s`, payload)
         return dispatch(`${this.type}/fetch${upperFirst(this.type)}s`, payload)
       },

@@ -1,6 +1,7 @@
 import {_get, _post, _procError, _procAlert} from '../../util/common'
 import _ from 'lodash'
 export const fetchAdminModifiers = ({commit}) => {
+  commit('setIsLoading', true)
   _get(`{
     fetchAdminModifiers {
       id
@@ -13,9 +14,11 @@ export const fetchAdminModifiers = ({commit}) => {
   }`)
     .then(({data}) => {
       commit('setRecs', data.fetchAdminModifiers)
+      commit('setIsLoading', false)
     })
     .catch(err => {
       _procError(err)
+      commit('setIsLoading', false)
     })
 }
 export const updateAdminModifier = ({commit, getters}) => {
