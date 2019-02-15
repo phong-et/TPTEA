@@ -21,7 +21,12 @@
           :helper="field.desc"
           error-label="Some error"
         >
-          <q-input v-model="getEditingRec[field.name]" :type="field.type" color="secondary"/>
+          <q-input v-if="!field.isCombobox" v-model="getEditingRec[field.name]" :type="field.type" color="secondary"/>
+          <q-select
+            v-if="field.isCombobox"
+            v-model="getEditingRec[field.name]"
+            :options="field.options"
+          />
         </q-field>
       </div>
     </q-modal-layout>

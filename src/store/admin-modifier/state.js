@@ -78,12 +78,34 @@ export default {
       label: 'Group Type',
       type: 'text',
       icon: 'select_all',
+      isCombobox: true,
+      options: [
+        {
+          label: 'Checkbox',
+          value: 'check',
+        },
+        {
+          label: 'Radio',
+          value: 'radio',
+        },
+      ],
     },
     {
       name: 'isDefault',
       label: 'Is Default',
       type: 'text',
       icon: 'check_circle_outline',
+      isCombobox: true,
+      options: [
+        {
+          label: 'True',
+          value: true,
+        },
+        {
+          label: 'False',
+          value: false,
+        },
+      ],
     },
   ],
 }
