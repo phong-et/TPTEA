@@ -66,6 +66,11 @@ export default {
     formatContactInfo(name, phone) {
       return _d.includes([name, phone], undefined) ? '' : name + '- ' + phone
     },
+    placeOrderPayNow() {
+      let isPayNow = confirm('Do you want pay now ?')
+      if (isPayNow) this.$store.commit('customerorder/isPayNow', isPayNow)
+      placeOrder()
+    },
   },
   watch: {
     getRecs(newValue) {

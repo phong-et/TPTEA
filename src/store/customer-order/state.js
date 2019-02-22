@@ -10,4 +10,5 @@ export default {
   },
   customerOrders: [],
   CustomerOrderDetail: [],
+  isPayNow: false,
 }
