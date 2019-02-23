@@ -11,5 +11,10 @@ const CustomerOrder = `
     placeOrderMethod: HistoryPlaceOrderMethod
     customerOrder:[OrderDetail]
   }
+
+  type PayNowOutput{
+    totalAmount: Float
+    balance: Float
+  }
 `
 export default CustomerOrder

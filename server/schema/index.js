@@ -54,6 +54,7 @@ const RootQuery = `
     fetchCustomerOrderDetail(input:Int):HistoryCustomerOrder
     fetchOrderStatuses:[OrderStatus]
     fetchAllCategoriesAdmin:[Category]
+    payNow(input: Int): PayNowOutput
   }
 `
 
