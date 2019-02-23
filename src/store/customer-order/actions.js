@@ -26,9 +26,7 @@ export const placeOrder = ({commit, getters, dispatch}) => {
         })
           .then(() => {
             console.log('agree')
-            dispatch('payNow', {
-              orderId: data.placeOrder,
-            })
+            dispatch('payNow', data.placeOrder)
           })
           .catch(() => {
             console.log('disagree')
@@ -102,11 +100,12 @@ export const payNow = ({commit, getters}, orderId) => {
   if (!_d.isEmpty(customer)) {
     commit('setIsLoading', true)
     _post(
-      {
-        orderId: orderId,
-      },
+      orderId,
       `mutation ($input: Int) {
-        payNow(input: $input)
+        payNow(input: $input){
+          totalAmount
+          balance
+        }
       }`
     )
       .then(({data}) => {

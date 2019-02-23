@@ -54,7 +54,6 @@ const RootQuery = `
     fetchCustomerOrderDetail(input:Int):HistoryCustomerOrder
     fetchOrderStatuses:[OrderStatus]
     fetchAllCategoriesAdmin:[Category]
-    payNow(input: Int): PayNowOutput
   }
 `
 
@@ -82,6 +81,7 @@ const RootMutation = `
     createCategory(input:CategoryInput): Category
     deleteCategories(input:[Int]): Int
     updateCategory(input:CategoryInput): Category
+    payNow(input: Int): PayNowOutput
   }
 `
 
