@@ -67,9 +67,22 @@ export default {
       return _d.includes([name, phone], undefined) ? '' : name + '- ' + phone
     },
     placeOrderPayNow() {
-      let isPayNow = confirm('Do you want pay now ?')
-      if (isPayNow) this.$store.commit('customerorder/isPayNow', isPayNow)
-      placeOrder()
+      this.$q
+        .dialog({
+          title: 'Confirm',
+          message: 'Do you want pay now ?',
+          ok: 'Agree',
+          cancel: 'Disagree',
+        })
+        .then(() => {
+          this.$q.notify('Agreed!')
+        })
+        .catch(() => {
+          this.$q.notify('Disagreed...')
+        })
+      // let isPayNow = confirm('Do you want pay now ?')
+      // if (isPayNow) this.$store.commit('customerorder/isPayNow', isPayNow)
+      // this.placeOrder()
     },
   },
   watch: {

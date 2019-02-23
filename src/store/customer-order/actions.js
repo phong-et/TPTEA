@@ -1,7 +1,9 @@
 import {_post, _procError, _procAlert, _alert} from '../../util/common'
 import store from '../index'
 import _d from 'lodash'
-export const placeOrder = ({commit, getters}) => {
+import {Dialog} from 'quasar'
+
+export const placeOrder = ({commit, getters, dispatch}) => {
   let customer = store().getters['customer/getCustomer']
   if (!_d.isEmpty(customer)) {
     commit('setIsLoading', true)
@@ -16,14 +18,30 @@ export const placeOrder = ({commit, getters}) => {
       }`
     )
       .then(({data}) => {
-        _procAlert(data, true)
-        commit('setRecs', {})
-        commit('setIsLoading', false)
+        Dialog.create({
+          title: 'Confirm',
+          message: 'Do you want pay now ?',
+          ok: 'Agree',
+          cancel: 'Disagree',
+        })
+          .then(() => {
+            console.log('agree')
+            dispatch('payNow', {
+              orderId: data.placeOrder,
+            })
+          })
+          .catch(() => {
+            console.log('disagree')
+          })
+          .finally(() => {
+            _procAlert(data, true)
+            commit('setRecs', {})
+          })
       })
       .catch(err => {
         _procError(err)
-        commit('setIsLoading', false)
       })
+      .finally(() => commit('setIsLoading', false))
   } else _alert('Please login first!', 'warning')
 }
 export const fetchCustomerOrders = ({commit}) => {
@@ -77,4 +95,26 @@ export const fetchCustomerOrderDetail = ({commit}, payload) => {
     .catch(err => {
       _procError(err)
     })
+}
+
+export const payNow = ({commit, getters}, orderId) => {
+  let customer = store().getters['customer/getCustomer']
+  if (!_d.isEmpty(customer)) {
+    commit('setIsLoading', true)
+    _post(
+      {
+        orderId: orderId,
+      },
+      `mutation ($input: Int) {
+        payNow(input: $input)
+      }`
+    )
+      .then(({data}) => {
+        _procAlert(data, true)
+      })
+      .catch(err => {
+        _procError(err)
+      })
+      .finally(() => commit('setIsLoading', false))
+  } else _alert('Please login first!', 'warning')
 }
