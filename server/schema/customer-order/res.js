@@ -23,7 +23,6 @@ const resolvers = {
       try {
         let order = await Order.findOne({where: {id: input}})
         let totalAmount = order.get('totalAmount')
-        // let customer = new Customer({id: order.get('customerId')})
         let customer = await Customer.findOne({where: {id: order.get('customerId')}})
         let balance = customer.get('balance')
         console.log(customer)

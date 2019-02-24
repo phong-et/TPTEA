@@ -18,23 +18,31 @@ export const placeOrder = ({commit, getters, dispatch}) => {
       }`
     )
       .then(({data}) => {
-        Dialog.create({
-          title: 'Confirm',
-          message: 'Do you want pay now ?',
-          ok: 'Agree',
-          cancel: 'Disagree',
-        })
-          .then(() => {
-            console.log('agree')
-            dispatch('payNow', data.placeOrder)
+        if (data.placeOrder) {
+          Dialog.create({
+            title: 'Confirm',
+            message: 'Do you want pay now ?',
+            ok: 'Agree',
+            cancel: 'Disagree',
           })
-          .catch(() => {
-            console.log('disagree')
+            .then(() => {
+              console.log('agree')
+              dispatch('payNow', data.placeOrder)
+            })
+            .catch(() => {
+              console.log('disagree')
+            })
+            .finally(() => {
+              _procAlert(data, true)
+              commit('setRecs', {})
+            })
+        } else if (data.errors) {
+          Dialog.create({
+            title: 'Alert',
+            message: data.errors[0].message,
+            color: 'primary',
           })
-          .finally(() => {
-            _procAlert(data, true)
-            commit('setRecs', {})
-          })
+        }
       })
       .catch(err => {
         _procError(err)
@@ -95,7 +103,7 @@ export const fetchCustomerOrderDetail = ({commit}, payload) => {
     })
 }
 
-export const payNow = ({commit, getters}, orderId) => {
+export const payNow = ({commit}, orderId) => {
   let customer = store().getters['customer/getCustomer']
   if (!_d.isEmpty(customer)) {
     commit('setIsLoading', true)
@@ -109,11 +117,20 @@ export const payNow = ({commit, getters}, orderId) => {
       }`
     )
       .then(({data}) => {
-        _procAlert(data, true)
+        let msg = ''
+        if (data.payNow) {
+          msg = `You paid ${data.payNow.totalAmount}$. Current Balance is ${data.payNow.balance}$ `
+        } else if (data.errors) {
+          msg = data.errors[0].message
+        }
+        Dialog.create({
+          title: 'Alert',
+          message: msg,
+          color: 'primary',
+        })
       })
       .catch(err => {
         _procError(err)
       })
-      .finally(() => commit('setIsLoading', false))
   } else _alert('Please login first!', 'warning')
 }
