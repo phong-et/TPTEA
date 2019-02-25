@@ -28,7 +28,7 @@ const resolvers = {
         let balance = customer.get('balance')
         if (balance < totalAmount) throw new Error('The balance does not enough to pay this order')
         else {
-          balance = balance - totalAmount
+          balance = parseFloat(balance - totalAmount)
           return sequelize
             .transaction(async t => {
               await customer.updateAttributes({
