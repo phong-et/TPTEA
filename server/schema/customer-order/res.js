@@ -1,5 +1,6 @@
 import {_auth} from '../../util'
-import {Customer, Order} from '../../models'
+import {Customer, Order, sequelize} from '../../models'
+const PAID_ORDER_STATUS_ID = 2
 const resolvers = {
   RootQuery: {
     async fetchCustomerOrders(_, {input}, {loggedInUser}) {
@@ -25,15 +26,24 @@ const resolvers = {
         let totalAmount = order.get('totalAmount')
         let customer = await Customer.findOne({where: {id: order.get('customerId')}})
         let balance = customer.get('balance')
-        // console.log(customer)
-        // console.log('balance', balance)
         if (balance < totalAmount) throw new Error('The balance does not enough to pay this order')
         else {
           balance = balance - totalAmount
-          await customer.updateAttributes({
-            balance: balance,
-          })
-          return {totalAmount, balance}
+          return sequelize
+            .transaction(async t => {
+              await customer.updateAttributes({
+                balance: balance,
+              })
+            })
+            .then(async () => {
+              await order.updateAttributes({
+                orderStatusId: PAID_ORDER_STATUS_ID,
+              })
+              return {totalAmount, balance}
+            })
+            .catch(err => {
+              throw new Error(err)
+            })
         }
       } catch (error) {
         throw new Error(error.message)
