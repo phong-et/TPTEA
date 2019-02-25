@@ -17,6 +17,17 @@
           Status:
           <i class="q-body-2">{{this.customerOrder.orderStatus}}</i>
         </span>
+        <q-btn
+          :disable="getIsLoading"
+          :loading="getIsLoading"
+          icon="money_off"
+          color="secondary"
+          label="Pay now"
+          class="q-ml-lg"
+          @click="payNow(getCustomerOrderDetail.customerOrder[0].id)"
+        >
+          <q-spinner-pie slot="loading" size="20px"/>
+        </q-btn>
         <q-toolbar-title class="text-right">{{'Total $'+calculateOrderPrice}}</q-toolbar-title>
       </q-toolbar>
     </q-layout-footer>
@@ -38,7 +49,7 @@ export default {
     historyPlaceOrdderMethod,
   },
   computed: {
-    ...mapGetters('customerorder', ['getCustomerOrderDetail', 'getCustomerOrders']),
+    ...mapGetters('customerorder', ['getCustomerOrderDetail', 'getCustomerOrders', 'getIsLoading']),
     calculateOrderPrice() {
       return _d.sumBy(this.getCustomerOrderDetail.customerOrder, 'price')
     },
@@ -50,7 +61,7 @@ export default {
     back() {
       this.$router.go(-1)
     },
-    ...mapActions('customerorder', ['fetchCustomerOrderDetail']),
+    ...mapActions('customerorder', ['fetchCustomerOrderDetail', 'payNow']),
   },
   mounted() {
     let orderId = parseInt(this.$route.params.orderId)
