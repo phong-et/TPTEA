@@ -19,23 +19,27 @@ export const placeOrder = ({commit, getters, dispatch}) => {
     )
       .then(({data}) => {
         if (data.placeOrder) {
-          Dialog.create({
-            title: 'Confirm',
-            message: 'Do you want pay now ?',
-            ok: 'Agree',
-            cancel: 'Disagree',
-          })
-            .then(() => {
-              console.log('agree')
-              dispatch('payNow', data.placeOrder)
+          if (customer.balance >= _d.sumBy(getters.getRecs.orderDetails, 'price')) {
+            Dialog.create({
+              title: 'Confirm',
+              message: 'Do you want pay now ?',
+              ok: 'Agree',
+              cancel: 'Disagree',
             })
-            .catch(() => {
-              console.log('disagree')
-            })
-            .finally(() => {
-              _procAlert(data, true)
-              commit('setRecs', {})
-            })
+              .then(() => {
+                console.log('agree')
+                dispatch('payNow', data.placeOrder)
+              })
+              .catch(() => {
+                console.log('disagree')
+              })
+              .finally(() => {
+                _procAlert(data, true)
+                commit('setRecs', {})
+              })
+          } else {
+            commit('setRecs', {})
+          }
         } else if (data.errors) {
           // trim 'Error: Error:' from msg render by server
           let message = _d.get(data, 'errors[0].message')
@@ -112,7 +116,6 @@ export const fetchCustomerOrderDetail = ({commit}, payload) => {
 export const payNow = ({commit}, orderId) => {
   let customer = store().getters['customer/getCustomer']
   if (!_d.isEmpty(customer)) {
-    commit('setIsLoading', true)
     _post(
       orderId,
       `mutation ($input: Int) {
