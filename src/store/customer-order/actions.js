@@ -37,9 +37,15 @@ export const placeOrder = ({commit, getters, dispatch}) => {
               commit('setRecs', {})
             })
         } else if (data.errors) {
+          // trim 'Error: Error:' from msg render by server
+          let message = _d.get(data, 'errors[0].message')
+          if (typeof message === 'string') {
+            let index = message.indexOf('Error: Error: ') === 0 ? 13 : 0
+            message = message.substring(index, message.length)
+          }
           Dialog.create({
             title: 'Alert',
-            message: data.errors[0].message,
+            message: message,
             color: 'primary',
           })
         }

@@ -25,8 +25,8 @@ const resolvers = {
         let totalAmount = order.get('totalAmount')
         let customer = await Customer.findOne({where: {id: order.get('customerId')}})
         let balance = customer.get('balance')
-        console.log(customer)
-        console.log('balance', balance)
+        // console.log(customer)
+        // console.log('balance', balance)
         if (balance < totalAmount) throw new Error('The balance does not enough to pay this order')
         else {
           balance = balance - totalAmount
