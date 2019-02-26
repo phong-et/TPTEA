@@ -25,9 +25,9 @@
         <q-btn
           :disable="getIsLoading"
           :loading="getIsLoading"
-          icon="money_off"
+          icon="save"
           color="secondary"
-          label="Pay now"
+          label="Update Status"
           class="btn-update-status"
           @click="updateOrderStatus()"
         >

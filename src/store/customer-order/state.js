@@ -10,5 +10,5 @@ export default {
   },
   customerOrders: [],
   CustomerOrderDetail: [],
-  isPayNow: false,
+  currentHistoryCustomerOrderId: 0,
 }

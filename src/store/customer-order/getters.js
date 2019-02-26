@@ -13,6 +13,6 @@ export const getCustomerOrders = state => {
 export const getCustomerOrderDetail = state => {
   return state.CustomerOrderDetail
 }
-export const getIsPayNow = state => {
-  return state.isPayNow
+export const getCurrentHistoryCustomerOrderId = state => {
+  return state.currentHistoryCustomerOrderId
 }

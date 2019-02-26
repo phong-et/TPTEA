@@ -53,6 +53,6 @@ export const setCustomerOrders = (state, payload) => {
 export const setCustomerOrderDetail = (state, payload) => {
   state.CustomerOrderDetail = payload
 }
-export const setIsPayNow = (state, payload) => {
-  state.isPayNow = payload
+export const setCurrentHistoryCustomerOrderId = (state, payload) => {
+  state.currentHistoryCustomerOrderId = payload
 }

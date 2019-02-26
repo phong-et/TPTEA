@@ -15,6 +15,7 @@ const resolvers = {
       return {
         placeOrderMethod: order,
         customerOrder,
+        orderStatusId: order.orderStatusId,
       }
     },
   },
