@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   )
   Category.associate = models => {
     // associations can be defined here
-    Category.belongsToMany(models.Menu, {
-      through: 'menucategory',
+    Category.hasMany(models.Menu, {
       foreignKey: 'categoryId',
     })
   }

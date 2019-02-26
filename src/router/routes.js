@@ -26,6 +26,7 @@ import pgOrderDetails from 'pages/OrderDetails'
 import pgOrderHistory from 'pages/OrderHistory'
 import pgHistoryOrderDetail from 'pages/HistoryOrderDetail'
 import pgAdminCategories from 'pages/admin/Categories'
+import pgAdminMenus from 'pages/admin/Menus'
 const routes = [
   {
     path: '/',
@@ -106,6 +107,10 @@ const routes = [
       {
         path: 'categories',
         component: pgAdminCategories,
+      },
+      {
+        path: 'menus',
+        component: pgAdminMenus,
       },
     ],
   },

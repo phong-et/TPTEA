@@ -12,3 +12,18 @@ export const getMenu = state => menuId => {
     return id === menuId
   })
 }
+export const getCols = state => {
+  return state.cols
+}
+export const getIsLoading = state => {
+  return state.isLoading
+}
+export const getEditingRec = state => {
+  return state.editingRec
+}
+export const getIsModalOpened = state => {
+  return state.isModalOpened
+}
+export const getSelected = state => {
+  return state.selected
+}

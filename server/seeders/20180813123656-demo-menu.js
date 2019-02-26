@@ -9,8 +9,8 @@ var doc = new GoogleSpreadsheet('1p_tzXdaZAXMR1dfnZyQPJBjfgM4WJ3NfVs2yKTIXbWg')
 
 function getData() {
   return new Promise((resolve, reject) => {
-    doc.useServiceAccountAuth(creds, function(err) {
-      doc.getRows(1, function(err, rows) {
+    doc.useServiceAccountAuth(creds, err => {
+      doc.getRows(1, (err, rows) => {
         if (err) reject(err)
         else resolve(rows)
       })
@@ -22,11 +22,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     var data = await getData().catch(err => console.log(err))
     // console.log(data)
-    return queryInterface.bulkInsert(
-      'menus',
-      _d.map(data, row => _d.pick(row, ['id', 'name', 'desc', 'price', 'img'])),
-      {}
-    )
+    return queryInterface.bulkInsert('menus', _d.map(data, row => _d.pick(row, ['id', 'name', 'desc', 'price', 'img', 'categoryid'])), {})
   },
 
   down: (queryInterface, Sequelize) => {

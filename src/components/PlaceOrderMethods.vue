@@ -25,7 +25,7 @@
           />
         </q-field>
         <q-field icon="access_time">
-          <q-datetime :disable="placeOrderMethod.isStorePickUp" v-model="placeOrderMethod.receivingTime" type="time" hide-underline/>
+          <q-datetime modal :disable="placeOrderMethod.isStorePickUp" v-model="placeOrderMethod.receivingTime" type="time" hide-underline/>
         </q-field>
       </div>
     </div>
@@ -43,7 +43,7 @@
           />
         </q-field>
         <q-field icon="access_time">
-          <q-datetime :disable="!placeOrderMethod.isStorePickUp" v-model="placeOrderMethod.receivingTime" type="time" hide-underline/>
+          <q-datetime modal :disable="!placeOrderMethod.isStorePickUp" v-model="placeOrderMethod.receivingTime" type="time" hide-underline/>
         </q-field>
       </div>
     </div>
