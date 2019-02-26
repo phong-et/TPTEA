@@ -43,6 +43,7 @@ import _d from 'lodash'
 import {mapGetters, mapActions} from 'vuex'
 import orderMenuDetail from '../components/OrderMenuDetail'
 import historyPlaceOrdderMethod from '../components/HistoryPlaceOrderMethod'
+import {Dialog} from 'quasar'
 export default {
   data() {
     return {
@@ -68,9 +69,17 @@ export default {
     },
     ...mapActions('customerorder', ['fetchCustomerOrderDetail', 'payNow']),
     pay() {
-      this.payNow(this.$route.params.orderId).then(() => {
-        this.customerOrder.orderStatus = 'Paid'
+      Dialog.create({
+        title: 'Confirm',
+        message: 'Do you want pay now?',
+        ok: 'Now',
+        cancel: 'Later',
       })
+        .then(() => {
+          this.payNow(this.$route.params.orderId).then(() => {
+            this.customerOrder.orderStatus = 'Paid'
+          })
+        })
     },
   },
   mounted() {

@@ -22,9 +22,9 @@ export const placeOrder = ({commit, getters, dispatch}) => {
           if (customer.balance >= _d.sumBy(getters.getRecs.orderDetails, 'price')) {
             Dialog.create({
               title: 'Confirm',
-              message: 'Do you want pay now ?',
-              ok: 'Agree',
-              cancel: 'Disagree',
+              message: 'Your order has been placed. Do you want pay now?',
+              ok: 'Now',
+              cancel: 'Later',
             })
               .then(() => {
                 console.log('agree')
