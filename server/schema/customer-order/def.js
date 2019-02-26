@@ -10,7 +10,6 @@ const CustomerOrder = `
   type HistoryCustomerOrder {
     placeOrderMethod: HistoryPlaceOrderMethod
     customerOrder:[OrderDetail]
-    orderStatusId: Int
   }
 
   type PayNowOutput{

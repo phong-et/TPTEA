@@ -16,7 +16,6 @@ const resolvers = {
       return {
         placeOrderMethod: order,
         customerOrder,
-        orderStatusId: order.orderStatusId,
       }
     },
   },
@@ -28,7 +27,7 @@ const resolvers = {
         let totalAmount = order.get('totalAmount')
         let customer = await Customer.findOne({where: {id: order.get('customerId')}})
         let balance = customer.get('balance')
-        if(order.orderStatusId !== PROCESSING_ORDER_STATUS_ID) throw new Error('This order was paid')
+        if (order.orderStatusId !== PROCESSING_ORDER_STATUS_ID) throw new Error('This order was paid')
         else if (balance < totalAmount) throw new Error('The balance does not enough to pay this order')
         else {
           balance = parseFloat(balance - totalAmount)

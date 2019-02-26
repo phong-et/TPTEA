@@ -100,14 +100,12 @@ export const fetchCustomerOrderDetail = ({commit}, payload) => {
           modifierIds
           quantity
           price
-        },
-        orderStatusId
+        }
       }
     }`
   )
     .then(({data}) => {
       _procAlert(data, true)
-      data.fetchCustomerOrderDetail.currentHistoryCustomerOrderId = payload
       commit('setCustomerOrderDetail', data.fetchCustomerOrderDetail)
     })
     .catch(err => {
@@ -115,11 +113,11 @@ export const fetchCustomerOrderDetail = ({commit}, payload) => {
     })
 }
 
-export const payNow = ({commit}, orderId) => {
+export const payNow = ({commit, getters}, orderId) => {
   let customer = store().getters['customer/getCustomer']
   commit('setIsLoading', true)
   if (!_d.isEmpty(customer)) {
-    _post(
+    return _post(
       orderId,
       `mutation ($input: Int) {
         payNow(input: $input){

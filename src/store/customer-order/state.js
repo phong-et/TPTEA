@@ -10,5 +10,4 @@ export default {
   },
   customerOrders: [],
   CustomerOrderDetail: [],
-  currentHistoryCustomerOrderId: 0,
 }
