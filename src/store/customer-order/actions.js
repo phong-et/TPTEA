@@ -137,6 +137,7 @@ export const payNow = ({commit, getters}, orderId) => {
           title: 'Alert',
           message: msg,
         })
+        return data
       })
       .catch(err => {
         _procError(err)

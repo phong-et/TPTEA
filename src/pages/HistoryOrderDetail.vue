@@ -74,12 +74,11 @@ export default {
         message: 'Do you want pay now?',
         ok: 'Now',
         cancel: 'Later',
-      })
-        .then(() => {
-          this.payNow(this.$route.params.orderId).then(() => {
-            this.customerOrder.orderStatus = 'Paid'
-          })
+      }).then(() => {
+        this.payNow(this.$route.params.orderId).then(data => {
+          if (data.payNow) this.customerOrder.orderStatus = 'Paid'
         })
+      })
     },
   },
   mounted() {
