@@ -25,7 +25,7 @@
             icon="money_off"
             color="secondary"
             label="Pay now"
-            class="q-ml-lg"
+            class="q-ml-xs"
             @click="pay()"
           >
             <q-spinner-pie slot="loading" size="20px"/>

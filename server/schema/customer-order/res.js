@@ -23,10 +23,10 @@ const resolvers = {
     async payNow(_, {input}, {loggedInUser}) {
       _auth(loggedInUser)
       try {
-        let order = await Order.findOne({where: {id: input}})
-        let totalAmount = order.get('totalAmount')
-        let customer = await Customer.findOne({where: {id: order.get('customerId')}})
-        let balance = customer.get('balance')
+        let order = await Order.findOne({where: {id: input}}),
+          totalAmount = order.get('totalAmount'),
+          customer = await Customer.findOne({where: {id: order.get('customerId')}}),
+          balance = customer.get('balance')
         if (order.orderStatusId !== PROCESSING_ORDER_STATUS_ID) throw new Error('This order was paid')
         else if (balance < totalAmount) throw new Error('The balance does not enough to pay this order')
         else {

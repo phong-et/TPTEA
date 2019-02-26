@@ -136,7 +136,6 @@ export const payNow = ({commit, getters}, orderId) => {
         Dialog.create({
           title: 'Alert',
           message: msg,
-          color: 'primary',
         })
       })
       .catch(err => {
