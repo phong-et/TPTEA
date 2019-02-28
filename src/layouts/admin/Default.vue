@@ -28,7 +28,7 @@
       <q-list no-border link inset-delimiter>
         <q-item to="/admin/orders">
           <q-item-side icon="shopping_cart"/>
-          <q-item-main label="Processing Orders"/>
+          <q-item-main label="Orders"/>
         </q-item>
         <q-item to="/admin/giftcards">
           <q-item-side icon="store"/>
