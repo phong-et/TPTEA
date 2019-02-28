@@ -34,7 +34,7 @@ export const getIsModalOpened = state => {
 
 export const getEditingRec = state => {
   let placeOrderMethod = {
-    address: state.editingRec.isStorePickUp === 'Pickup' ? state.editingRec.Store.name : state.editingRec.deliveryAddress,
+    address: state.editingRec.isStorePickUp ? state.editingRec.Store.name : state.editingRec.deliveryAddress,
     deliveryContact: state.editingRec.deliveryContact,
     receivingTime: state.editingRec.receivingTime,
     isStorePickUp: state.editingRec.isStorePickUp,

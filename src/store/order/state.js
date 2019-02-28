@@ -33,10 +33,10 @@ export default {
       sortable: true,
     },
     {
-      name: 'isStorePickUp',
+      name: 'storePickUp',
       label: 'Delivery/PickUp',
       align: 'left',
-      field: 'isStorePickUp',
+      field: 'storePickUp',
       sortable: true,
     },
     {
