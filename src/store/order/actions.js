@@ -34,7 +34,7 @@ let renderOrder = orders => {
       order.customerName = order.Customer.name
       order.storeName = order.Store.name
       order.orderStatusName = order.OrderStatus.name
-      order.isStorePickUp = order.isStorePickUp ? 'Pickup' : 'Delivery '
+      order.isStorePickUp = order.isStorePickUp ? 'Pickup' : 'Delivery'
       order.createdAt = new Date(order.createdAt).toLocaleString()
       order.receivingTime = new Date(order.receivingTime).toLocaleString()
     })
