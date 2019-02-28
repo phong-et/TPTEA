@@ -40,6 +40,13 @@ export default {
       sortable: true,
     },
     {
+      name: 'receivingTime',
+      label: 'Time',
+      align: 'left',
+      field: 'receivingTime',
+      sortable: true,
+    },
+    {
       name: 'DeliveryAddress',
       label: 'Delivery Address',
       align: 'left',
@@ -51,13 +58,6 @@ export default {
       label: 'Delivery Contact',
       align: 'left',
       field: 'deliveryContact',
-      sortable: true,
-    },
-    {
-      name: 'receivingTime',
-      label: 'Receiving Time',
-      align: 'left',
-      field: 'receivingTime',
       sortable: true,
     },
     {
