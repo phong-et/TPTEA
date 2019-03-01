@@ -53,6 +53,7 @@ export default {
 
 .order-status
   font-weight bold
+  font-style italic
 
 .processing
   color orange
