@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Disable button (+) of ETModal when don't have any changing)
 - Add alert when the order has been placed successfully
 - Warning confirm miss handling catch (cancel)
+- Disable notify successfully temporary
 ### Added
 - Menus Listing after clicking a single Catefory
 - Register link at login page
