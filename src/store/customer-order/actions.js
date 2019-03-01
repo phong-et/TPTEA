@@ -27,12 +27,9 @@ export const placeOrder = ({commit, getters, dispatch}) => {
               cancel: 'Later',
             })
               .then(() => {
-                console.log('agree')
                 dispatch('payNow', data.placeOrder)
               })
-              .catch(() => {
-                console.log('disagree')
-              })
+              .catch(() => {})
               .finally(() => {
                 _procAlert(data, true)
                 commit('setRecs', {})
@@ -40,6 +37,10 @@ export const placeOrder = ({commit, getters, dispatch}) => {
           } else {
             commit('setRecs', {})
           }
+          Dialog.create({
+            title: 'Alert',
+            message: 'Your order has been placed successfully',
+          })
         } else if (data.errors) {
           // trim 'Error: Error:' from msg render by server
           let message = _d.get(data, 'errors[0].message')
@@ -50,7 +51,6 @@ export const placeOrder = ({commit, getters, dispatch}) => {
           Dialog.create({
             title: 'Alert',
             message: message,
-            color: 'primary',
           })
         }
       })
