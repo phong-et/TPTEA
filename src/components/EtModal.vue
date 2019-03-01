@@ -3,7 +3,7 @@
     <q-modal-layout class="style-modal">
       <q-toolbar slot="header" color="secondary">
         <q-btn @click="discardEditingRec" icon="keyboard_arrow_left" class="q-mr-md" :disabled="getIsLoading" wait-for-ripple color="primary"/>
-        <q-btn :loading="getIsLoading" :color="getEditingRec.id?'primary':'secondary'" @click="upSertRec">
+        <q-btn :loading="getIsLoading" :disable="isEmpty(getEditingRec)" :color="getEditingRec.id?'primary':'secondary'" @click="upSertRec">
           <q-icon :name="getEditingRec.id?'save':'add'" size="25px"/>
           <q-spinner-pie slot="loading" size="25px"/>
         </q-btn>
@@ -89,6 +89,9 @@ export default {
       } else {
         this.createRec()
       }
+    },
+    isEmpty(obj) {
+      return Object.keys(obj).every(k => !Object.keys(obj[k]).length)
     },
   },
 }
