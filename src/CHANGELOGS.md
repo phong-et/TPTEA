@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 - Add alert when the order has been placed successfully
 - Warning confirm miss handling catch (cancel)
 - Disable notify successfully temporary
+- Fix responsive for grid in admin page
 ### Added
 - Menus Listing after clicking a single Catefory
 - Register link at login page

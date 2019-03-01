@@ -244,4 +244,9 @@ export default {
 @media screen and (max-device-width: 480px) and (orientation: portrait)
   .combo-filter
     margin-bottom 5px
+
+.q-table-container
+  display flex
+  flex-direction column
+  height calc(100vh - 65px)
 </style>
