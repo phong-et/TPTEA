@@ -11,6 +11,7 @@
             type="textarea"
             class="max-width"
             placeholder="Delivery Address"
+            @focus="$event.srcElement.select()"
             hide-underline
           />
         </q-field>
@@ -21,6 +22,7 @@
             type="textarea"
             class="max-width"
             placeholder="Contact Name - Phone"
+            @focus="$event.srcElement.select()"
             hide-underline
           />
         </q-field>

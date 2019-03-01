@@ -22,7 +22,7 @@
           <q-btn
             :disable="customerOrder.orderStatus !== 'Processing'"
             :loading="getIsLoading"
-            icon="money_off"
+            icon="attach_money"
             color="secondary"
             label="Pay now"
             class="q-ml-xs"

@@ -15,6 +15,8 @@ All notable changes to this project will be documented in this file.
 - Disable notify successfully temporary
 - Fix responsive for grid in admin page
 - Change notify to alert apply giftcard Topup page
+- Select text for Deliver Address and Contact
+- Change icon pay now button
 ### Added
 - Menus Listing after clicking a single Catefory
 - Register link at login page
