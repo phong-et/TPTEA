@@ -34,7 +34,13 @@ export default {
   },
   methods: {
     genOrderStatusClass(statusName) {
-      return 'order-status-' + statusName.toLowerCase().split(' & ').join('-')
+      return (
+        'order-status ' +
+        statusName
+          .toLowerCase()
+          .split(' & ')
+          .join('-')
+      )
     },
   },
 }
@@ -45,15 +51,18 @@ export default {
   margin 0px 20px 20px 20px
   box-shadow 2px 3px 4px 1px #ccc
 
-.order-status-processing
+.order-status
+  font-weight bold
+
+.processing
   color orange
 
-.order-status-paid
-  color green
+.paid
+  color blue
 
-.order-status-cancelled
+.cancelled
   color red
 
-.order-status-paid-delivered
-  color blue
+.paid-delivered
+  color green
 </style>
