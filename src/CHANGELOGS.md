@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - Warning confirm miss handling catch (cancel)
 - Disable notify successfully temporary
 - Fix responsive for grid in admin page
+- Change notify to alert apply giftcard Topup page
 ### Added
 - Menus Listing after clicking a single Catefory
 - Register link at login page
