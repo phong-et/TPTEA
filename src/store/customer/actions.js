@@ -267,7 +267,7 @@ export const applyGiftCard = ({commit}, payload) => {
       if (typeof message === 'string' && message.indexOf('jwt malformed') > -1) {
         data.errors[0].message = 'The Code is invalid! Please try again!'
       }
-      _procAlert(data, `$${amount} has just been applied successfully`)
+      _procAlert(data, true)
       if (!data.errors) {
         Dialog.create({
           title: 'Alert',
