@@ -15,8 +15,10 @@ All notable changes to this project will be documented in this file.
 - Disable notify successfully temporary
 - Fix responsive for grid in admin page
 - Change notify to alert apply giftcard Topup page
-- Select text for Deliver Address and Contact
+- Select text for Deliver Address and Contact ( Safari not support)
 - Change icon pay now button
+- Prevent place order when delivery address & contact are blank
+- Add enter event password textbox login
 ### Added
 - Menus Listing after clicking a single Catefory
 - Register link at login page

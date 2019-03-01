@@ -15,7 +15,7 @@
       <q-card-main class="q-mb-md">
         <q-input clearable v-model="username" float-label="Username" color="secondary" :error="$v.username.$error"/>
         <et-validator :dirty="$v.username.$dirty" :show="!$v.username.required" msg="Username is required"/>
-        <q-input v-model="password" float-label="Password" color="secondary" type="password" :error="$v.password.$error"/>
+        <q-input v-model="password" float-label="Password" color="secondary" type="password" :error="$v.password.$error" @keydown="keydown"/>
         <et-validator :dirty="$v.password.$dirty" :show="!$v.password.required" msg="Password is required"/>
       </q-card-main>
       <q-card-actions>
@@ -26,6 +26,7 @@
             label="Sign In"
             class="text-secondary q-ma-sm col-10"
             @click="login({username,password,type:'password'})"
+            ref="btnLogin"
           >
             <q-spinner-pie slot="loading" size="25px"/>
           </q-btn>
@@ -99,6 +100,11 @@ export default {
       this.$v.$touch()
       if (this.$v.$error) return
       this.loginCustomer(payload)
+    },
+    keydown(e) {
+      if (e.keyCode === 13) {
+        this.$refs.btnLogin.click()
+      }
     },
   },
 }
