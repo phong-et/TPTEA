@@ -4,7 +4,7 @@
       <q-item-side :icon="rawData.isStorePickUp?'store':'local_shipping'"/>
       <q-item-main>
         <q-item-tile label class="text-weight-bold" text-color="primary">{{rawData.address}}</q-item-tile>
-        <q-item-tile sublabel>{{rawData.orderStatus}}</q-item-tile>
+        <q-item-tile :class="genOrderStatusClass(rawData.orderStatus)" sublabel>{{rawData.orderStatus}}</q-item-tile>
         <q-item-tile sublabel text-color="secondary">{{rawData.orderDate|formatOrderDate}}</q-item-tile>
       </q-item-main>
       <q-item-side class="text-weight-bold">{{'$'+rawData.totalAmount}}</q-item-side>
@@ -32,6 +32,11 @@ export default {
       return date.formatDate(val, 'HH:mm D/MM/YYYY')
     },
   },
+  methods: {
+    genOrderStatusClass(statusName) {
+      return 'order-status-' + statusName.toLowerCase().split(' & ').join('-')
+    },
+  },
 }
 </script>
 <style lang="stylus" scoped>
@@ -39,4 +44,16 @@ export default {
   border-radius 10px
   margin 0px 20px 20px 20px
   box-shadow 2px 3px 4px 1px #ccc
+
+.order-status-processing
+  color orange
+
+.order-status-paid
+  color green
+
+.order-status-cancelled
+  color red
+
+.order-status-paid-delivered
+  color blue
 </style>
