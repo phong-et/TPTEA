@@ -6,6 +6,16 @@ import {Dialog} from 'quasar'
 export const placeOrder = ({commit, getters, dispatch}) => {
   let customer = store().getters['customer/getCustomer']
   if (!_d.isEmpty(customer)) {
+    if (
+      !getters.getPlaceOrderMethod.isStorePickUp &&
+      (getters.getPlaceOrderMethod.deliveryAddress === '' || getters.getPlaceOrderMethod.deliveryContact === '')
+    ) {
+      Dialog.create({
+        title: 'Alert',
+        message: 'Fill Delivery Address & Contact, Please !',
+      })
+      return
+    }
     commit('setIsLoading', true)
     _post(
       {
