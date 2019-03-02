@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ## 0.0.2za - 2018-12-12
+### Fix bugs
+- Change Column name Receiving Time to Time (Order Admin)
+- Display of address & time PlaceOrderMethod correctly by Deliver & Pickup mode
+- Clear Address, Contact info when user chose Pickup order mode
+- Purify aliasType (don't uppercase 1st letter, add more 's')
+- Disable button (+) of ETModal when don't have any changing)
+- Add alert when the order has been placed successfully
+- Warning confirm miss handling catch (cancel)
+- Disable notify successfully temporary
+- Fix responsive for grid in admin page
+- Change notify to alert apply giftcard Topup page
+- Select text for Deliver Address and Contact ( Safari not support)
+- Change icon pay now button
+- Prevent place order when delivery address & contact are blank
+- Add enter event password textbox login
 ### Added
 - Menus Listing after clicking a single Catefory
 - Register link at login page
@@ -30,6 +45,14 @@ All notable changes to this project will be documented in this file.
 - Auto redirect from http to https protocol
 - Sign-Out confirmation
 - Add app version in Member details and admin Home page
+- Main Categories page [@phillip](https://github.com/hemvanh/TPTEA/pull/108)
+- API Place Order [@phillip](https://github.com/hemvanh/TPTEA/pull/111)
+- Button add to card
+- Finding nearest store [@phillip](https://github.com/hemvanh/TPTEA/pull/118)
+- Orders Management for Admin [@phillip](https://github.com/hemvanh/TPTEA/pull/124) [@phillip](https://github.com/hemvanh/TPTEA/pull/126)
+- Modifier CRUD Admin [@phillip](https://github.com/hemvanh/TPTEA/pull/130)
+- Add categories admin page 
+- Paynow feature [@phillip](https://github.com/hemvanh/TPTEA/pull/134)
 ### Removed 
 - Join now button
 - Remove parameter "expiry" and change parameter "amount" to "giftCardid" in genGiftCard function
@@ -69,6 +92,9 @@ All notable changes to this project will be documented in this file.
 - Adjust createGiftCard, simplify and shorten jwt by moving Gift Card info DB
 - Adjust authGiftCard
 - Adjust applyGiftCard (update customerId to GiftCard table)
+- Change style of category and menu page like the coffee house
+- Change style of menu detail page like the coffee house
+- Sort order migrate in folder server
 ### Added
 - Customer Login feature
 - Customer Register feature
@@ -83,3 +109,5 @@ All notable changes to this project will be documented in this file.
 - Add IsPrinted to Giftcard
 - Receive payment function
 - Grid recive payment
+- Push notification
+- Add migration,seed maincategories
