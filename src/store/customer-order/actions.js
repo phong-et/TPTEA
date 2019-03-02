@@ -29,28 +29,20 @@ export const placeOrder = ({commit, getters, dispatch}) => {
     )
       .then(({data}) => {
         if (data.placeOrder) {
-          if (customer.balance >= _d.sumBy(getters.getRecs.orderDetails, 'price')) {
-            Dialog.create({
-              title: 'Confirm',
-              message: 'Your order has been placed. Do you want pay now?',
-              ok: 'Now',
-              cancel: 'Later',
-            })
-              .then(() => {
-                dispatch('payNow', data.placeOrder)
-              })
-              .catch(() => {})
-              .finally(() => {
-                _procAlert(data, true)
-                commit('setRecs', {})
-              })
-          } else {
-            commit('setRecs', {})
-          }
           Dialog.create({
-            title: 'Alert',
-            message: 'Your order has been placed successfully',
+            title: 'Confirm',
+            message: 'Your order has been placed. Do you want pay now?',
+            ok: 'Now',
+            cancel: 'Later',
           })
+            .then(() => {
+              dispatch('payNow', data.placeOrder)
+            })
+            .catch(() => {})
+            .finally(() => {
+              _procAlert(data, true)
+              commit('setRecs', {})
+            })
         } else if (data.errors) {
           // trim 'Error: Error:' from msg render by server
           let message = _d.get(data, 'errors[0].message')
