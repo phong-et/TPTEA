@@ -67,11 +67,15 @@ export const fetchMenus = ({commit}) => {
       commit('setIsLoading', false)
     })
 }
-export const createMenu = ({commit, getters}, payload) => {
+export async function createMenu({commit, getters}, payload) {
+  let imgUploadData = store().getters['util/getCurrentUploadImageData']
   let menu = _d.omit(getters.getEditingRec, ['mainCategoryId'])
+  if (imgUploadData) {
+    menu.img = await store().dispatch('util/cloudinaryUpload', imgUploadData)
+  }
   commit('setIsLoading', true)
   _post(
-    {...menu, img: store().getters['util/getCurrentUploadImageData'], modifierIds: payload},
+    {...menu, modifierIds: payload},
     `mutation ($input: MenuInput) {
       createMenu(input: $input) {
         id
@@ -98,12 +102,12 @@ export const createMenu = ({commit, getters}, payload) => {
       commit('setIsLoading', false)
     })
 }
-export function updateMenu({commit, getters}, payload) {
+export async function updateMenu({commit, getters}, payload) {
   commit('setIsLoading', true)
   let menu = _d.omit(getters.getEditingRec, ['__index', 'mainCategoryId'])
   let imgUploadData = store().getters['util/getCurrentUploadImageData']
   if (imgUploadData !== '') {
-    menu.img = imgUploadData
+    menu.img = await store().dispatch('util/cloudinaryUpload', imgUploadData)
   }
   _post(
     {...menu, modifierIds: payload},

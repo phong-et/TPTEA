@@ -46,10 +46,15 @@ export const fetchCategories = ({commit}) => {
     })
 }
 
-export function createCategory({commit, getters}) {
+export async function createCategory({commit, getters}) {
   commit('setIsLoading', true)
+  let imgUploadData = store().getters['util/getCurrentUploadImageData']
+  let img = ''
+  if (imgUploadData) {
+    img = await store().dispatch('util/cloudinaryUpload', imgUploadData)
+  }
   _post(
-    {...getters.getEditingRec, img: store().getters['util/getCurrentUploadImageData']},
+    {...getters.getEditingRec, img},
     `mutation ($input: CategoryInput) {
       createCategory(input: $input) {
         id
@@ -92,12 +97,12 @@ export function delCategories({commit, getters}) {
     commit('setRecs', _d.clone(getters.getRecs))
   })
 }
-export function updateCategory({commit, getters}) {
+export async function updateCategory({commit, getters}) {
   commit('setIsLoading', true)
   let category = _d.omit(getters.getEditingRec, ['__index', 'mainCategoryName'])
   let imgUploadData = store().getters['util/getCurrentUploadImageData']
   if (imgUploadData !== '') {
-    category.img = imgUploadData
+    category.img = await store().dispatch('util/cloudinaryUpload', imgUploadData)
   }
   _post(
     category,

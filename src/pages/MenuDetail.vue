@@ -5,7 +5,7 @@
     </q-page-sticky>
     <q-card>
       <q-card-media>
-        <img :src="'statics/'+menu.img">
+        <img :src="menu.img">
       </q-card-media>
     </q-card>
     <q-collapsible :label="menu.name" class="text-bold" header-style="font-size:18px">

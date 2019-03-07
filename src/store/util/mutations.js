@@ -4,3 +4,6 @@ export const setCurrentUploadImageData = (state, payload) => {
 export const setIsOrderSystemLoading = (state, payload) => {
   state.isOrderSystemLoading = payload
 }
+export const setUploadPercentage = (state, payload) => {
+  state.uploadPercentage = payload
+}

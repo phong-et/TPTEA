@@ -1,7 +1,7 @@
 <template>
   <q-card class="col-6 q-pa-xs no-shadow border-cat" @click.native="openMenusListing()">
     <q-card-media overlay-position="top">
-      <img :src="'statics/'+cat.img">
+      <img :src="cat.img">
       <div class="card-title text-center">{{cat.name}}</div>
     </q-card-media>
   </q-card>
