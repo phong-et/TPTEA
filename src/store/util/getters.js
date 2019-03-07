@@ -4,3 +4,6 @@ export const getCurrentUploadImageData = state => {
 export const getIsOrderSystemLoading = state => {
   return state.isOrderSystemLoading
 }
+export const getUploadPercentage = state => {
+  return state.uploadPercentage
+}

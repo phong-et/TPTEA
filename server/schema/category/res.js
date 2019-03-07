@@ -1,5 +1,5 @@
 import {MainCategory, Category} from '../../models'
-import {saveImage, _authAdmin} from '../../util'
+import {_authAdmin} from '../../util'
 const resolvers = {
   RootQuery: {
     async listCategories(_, {input}) {
@@ -14,15 +14,10 @@ const resolvers = {
   RootMutation: {
     async createCategory(_, {input}, {loggedInUser}) {
       _authAdmin(loggedInUser)
-      let img = input.img === '' ? '' : await saveImage(input.img)
-      return await Category.create({...input, img}).then(catefgory => catefgory)
+      return await Category.create(input).then(category => category)
     },
     async updateCategory(_, {input}, {loggedInUser}) {
       _authAdmin(loggedInUser)
-      if (input.img.indexOf('base64') > 0) {
-        let img = await saveImage(input.img)
-        input.img = img
-      }
       return await Category.update(input, {
         where: {
           id: input.id,

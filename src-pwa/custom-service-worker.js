@@ -16,6 +16,9 @@ workbox.routing.registerRoute(({url}) => {
 workbox.precaching.precache([{url: '/CHANGELOGS.md', revision: new Date().getTime().toString()}])
 
 self.addEventListener('fetch', event => {
+  if (event.request.method === 'POST') {
+    return
+  }
   event.respondWith(
     caches.match(event.request).then(response => {
       return response || fetch(event.request)

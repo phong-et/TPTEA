@@ -31,7 +31,7 @@
           </q-field>
         </div>
         <div class="col-12 col-md-12 col-lg-4 img-container">
-          <et-img-upload :url="'statics/'+getEditingRec.img"/>
+          <cloudinary-uploader :url="getEditingRec.img"/>
         </div>
       </div>
     </q-modal-layout>
@@ -39,10 +39,10 @@
 </template>
 <script>
 import {mapGetters, mapActions, mapMutations} from 'vuex'
-import etImgUpload from './EtImgUpload'
+import cloudinaryUploader from './CloudinaryUploader'
 export default {
   components: {
-    etImgUpload,
+    cloudinaryUploader,
   },
   computed: {
     ...mapGetters('category', ['getIsLoading', 'getEditingRec']),

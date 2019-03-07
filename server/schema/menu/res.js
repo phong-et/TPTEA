@@ -1,6 +1,6 @@
 import {Category, Menu, sequelize} from '../../models'
 import _d from 'lodash'
-import {saveImage, _authAdmin} from '../../util'
+import {_authAdmin} from '../../util'
 const resolvers = {
   RootQuery: {
     async listMenus(_, {input}) {
@@ -14,9 +14,8 @@ const resolvers = {
   RootMutation: {
     async createMenu(_, {input}, {loggedInUser}) {
       _authAdmin(loggedInUser)
-      let img = input.img === '' ? '' : await saveImage(input.img)
       return sequelize.transaction(t => {
-        return Menu.create({...input, img}, {transaction: t}).then(menu => {
+        return Menu.create(input, {transaction: t}).then(menu => {
           return menu.addModifiers(input.modifierIds, {transaction: t}).then(() => {
             return menu
           })
@@ -25,10 +24,6 @@ const resolvers = {
     },
     async updateMenu(_, {input}, {loggedInUser}) {
       _authAdmin(loggedInUser)
-      if (input.img.indexOf('base64') > 0) {
-        let img = await saveImage(input.img)
-        input.img = img
-      }
       return sequelize.transaction(t => {
         return Menu.update(input, {where: {id: input.id}, transaction: t}).then(() => {
           let menu = new Menu(input)

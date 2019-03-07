@@ -2,7 +2,7 @@
   <q-list no-border inset-separator multiline>
     <q-item link class="q-pt-sm q-pb-sm" v-for="(menu,index) in menus" :key="index" @click.native="openMenuDetail(menu.id)">
       <q-item-side>
-        <img class="img-menu" :src="'statics/'+menu.img">
+        <img class="img-menu" :src="menu.img">
       </q-item-side>
       <q-item-main>
         <q-item-tile label class="text-weight-bold">{{menu.name}}</q-item-tile>
