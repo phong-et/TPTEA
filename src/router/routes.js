@@ -27,6 +27,7 @@ import pgOrderHistory from 'pages/OrderHistory'
 import pgHistoryOrderDetail from 'pages/HistoryOrderDetail'
 import pgAdminCategories from 'pages/admin/Categories'
 import pgAdminMenus from 'pages/admin/Menus'
+import pgTracking from 'pages/tracking'
 const routes = [
   {
     path: '/',
@@ -43,6 +44,10 @@ const routes = [
       {
         path: 'stores',
         component: pgStores,
+      },
+      {
+        path: 'tracking',
+        component: pgTracking,
       },
       {
         path: 'customer',
